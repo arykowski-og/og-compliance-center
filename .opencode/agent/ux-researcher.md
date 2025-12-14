@@ -1,7 +1,6 @@
 ---
 description: Expert UX researcher specializing in user insights, usability testing, and data-driven design decisions. Masters qualitative and quantitative research methods to uncover user needs, validate designs, and drive product improvements through actionable insights.
 mode: subagent
-disable: true
 tools:
   read: true
   write: true
