@@ -1,140 +1,631 @@
+'use client'
+
 import Link from 'next/link'
 import { Icon } from '@/components/Icon'
+import { useState } from 'react'
+
+const POPULAR_TOPICS = [
+  { name: 'Budget Adoption', icon: 'OG-Icons_B&P-2c', articleCount: 234, slug: 'budget-adoption' },
+  { name: 'Procurement Methods', icon: 'OG-Icons_Purchasing-2c', articleCount: 189, slug: 'procurement-methods' },
+  { name: 'Financial Reporting', icon: 'OG-Icons_Financial Reporting-2c', articleCount: 156, slug: 'financial-reporting' },
+  { name: 'Open Meetings', icon: 'OG-Icons_Collaboration-2c', articleCount: 143, slug: 'open-meetings' },
+  { name: 'Tax Levy Limits', icon: 'OG-Icons_Calculator-2c', articleCount: 121, slug: 'tax-levy' },
+  { name: 'Vendor Management', icon: 'OG-Icons_Vendor Engagement-2c', articleCount: 98, slug: 'vendor-management' }
+]
+
+const RECENT_UPDATES = [
+  { 
+    state: 'Colorado', 
+    title: 'New tax levy calculation rules',
+    time: '2 hours ago',
+    category: 'Financial Management'
+  },
+  { 
+    state: 'Texas', 
+    title: 'Open meetings exemption clarified',
+    time: '5 hours ago',
+    category: 'Open Government'
+  },
+  { 
+    state: 'California', 
+    title: 'Procurement threshold increased',
+    time: '1 day ago',
+    category: 'Procurement'
+  }
+]
+
+const HOW_IT_WORKS_STEPS = [
+  { number: 1, title: 'Select Your State', description: 'Choose from all 50 states to see relevant compliance requirements' },
+  { number: 2, title: 'Browse or Search Topics', description: 'Find specific requirements or explore by category' },
+  { number: 3, title: 'Get Plain-Language Explanations', description: 'Understand complex regulations without legal expertise' },
+  { number: 4, title: 'Download Templates & Guides', description: 'Access ready-to-use resources for implementation' },
+  { number: 5, title: 'Get Alerts When Laws Change', description: 'Stay informed with automatic notifications' }
+]
+
+const ALL_STATES = [
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
+  'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
+  'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
+  'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
+  'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
+  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+]
 
 export default function HomePage() {
+  const [selectedState, setSelectedState] = useState('')
+
+  const handleGetStarted = () => {
+    if (selectedState) {
+      window.location.href = `/states/${selectedState}`
+    }
+  }
+
   return (
-    <>
-      {/* Hero Section */}
-      <section className="hero">
+    <div className="homepage">
+      <section className="hero-section">
         <div className="container">
           <div className="hero-content">
             <h1 className="hero-title">
-              Navigate Local Government Compliance with Confidence
+              Find Your State & Compliance Requirements
             </h1>
             <p className="hero-subtitle">
-              Your complete guide to state-specific regulatory requirements, 
-              product capabilities, and compliance best practices across all 50 states.
+              Navigate local government compliance with confidence across all 50 states
             </p>
-            <div className="hero-cta">
-              <Link href="/states" className="btn btn-primary btn-lg">
-                Explore State Guides
-              </Link>
-              <Link href="/articles" className="btn btn-outline btn-lg">
-                View Resources
-              </Link>
+            
+            <div className="state-selector-wrapper">
+              <select 
+                className="state-selector"
+                value={selectedState}
+                onChange={(e) => setSelectedState(e.target.value)}
+              >
+                <option value="">Select Your State</option>
+                {ALL_STATES.map(state => (
+                  <option key={state} value={state.toLowerCase().replace(' ', '-')}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+              <button 
+                className="btn btn-primary btn-lg"
+                disabled={!selectedState}
+                onClick={handleGetStarted}
+              >
+                Get Started
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="features">
+      <section className="popular-topics-section">
         <div className="container">
           <div className="section-header">
-            <h2>Comprehensive Compliance Solutions</h2>
-            <p>Everything you need to stay compliant across all jurisdictions</p>
+            <h2>Popular Topics This Week</h2>
+            <p>Most searched compliance requirements</p>
           </div>
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">
-                <Icon name="OG-Icons_Financial Reporting-2c" size={64} alt="Financial Management" />
-              </div>
-              <h3>Financial Management</h3>
-              <p>
-                GASB-compliant financial tracking, reporting, and audit-ready 
-                documentation for complete fiscal transparency.
-              </p>
-              <Link href="/products/financial" className="feature-link">
-                Learn More →
+          
+          <div className="topics-grid">
+            {POPULAR_TOPICS.map((topic) => (
+              <Link key={topic.slug} href={`/articles?topic=${topic.slug}`} className="topic-card">
+                <div className="topic-icon">
+                  <Icon name={topic.icon} size={48} alt={topic.name} />
+                </div>
+                <h3 className="topic-name">{topic.name}</h3>
+                <p className="topic-count">{topic.articleCount} articles</p>
+                <span className="topic-arrow">→</span>
               </Link>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">
-                <Icon name="OG-Icons_B&P-2c" size={64} alt="Budgeting & Planning" />
-              </div>
-              <h3>Budgeting & Planning</h3>
-              <p>
-                Strategic budget development tools with scenario modeling and 
-                performance tracking capabilities.
-              </p>
-              <Link href="/products/budgeting" className="feature-link">
-                Learn More →
-              </Link>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">
-                <Icon name="OG-Icons_Purchasing-2c" size={64} alt="Procurement" />
-              </div>
-              <h3>Procurement</h3>
-              <p>
-                Streamlined procurement processes with vendor management and 
-                compliance tracking built-in.
-              </p>
-              <Link href="/products/procurement" className="feature-link">
-                Learn More →
-              </Link>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">
-                <Icon name="OG-Icons_Gov-2c" size={64} alt="State-Specific Guides" />
-              </div>
-              <h3>State-Specific Guides</h3>
-              <p>
-                Detailed compliance requirements and best practices for all 
-                50 states, regularly updated.
-              </p>
-              <Link href="/states" className="feature-link">
-                Browse States →
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="stats">
+      <section className="recent-updates-section">
+        <div className="container">
+          <div className="section-header-row">
+            <h2>Recent Updates</h2>
+            <Link href="/articles" className="view-all-link">View All Updates →</Link>
+          </div>
+          
+          <div className="updates-list">
+            {RECENT_UPDATES.map((update, idx) => (
+              <div key={idx} className="update-item">
+                <div className="update-badge">New</div>
+                <div className="update-content">
+                  <div className="update-header">
+                    <span className="update-state">{update.state}</span>
+                    <span className="update-time">{update.time}</span>
+                  </div>
+                  <h4 className="update-title">{update.title}</h4>
+                  <p className="update-category">{update.category}</p>
+                </div>
+                <div className="update-actions">
+                  <button className="btn-text">Read More</button>
+                  <button className="btn-text">Save</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="how-it-works-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>How It Works</h2>
+            <p>Get compliant in 5 simple steps</p>
+          </div>
+          
+          <div className="steps-container">
+            {HOW_IT_WORKS_STEPS.map((step) => (
+              <div key={step.number} className="step-card">
+                <div className="step-number">{step.number}</div>
+                <h3 className="step-title">{step.title}</h3>
+                <p className="step-description">{step.description}</p>
+              </div>
+            ))}
+          </div>
+          
+          <div className="how-it-works-cta">
+            <Link href="/about" className="btn btn-primary btn-lg">
+              Create Free Account
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="stats-section">
         <div className="container">
           <div className="stats-grid">
-            <div className="stat">
+            <div className="stat-item">
               <div className="stat-number">50</div>
               <div className="stat-label">States Covered</div>
             </div>
-            <div className="stat">
+            <div className="stat-item">
               <div className="stat-number">1,000+</div>
               <div className="stat-label">Governments Served</div>
             </div>
-            <div className="stat">
-              <div className="stat-number">24/7</div>
-              <div className="stat-label">Compliance Monitoring</div>
+            <div className="stat-item">
+              <div className="stat-number">500+</div>
+              <div className="stat-label">Regulations Tracked</div>
             </div>
-            <div className="stat">
-              <div className="stat-number">99.9%</div>
-              <div className="stat-label">Uptime Guarantee</div>
+            <div className="stat-item">
+              <div className="stat-number">Daily</div>
+              <div className="stat-label">Updates</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="cta-section">
+      <section className="final-cta-section">
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Simplify Your Compliance?</h2>
             <p>
               Join thousands of government organizations using OpenGov to stay 
-              compliant and operate more efficiently.
+              compliant and operate more efficiently
             </p>
             <div className="cta-buttons">
-              <Link href="/demo" className="btn btn-primary btn-lg">
+              <Link href="/contact" className="btn btn-primary btn-lg">
                 Request a Demo
               </Link>
-              <Link href="/contact" className="btn btn-outline-light btn-lg">
-                Contact Sales
+              <Link href="/about" className="btn btn-outline btn-lg">
+                Learn More
               </Link>
             </div>
           </div>
         </div>
       </section>
-    </>
+
+      <style jsx>{`
+        .homepage {
+          width: 100%;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 var(--spacing-md);
+        }
+
+        .hero-section {
+          background: linear-gradient(135deg, var(--og-primary-light) 0%, var(--og-white) 100%);
+          padding: var(--spacing-3xl) 0;
+          text-align: center;
+        }
+        
+        .hero-title {
+          font-size: clamp(2rem, 5vw, 3.5rem);
+          margin-bottom: var(--spacing-md);
+          color: var(--og-dark);
+        }
+        
+        .hero-subtitle {
+          font-size: 1.25rem;
+          color: var(--og-gray-700);
+          margin-bottom: var(--spacing-2xl);
+        }
+        
+        .state-selector-wrapper {
+          display: flex;
+          gap: var(--spacing-md);
+          justify-content: center;
+          align-items: center;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        
+        .state-selector {
+          flex: 1;
+          padding: var(--spacing-md) var(--spacing-lg);
+          font-size: 1.125rem;
+          border: 2px solid var(--og-gray-300);
+          border-radius: var(--radius-md);
+          background: var(--og-white);
+          cursor: pointer;
+          transition: border-color var(--transition-fast);
+        }
+        
+        .state-selector:focus {
+          outline: none;
+          border-color: var(--og-primary);
+        }
+
+        .btn {
+          padding: var(--spacing-md) var(--spacing-xl);
+          border-radius: var(--radius-md);
+          font-weight: 600;
+          font-size: 1rem;
+          transition: all var(--transition-fast);
+          border: none;
+          cursor: pointer;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        .btn-primary {
+          background: var(--og-primary);
+          color: var(--og-white);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+          background: var(--og-primary-dark);
+        }
+
+        .btn-primary:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        .btn-lg {
+          padding: 1rem 2rem;
+          font-size: 1.125rem;
+        }
+
+        .btn-outline {
+          background: transparent;
+          border: 2px solid var(--og-primary);
+          color: var(--og-primary);
+        }
+
+        .btn-outline:hover {
+          background: var(--og-primary);
+          color: var(--og-white);
+        }
+        
+        .popular-topics-section {
+          padding: var(--spacing-3xl) 0;
+          background: var(--og-white);
+        }
+        
+        .section-header {
+          text-align: center;
+          margin-bottom: var(--spacing-2xl);
+        }
+        
+        .section-header h2 {
+          font-size: 2.5rem;
+          margin-bottom: var(--spacing-sm);
+        }
+        
+        .section-header p {
+          color: var(--og-gray-700);
+          font-size: 1.125rem;
+        }
+        
+        .topics-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: var(--spacing-lg);
+        }
+        
+        .topic-card {
+          background: var(--og-white);
+          border: 2px solid var(--og-gray-300);
+          border-radius: var(--radius-lg);
+          padding: var(--spacing-xl);
+          text-align: center;
+          transition: all var(--transition-base);
+          cursor: pointer;
+          position: relative;
+          text-decoration: none;
+        }
+        
+        .topic-card:hover {
+          border-color: var(--og-primary);
+          transform: translateY(-4px);
+          box-shadow: var(--shadow-lg);
+        }
+        
+        .topic-icon {
+          margin-bottom: var(--spacing-md);
+        }
+        
+        .topic-name {
+          font-size: 1.25rem;
+          margin-bottom: var(--spacing-sm);
+          color: var(--og-dark);
+        }
+        
+        .topic-count {
+          color: var(--og-gray-700);
+          font-size: 0.875rem;
+          margin-bottom: var(--spacing-md);
+        }
+        
+        .topic-arrow {
+          color: var(--og-primary);
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+        
+        .recent-updates-section {
+          padding: var(--spacing-3xl) 0;
+          background: var(--og-gray-100);
+        }
+        
+        .section-header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: var(--spacing-xl);
+        }
+
+        .section-header-row h2 {
+          font-size: 2.5rem;
+          margin: 0;
+        }
+        
+        .view-all-link {
+          color: var(--og-primary);
+          font-weight: 600;
+          font-size: 1rem;
+        }
+        
+        .updates-list {
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-md);
+        }
+        
+        .update-item {
+          background: var(--og-white);
+          border-radius: var(--radius-lg);
+          padding: var(--spacing-lg);
+          display: flex;
+          align-items: center;
+          gap: var(--spacing-lg);
+          box-shadow: var(--shadow-sm);
+          transition: box-shadow var(--transition-fast);
+        }
+        
+        .update-item:hover {
+          box-shadow: var(--shadow-md);
+        }
+        
+        .update-badge {
+          background: var(--og-accent);
+          color: var(--og-white);
+          padding: 0.25rem 0.75rem;
+          border-radius: var(--radius-full);
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          flex-shrink: 0;
+        }
+        
+        .update-content {
+          flex: 1;
+        }
+        
+        .update-header {
+          display: flex;
+          gap: var(--spacing-md);
+          margin-bottom: var(--spacing-xs);
+        }
+        
+        .update-state {
+          font-weight: 700;
+          color: var(--og-primary);
+        }
+        
+        .update-time {
+          color: var(--og-gray-500);
+          font-size: 0.875rem;
+        }
+        
+        .update-title {
+          font-size: 1.125rem;
+          margin-bottom: var(--spacing-xs);
+          margin-top: 0;
+        }
+        
+        .update-category {
+          color: var(--og-gray-700);
+          font-size: 0.875rem;
+          margin: 0;
+        }
+        
+        .update-actions {
+          display: flex;
+          gap: var(--spacing-md);
+          flex-shrink: 0;
+        }
+        
+        .btn-text {
+          background: none;
+          border: none;
+          color: var(--og-primary);
+          font-weight: 600;
+          cursor: pointer;
+          padding: 0.5rem 1rem;
+          border-radius: var(--radius-sm);
+          transition: background-color var(--transition-fast);
+        }
+        
+        .btn-text:hover {
+          background: var(--og-primary-light);
+        }
+        
+        .how-it-works-section {
+          padding: var(--spacing-3xl) 0;
+          background: var(--og-white);
+        }
+        
+        .steps-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: var(--spacing-xl);
+          margin-bottom: var(--spacing-2xl);
+        }
+        
+        .step-card {
+          text-align: center;
+          padding: var(--spacing-lg);
+        }
+        
+        .step-number {
+          width: 60px;
+          height: 60px;
+          background: var(--og-primary);
+          color: var(--og-white);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.75rem;
+          font-weight: 700;
+          margin: 0 auto var(--spacing-md);
+        }
+        
+        .step-title {
+          font-size: 1.25rem;
+          margin-bottom: var(--spacing-sm);
+          margin-top: 0;
+        }
+        
+        .step-description {
+          color: var(--og-gray-700);
+          line-height: 1.6;
+          margin: 0;
+        }
+        
+        .how-it-works-cta {
+          text-align: center;
+        }
+        
+        .stats-section {
+          padding: var(--spacing-3xl) 0;
+          background: var(--og-primary);
+          color: var(--og-white);
+        }
+        
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: var(--spacing-xl);
+          text-align: center;
+        }
+        
+        .stat-number {
+          font-size: 3rem;
+          font-weight: 700;
+          margin-bottom: var(--spacing-sm);
+        }
+        
+        .stat-label {
+          font-size: 1.125rem;
+          opacity: 0.9;
+        }
+        
+        .final-cta-section {
+          padding: var(--spacing-3xl) 0;
+          background: linear-gradient(135deg, var(--og-primary-dark) 0%, var(--og-primary) 100%);
+          color: var(--og-white);
+          text-align: center;
+        }
+        
+        .cta-content h2 {
+          font-size: 2.5rem;
+          margin-bottom: var(--spacing-md);
+          color: var(--og-white);
+        }
+        
+        .cta-content p {
+          font-size: 1.25rem;
+          margin-bottom: var(--spacing-2xl);
+          opacity: 0.95;
+        }
+        
+        .cta-buttons {
+          display: flex;
+          gap: var(--spacing-md);
+          justify-content: center;
+        }
+        
+        @media (max-width: 768px) {
+          .state-selector-wrapper {
+            flex-direction: column;
+            width: 100%;
+          }
+          
+          .state-selector {
+            width: 100%;
+          }
+          
+          .topics-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          .steps-container {
+            grid-template-columns: 1fr;
+          }
+          
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .cta-buttons {
+            flex-direction: column;
+          }
+          
+          .section-header-row {
+            flex-direction: column;
+            text-align: center;
+            gap: var(--spacing-sm);
+          }
+
+          .update-item {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .update-actions {
+            width: 100%;
+            justify-content: space-between;
+          }
+        }
+      `}</style>
+    </div>
   )
 }
