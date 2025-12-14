@@ -1,22 +1,40 @@
 {
   "name": "og-compliance-center",
-  "version": "1.0.0",
-  "description": "OpenGov Compliance Center - State-by-state regulatory guidance for local governments",
-  "main": "index.html",
+  "version": "2.0.0",
+  "description": "OpenGov Compliance Center - Built with Payload CMS",
+  "private": true,
   "scripts": {
-    "dev": "npx serve -l 3000 .",
-    "start": "npx serve -l 3000 .",
-    "preview": "npx serve -l 3000 ."
+    "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts next dev",
+    "build": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts next build",
+    "start": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts next start",
+    "lint": "next lint",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+    "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
+    "seed": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx src/seed/index.ts"
   },
-  "keywords": [
-    "opengov",
-    "compliance",
-    "government",
-    "regulatory",
-    "state-guides"
-  ],
-  "author": "OpenGov",
-  "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@payloadcms/db-postgres": "^3.0.0",
+    "@payloadcms/next": "^3.0.0",
+    "@payloadcms/richtext-lexical": "^3.0.0",
+    "@payloadcms/ui": "^3.0.0",
+    "cross-env": "^7.0.3",
+    "graphql": "^16.8.1",
+    "next": "^15.0.0",
+    "payload": "^3.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

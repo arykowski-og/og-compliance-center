@@ -1,0 +1,17 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "DATABASE_URI": "@database_uri",
+    "PAYLOAD_SECRET": "@payload_secret",
+    "NEXT_PUBLIC_SERVER_URL": "@server_url"
+  },
+  "functions": {
+    "src/app/**/*.tsx": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
+}

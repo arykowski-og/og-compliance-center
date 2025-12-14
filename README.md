@@ -1,214 +1,396 @@
 # OpenGov Compliance Center
 
-Your complete guide to local government compliance across all 50 states. Navigate regulatory requirements, understand product capabilities, and operate with confidence.
+> A modern, full-stack application built with Payload CMS and Next.js for managing government compliance across all 50 US states.
 
-## 🚀 Quick Start (Sandbox - Port 3000)
+![Next.js](https://img.shields.io/badge/Next.js-15.0-black?logo=next.js)
+![Payload CMS](https://img.shields.io/badge/Payload-3.0-blue?logo=payload)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?logo=typescript)
+![Deploy with Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)
 
-### Running in Sandbox/Local Development
+## 🚀 Features
 
-```bash
-npm run dev
-```
-
-This starts a static file server on **port 3000** (sandbox proxy compatible):
-- Serves `index.html` automatically
-- No build step required
-- Works with sandbox proxy URLs
-- Hot reload on file changes
-
-### Alternative Commands
-
-```bash
-npm start       # Same as npm run dev
-npm run preview # Same as npm run dev
-```
+- **🎯 Headless CMS** - Built on Payload CMS 3.0 with full TypeScript support
+- **⚡ Next.js 15** - Modern React framework with App Router
+- **🗄️ PostgreSQL** - Powerful relational database (MongoDB also supported)
+- **🎨 Modern Design** - Clean, professional UI inspired by OpenGov
+- **📱 Fully Responsive** - Mobile-first design that works everywhere
+- **🔒 Authentication** - Built-in user management and access control
+- **📊 Rich Content** - Lexical rich text editor for complex content
+- **🗺️ State Management** - Comprehensive guides for all 50 US states
+- **📝 Articles System** - Blog/articles with categories and relationships
+- **☁️ Vercel Ready** - Optimized for seamless Vercel deployment
 
 ## 📦 What's Included
 
-### ✅ Standalone HTML Version (Works Now - Port 3000)
-Perfect for immediate viewing in this sandbox:
-- `index.html` - Complete homepage with inline CSS/JS
-- `page-states.html` - All 50 states directory with search and filters
-- `test-map.html` - Interactive US map demo
-- `products-financial.html` - Financial management compliance guide
-- `article-gasb96.html` - Sample GASB 96 deep-dive article
-- **Ready to view at:** `http://localhost:3000`
-- Fully functional without WordPress (smooth scroll, hover effects, animations)
+### Collections
 
-### ✅ WordPress Theme Files (For Production Deployment)
-A modern, professional WordPress theme inspired by [OpenGov.com](https://opengov.com/), designed for government compliance and public service platforms.
+- **States** - Complete compliance guides for all 50 US states
+  - Financial Management requirements
+  - Budgeting & Planning guidelines
+  - Procurement regulations
+  - Downloadable resources
+  
+- **Articles** - Knowledge base with categories:
+  - GASB Standards
+  - Best Practices
+  - Case Studies
+  - Regulatory Updates
+  - Technology insights
 
-**WordPress templates include:**
-- `page-states.php` - States directory with interactive US map
-- `page-state-california.php` - California compliance guide
-- `page-state-texas.php` - Texas compliance guide
-- All standard WordPress theme files (header, footer, functions, etc.)
+- **Pages** - Flexible page builder with blocks:
+  - Hero sections
+  - Content blocks
+  - Feature grids
+  - Call-to-action sections
 
-**📖 Deployment Guide:** See [`docs/WORDPRESS_DEPLOYMENT.md`](docs/WORDPRESS_DEPLOYMENT.md) for complete WordPress installation instructions.
+- **Media** - Asset management with automatic image optimization
 
-## Features
+- **Users** - Role-based access control (Admin, Editor, Viewer)
 
-- **Modern Design System**: Clean, professional design following OpenGov's visual style
-- **Fully Responsive**: Mobile-first approach with seamless tablet and desktop experiences
-- **Accessibility Ready**: WCAG 2.1 compliant with semantic HTML and ARIA labels
-- **Performance Optimized**: Lightweight CSS and vanilla JavaScript for fast load times
-- **Customizer Integration**: Easy customization through WordPress Customizer
-- **Multiple Navigation Menus**: Primary menu and three footer menu locations
-- **Hero Section**: Customizable hero section with title, description, and CTA buttons
-- **Feature Cards**: Showcase products and services with styled feature cards
-- **Testimonial Support**: Built-in testimonial styling
-- **Custom Post Layouts**: Optimized layouts for posts, pages, and front page
-- **Widget Ready**: Sidebar and footer widget areas
+## 🏁 Quick Start
 
-## Design Elements
+### Prerequisites
 
-### Color Palette
-- **Primary**: `#0052CC` (OpenGov Blue)
-- **Primary Dark**: `#003D99`
-- **Primary Light**: `#E6F0FF`
-- **Secondary**: `#00B8D4`
-- **Accent**: `#FF6B35`
+- Node.js 18.x or higher
+- PostgreSQL database (or MongoDB)
+- npm or yarn
 
-### Typography
-- **System Font Stack**: Uses native system fonts for optimal performance
-- **Responsive Type Scale**: Fluid typography that adapts to screen size
-- **Hierarchy**: Clear heading hierarchy with proper spacing
+### Installation
 
-### Components
-- Hero sections with gradient backgrounds
-- Feature cards with hover effects
-- Call-to-action buttons (primary, secondary, outline)
-- Navigation with dropdown support
-- Footer with multi-column layout
-- Testimonial blocks with author info
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd og-compliance-center
+   ```
 
-## Installation
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### HTML Version (Immediate Use)
-The HTML files work right now - just open them in a browser or run:
-```bash
-npm run dev
-# Visit http://localhost:3000
-```
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
 
-### WordPress Version (Production Deployment)
-See the complete guide: **[`docs/WORDPRESS_DEPLOYMENT.md`](docs/WORDPRESS_DEPLOYMENT.md)**
+   Edit `.env.local` with your values:
+   ```env
+   # Database (PostgreSQL)
+   DATABASE_URI=postgresql://user:password@localhost:5432/og_compliance
+   
+   # Or use MongoDB
+   # DATABASE_URI=mongodb://localhost:27017/og-compliance
+   
+   # Payload Secret (generate a secure random string)
+   PAYLOAD_SECRET=your-secret-key-here
+   
+   # Server URL
+   NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+   
+   # Admin credentials for first user
+   ADMIN_EMAIL=admin@example.com
+   ADMIN_PASSWORD=your-secure-password
+   ```
 
-Quick version:
-1. Install WordPress on your hosting
-2. Upload theme to `/wp-content/themes/og-compliance-center/`
-3. Activate the theme in WordPress admin
-4. Create pages and assign templates
-5. Configure through Appearance → Customize
+4. **Set up the database**
+   
+   For PostgreSQL:
+   ```bash
+   createdb og_compliance
+   ```
+   
+   For MongoDB:
+   ```bash
+   # MongoDB will create the database automatically
+   ```
 
-**Note:** WordPress requires PHP and MySQL - it cannot run in this Node.js sandbox.
+5. **Run database migrations and seed data**
+   ```bash
+   npm run seed
+   ```
 
-## Theme Structure
+6. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+7. **Open your browser**
+   - Frontend: http://localhost:3000
+   - Admin Panel: http://localhost:3000/admin
+   - Login with your admin credentials
+
+## 📁 Project Structure
 
 ```
 og-compliance-center/
-├── style.css           # Main stylesheet with theme information
-├── functions.php       # Theme functions and features
-├── index.php          # Main template file
-├── front-page.php     # Home page template
-├── header.php         # Header template
-├── footer.php         # Footer template
-├── page.php           # Page template
-├── single.php         # Single post template
-├── js/
-│   └── main.js        # JavaScript functionality
-└── README.md          # This file
+├── src/
+│   ├── app/                      # Next.js App Router
+│   │   ├── (frontend)/          # Public-facing pages
+│   │   │   ├── page.tsx         # Homepage
+│   │   │   ├── states/          # States directory & detail pages
+│   │   │   └── articles/        # Articles listing & detail pages
+│   │   ├── layout.tsx           # Root layout
+│   │   └── globals.css          # Global styles
+│   │
+│   ├── collections/             # Payload CMS Collections
+│   │   ├── Users.ts             # User management
+│   │   ├── States.ts            # State compliance guides
+│   │   ├── Articles.ts          # Articles & insights
+│   │   ├── Pages.ts             # Flexible pages
+│   │   └── Media.ts             # Media library
+│   │
+│   ├── components/              # React components
+│   │   ├── Header.tsx           # Site header/navigation
+│   │   ├── Footer.tsx           # Site footer
+│   │   └── StateMap.tsx         # Interactive state selector
+│   │
+│   ├── seed/                    # Database seed scripts
+│   │   └── index.ts             # Seed all 50 states + sample data
+│   │
+│   ├── payload.config.ts        # Payload CMS configuration
+│   └── payload-types.ts         # Auto-generated TypeScript types
+│
+├── public/                      # Static assets
+│   ├── media/                   # Uploaded media files
+│   └── states/                  # State SVG maps
+│       ├── outline/             # Outlined state shapes
+│       └── solid/               # Solid state shapes
+│
+├── docs/                        # Documentation
+│   ├── IMPLEMENTATION_PLAN.md
+│   └── WORDPRESS_DEPLOYMENT.md  # Legacy WordPress docs
+│
+├── next.config.js               # Next.js configuration
+├── tsconfig.json                # TypeScript configuration
+├── package.json                 # Dependencies & scripts
+└── vercel.json                  # Vercel deployment config
 ```
 
-## Customization
+## 🛠️ Development
 
-### Customizer Options
+### Available Scripts
 
-Navigate to **Appearance → Customize** to modify:
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run seed         # Seed database with initial data
+npm run payload      # Payload CLI
+npm run generate:types # Generate TypeScript types from collections
+```
 
-- **Site Identity**: Logo, site title, tagline
-- **Hero Section**: Hero title, description, button text and URL
-- **Colors**: Customize the color scheme
-- **Menus**: Configure navigation menus
+### Admin Panel
 
-### Navigation Menus
+Access the Payload admin panel at `/admin`:
 
-The theme supports four menu locations:
+- Full CRUD operations for all collections
+- Rich text editor with Lexical
+- Media library with drag & drop upload
+- User role management
+- Real-time preview
 
-1. **Primary Menu**: Main navigation in header
-2. **Footer Products**: Footer column for product links
-3. **Footer Resources**: Footer column for resource links
-4. **Footer Company**: Footer column for company links
+### Adding New States
 
-Configure menus at **Appearance → Menus**
+States are auto-seeded. To customize:
 
-### Widget Areas
+1. Go to `/admin/collections/states`
+2. Select a state
+3. Add content to tabs:
+   - Overview (hero, quick stats)
+   - Financial Management
+   - Budgeting & Planning
+   - Procurement
+   - Resources
 
-- **Sidebar**: Main sidebar for blog posts
-- **Footer 1**: Footer widget area
+### Creating Articles
 
-## Development
+1. Go to `/admin/collections/articles`
+2. Click "Create New"
+3. Fill in:
+   - Title, slug, excerpt
+   - Select category
+   - Add rich text content
+   - Link related states
+   - Set status to "Published"
 
-### CSS Variables
+## 🚢 Deployment
 
-The theme uses CSS custom properties for easy theming. Main variables are defined in `style.css`:
+### Deploy to Vercel (Recommended)
 
-```css
-:root {
-  --og-primary: #0052CC;
-  --og-primary-dark: #003D99;
-  --spacing-md: 1.5rem;
-  --radius-md: 8px;
-  /* ... more variables */
+1. **Push to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin <your-github-repo>
+   git push -u origin main
+   ```
+
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Import Project"
+   - Select your GitHub repository
+   - Vercel will auto-detect Next.js
+
+3. **Add Environment Variables**
+   
+   In Vercel dashboard, add these environment variables:
+   
+   ```
+   DATABASE_URI=<your-production-database-url>
+   PAYLOAD_SECRET=<secure-random-string>
+   NEXT_PUBLIC_SERVER_URL=https://your-domain.vercel.app
+   ADMIN_EMAIL=admin@yourdomain.com
+   ADMIN_PASSWORD=<secure-password>
+   ```
+
+4. **Deploy Database**
+   
+   Options for PostgreSQL:
+   - [Vercel Postgres](https://vercel.com/storage/postgres) (easiest)
+   - [Supabase](https://supabase.com) (free tier)
+   - [Railway](https://railway.app) (PostgreSQL hosting)
+   - [Neon](https://neon.tech) (serverless Postgres)
+
+5. **Deploy!**
+   ```bash
+   vercel
+   ```
+
+### Environment Setup for Production
+
+After deployment:
+
+1. Run seed command in Vercel:
+   ```bash
+   vercel env pull
+   npm run seed
+   ```
+
+2. Or use Vercel's CLI:
+   ```bash
+   vercel run seed
+   ```
+
+## 🎨 Customization
+
+### Styling
+
+Edit `src/app/globals.css` to customize:
+- Color scheme (CSS variables at top)
+- Typography
+- Spacing
+- Components
+
+### Collections
+
+Add new collections in `src/collections/`:
+
+```typescript
+import type { CollectionConfig } from 'payload'
+
+export const YourCollection: CollectionConfig = {
+  slug: 'your-collection',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+    },
+    // Add more fields
+  ],
 }
 ```
 
-### JavaScript Features
+Then add to `src/payload.config.ts`.
 
-- Mobile menu toggle
-- Smooth scroll for anchor links
-- Header scroll effects
-- Dropdown menu accessibility
-- Scroll animations
-- Form validation
+### Frontend Pages
 
-### Browser Support
+Add pages in `src/app/(frontend)/`:
+- Create `your-page/page.tsx`
+- Use server components to fetch from Payload
+- Style with global CSS classes
 
-- Chrome (latest 2 versions)
-- Firefox (latest 2 versions)
-- Safari (latest 2 versions)
-- Edge (latest 2 versions)
+## 🔒 Security
 
-## Best Practices
+- Change `PAYLOAD_SECRET` to a strong random string in production
+- Use secure passwords for admin accounts
+- Enable HTTPS (automatic with Vercel)
+- Set up proper database access controls
+- Review user roles and permissions regularly
 
-1. **Content**: Use the front-page.php template for your homepage
-2. **Images**: Recommended image sizes:
-   - Featured images: 1200×600px
-   - Thumbnails: 400×300px
-3. **Menus**: Set up all four menu locations for best results
-4. **Logo**: Upload a logo 200px wide for optimal display
+## 📊 Database
 
-## Support
+### PostgreSQL (Recommended)
 
-For issues or questions about this theme, please refer to:
-- [WordPress Theme Development Handbook](https://developer.wordpress.org/themes/)
-- [OpenGov Website](https://opengov.com/)
+Best for:
+- Relational data
+- Complex queries
+- Production deployments
+- Vercel hosting
 
-## Credits
+### MongoDB (Alternative)
 
-- Design inspired by [OpenGov.com](https://opengov.com/)
-- Built for WordPress 5.0+
-- Follows WordPress Coding Standards
+To use MongoDB instead:
 
-## License
+1. Update `src/payload.config.ts`:
+   ```typescript
+   import { mongooseAdapter } from '@payloadcms/db-mongodb'
+   
+   db: mongooseAdapter({
+     url: process.env.DATABASE_URI,
+   }),
+   ```
 
-This theme is licensed under the GNU General Public License v2 or later.
+2. Update `package.json`:
+   ```json
+   "@payloadcms/db-mongodb": "^3.0.0"
+   ```
 
-## Changelog
+## 🤝 Contributing
 
-### Version 1.0.0
-- Initial release
-- Full theme implementation
-- Customizer integration
-- Responsive design
-- Accessibility features
+Contributions welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+- **Documentation**: See `/docs` folder
+- **Payload CMS Docs**: https://payloadcms.com/docs
+- **Next.js Docs**: https://nextjs.org/docs
+- **Issues**: Open an issue on GitHub
+
+## 🎯 Roadmap
+
+- [ ] Add more state-specific compliance data
+- [ ] Implement full-text search with PostgreSQL
+- [ ] Add PDF generation for compliance reports
+- [ ] Create mobile app with React Native
+- [ ] Add email notifications for updates
+- [ ] Implement multi-language support
+- [ ] Add analytics dashboard
+- [ ] Create API documentation
+
+## 📚 Additional Resources
+
+- [Payload CMS Documentation](https://payloadcms.com/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Vercel Deployment Guide](https://vercel.com/docs)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+
+---
+
+**Built with ❤️ for transparent, compliant government operations**

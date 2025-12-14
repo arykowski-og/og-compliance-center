@@ -1,8 +1,12 @@
-# WordPress Deployment Guide
+# WordPress Deployment Guide (ARCHIVED - LEGACY)
 
-> **Complete guide for deploying OpenGov Compliance Center as a WordPress site**
+> **⚠️ THIS GUIDE IS ARCHIVED - Site has been migrated to Payload CMS**
+>
+> This WordPress guide is kept for reference only. The site now uses Payload CMS + Next.js.
+> See [README.md](../README.md) and [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) for current deployment instructions.
 
-**Last Updated:** December 14, 2025
+**Last Updated:** December 14, 2025  
+**Status:** ARCHIVED - WordPress files have been removed from this repository
 
 ---
 
