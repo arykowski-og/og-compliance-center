@@ -180,4 +180,3 @@ To verify the fix works:
 - Rich text fields now stored in correct format
 - Frontend properly renders multi-paragraph content
 - Compatible with PayloadCMS rich text editor
-
