@@ -29,6 +29,7 @@
       "maxSteps": 15
     },
     "competitive-analyst": {
+      "disable": false,
       "maxSteps": 20
     },
     "content-marketer": {
@@ -47,6 +48,7 @@
       "maxSteps": 15
     },
     "market-researcher": {
+      "disable": false,
       "maxSteps": 20
     },
     "product-manager": {
@@ -68,6 +70,7 @@
       "maxSteps": 20
     },
     "seamstress": {
+      "disable": true,
       "maxSteps": 8
     },
     "technical-writer": {
@@ -77,6 +80,7 @@
       "maxSteps": 20
     },
     "ui-designer": {
+      "disable": true,
       "maxSteps": 8
     },
     "ux-researcher": {
