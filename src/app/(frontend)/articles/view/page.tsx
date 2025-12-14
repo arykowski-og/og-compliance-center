@@ -17,14 +17,21 @@ export default function ArticleViewerPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simulated article data (in production, this would fetch from API)
+    // Agent-generated articles (high-quality compliance content)
     const articlesList: Article[] = [
       {
         title: 'California: Single Audit Support (A-133/Uniform Guidance)',
         filename: 'california-single-audit-support.md',
-        content: '', // Would be loaded from file
+        content: '',
         wordCount: 10843,
-        readingTime: 40
+        readingTime: 43
+      },
+      {
+        title: 'California: GASB 54 Fund Balance Reporting',
+        filename: 'california-gasb-54-fund-balance.md',
+        content: '',
+        wordCount: 14838,
+        readingTime: 59
       }
     ]
     
@@ -211,6 +218,7 @@ export default function ArticleViewerPage() {
                 marginBottom: '8px',
               }}>
                 ✅ {articles.length} article(s) completed<br />
+                📝 25,681 total words written<br />
                 🎯 Target: 525 articles
               </div>
               <div style={{
@@ -289,6 +297,16 @@ export default function ArticleViewerPage() {
                     fontWeight: '600',
                   }}>
                     Required
+                  </span>
+                  <span style={{
+                    padding: '4px 12px',
+                    background: '#dcfce7',
+                    color: '#166534',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                  }}>
+                    ✨ Agent-Generated
                   </span>
                 </div>
                 <h1 style={{
@@ -391,12 +409,12 @@ export default function ArticleViewerPage() {
                   lineHeight: '1.6',
                   marginBottom: '16px',
                 }}>
-                  This comprehensive article covers California's Single Audit requirements for local governments. 
-                  It includes plain-language explanations, step-by-step implementation guidance, FAQs, enforcement 
-                  information, and OpenGov solution integration.
+                  {selectedArticle.title.includes('Single Audit') 
+                    ? "This comprehensive article covers California's Single Audit requirements for local governments. It includes plain-language explanations, step-by-step implementation guidance, FAQs, enforcement information, and OpenGov solution integration."
+                    : "This comprehensive article explains California's GASB 54 fund balance reporting requirements. It provides detailed guidance on the five fund balance classifications, implementation steps, practical examples, and how to establish proper fund balance policies."}
                 </p>
                 <a
-                  href="/docs/articles/california-single-audit-support.md"
+                  href={`/docs/articles/${selectedArticle.filename}`}
                   target="_blank"
                   style={{
                     display: 'inline-block',
@@ -498,10 +516,11 @@ export default function ArticleViewerPage() {
                   lineHeight: '1.8',
                   marginLeft: '20px',
                 }}>
-                  <li>Create 2-3 more California articles (GASB 54, Grant Management, Encumbrance)</li>
+                  <li>Create 1 more California pilot article (Grant Management or Encumbrance)</li>
                   <li>Import articles into PayloadCMS database</li>
                   <li>Display articles on frontend with proper formatting</li>
-                  <li>Scale to all 50 states (525 total articles)</li>
+                  <li>Scale production: Use agents to write remaining 523 articles</li>
+                  <li>Establish review workflow (SME review process)</li>
                 </ul>
               </div>
             </article>
