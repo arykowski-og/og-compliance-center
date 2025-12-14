@@ -26,14 +26,12 @@
       "maxSteps": 10
     },
     "business-analyst": {
-      "disable": false,
       "maxSteps": 15
     },
     "competitive-analyst": {
       "maxSteps": 20
     },
     "content-marketer": {
-      "disable": false,
       "maxSteps": 8
     },
     "context-manager": {
@@ -46,7 +44,6 @@
       "maxSteps": 10
     },
     "legal-advisor": {
-      "disable": false,
       "maxSteps": 15
     },
     "market-researcher": {
@@ -62,7 +59,6 @@
       "maxSteps": 10
     },
     "sales-engineer": {
-      "disable": false,
       "maxSteps": 20
     },
     "scrum-master": {
@@ -72,19 +68,15 @@
       "maxSteps": 20
     },
     "seamstress": {
-      "disable": false,
       "maxSteps": 8
     },
     "technical-writer": {
-      "disable": false,
       "maxSteps": 15
     },
     "trend-analyst": {
-      "disable": false,
       "maxSteps": 20
     },
     "ui-designer": {
-      "disable": false,
       "maxSteps": 8
     },
     "ux-researcher": {
