@@ -4,67 +4,157 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useMemo } from 'react'
 
-// Sample articles data
+// Sample articles data - Phase 1 Priority States (CA, TX, CO)
 const SAMPLE_ARTICLES = [
   {
     id: 1,
-    title: 'Colorado Budget Adoption Deadlines',
-    state: 'Colorado',
-    stateSlug: 'colorado',
+    title: 'California: Single Audit Support (A-133/Uniform Guidance)',
+    state: 'California',
+    stateSlug: 'california',
     category: 'Financial Management',
-    excerpt: 'Colorado requires all jurisdictions to adopt a formal budget by September 30 each fiscal year. The fiscal year runs from July 1 to June 30.',
-    lastUpdated: '2025-01-15',
+    excerpt: 'Single Audit is a federal requirement for local governments in California that spend more than $750,000 in federal grants per year. This audit ensures your organization is using federal funds correctly and following all compliance rules.',
+    lastUpdated: '2025-12-14',
     contentType: 'Regulation'
   },
   {
     id: 2,
-    title: 'Texas Encumbrance Accounting Requirements',
-    state: 'Texas',
-    stateSlug: 'texas',
+    title: 'California: General Ledger with Fund Accounting (GASB 54)',
+    state: 'California',
+    stateSlug: 'california',
     category: 'Financial Management',
-    excerpt: 'Texas statutorily requires encumbrance accounting for all local governments. This is mandatory under Texas Local Government Code Chapter 140.',
-    lastUpdated: '2025-01-12',
+    excerpt: 'GASB 54 requires local governments in California to classify fund balances in their financial reports. This standard helps make your financial statements clearer by showing which funds are available to spend and which have restrictions.',
+    lastUpdated: '2025-12-14',
     contentType: 'Regulation'
   },
   {
     id: 3,
-    title: 'California Procurement Bidding Thresholds',
+    title: 'California: Grant Management (Federal, State, Foundation)',
     state: 'California',
     stateSlug: 'california',
-    category: 'Procurement & Purchasing',
-    excerpt: 'California has specific bidding thresholds that vary by jurisdiction type. Counties, cities, and special districts have different requirements.',
-    lastUpdated: '2025-01-10',
+    category: 'Financial Management',
+    excerpt: 'Grant management systems help California local governments track federal, state, and foundation grants from application through closeout. You need to monitor grant budgets, track spending by grant program, and ensure compliance with each grantor\'s requirements.',
+    lastUpdated: '2025-12-14',
     contentType: 'Guide'
   },
   {
     id: 4,
-    title: 'Colorado Open Meetings Law Compliance',
-    state: 'Colorado',
-    stateSlug: 'colorado',
-    category: 'Open Government & Transparency',
-    excerpt: 'Colorado Sunshine Law requires most government meetings to be open to the public with proper notice. Learn about requirements and exceptions.',
-    lastUpdated: '2025-01-08',
+    title: 'California: Property Tax Assessment (CAMA Integration)',
+    state: 'California',
+    stateSlug: 'california',
+    category: 'Revenue & Taxation',
+    excerpt: 'Property tax assessment is required for local governments in California. This involves maintaining property records, calculating assessed values, and integrating with CAMA systems. Proper systems ensure accurate revenue collection and compliance with state laws.',
+    lastUpdated: '2025-12-14',
     contentType: 'Regulation'
   },
   {
     id: 5,
-    title: 'Texas Property Tax Assessment Guide',
-    state: 'Texas',
-    stateSlug: 'texas',
+    title: 'California: Utility Billing (Water, Sewer, Electric, Gas, Trash)',
+    state: 'California',
+    stateSlug: 'california',
     category: 'Revenue & Taxation',
-    excerpt: 'Comprehensive guide to property tax assessment requirements in Texas, including CAMA integration and Truth in Taxation requirements.',
-    lastUpdated: '2025-01-05',
+    excerpt: 'Utility billing systems help California local governments manage water, sewer, electric, gas, and trash services. You need to read meters, calculate bills, process payments, and manage delinquent accounts.',
+    lastUpdated: '2025-12-14',
     contentType: 'Guide'
   },
   {
     id: 6,
-    title: 'GASB 96 Implementation Checklist',
-    state: 'All States',
-    stateSlug: 'all',
+    title: 'Texas: Single Audit Support (A-133/Uniform Guidance)',
+    state: 'Texas',
+    stateSlug: 'texas',
     category: 'Financial Management',
-    excerpt: 'Step-by-step checklist for implementing GASB 96 Subscription-Based IT Arrangements (SBITAs). Includes identification, measurement, and reporting.',
-    lastUpdated: '2025-01-03',
-    contentType: 'Checklist'
+    excerpt: 'Single Audit is a federal requirement for local governments in Texas that spend more than $750,000 in federal grants per year. This audit ensures your organization is using federal funds correctly and following all compliance rules.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Regulation'
+  },
+  {
+    id: 7,
+    title: 'Texas: General Ledger with Fund Accounting (GASB 54)',
+    state: 'Texas',
+    stateSlug: 'texas',
+    category: 'Financial Management',
+    excerpt: 'GASB 54 requires local governments in Texas to classify fund balances in their financial reports. Your finance team needs to categorize fund balances as nonspendable, restricted, committed, assigned, or unassigned.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Regulation'
+  },
+  {
+    id: 8,
+    title: 'Texas: Encumbrance Accounting',
+    state: 'Texas',
+    stateSlug: 'texas',
+    category: 'Financial Management',
+    excerpt: 'Encumbrance accounting helps Texas local governments track purchase orders and commitments before money is actually spent. This gives you better budget control by reserving funds when you commit to a purchase, not just when you pay the bill.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Regulation'
+  },
+  {
+    id: 9,
+    title: 'Texas: Property Tax Billing & Collection',
+    state: 'Texas',
+    stateSlug: 'texas',
+    category: 'Revenue & Taxation',
+    excerpt: 'Property tax billing and collection is required for local governments in Texas. This involves generating tax bills, processing payments, and managing delinquencies. Proper systems ensure accurate revenue collection and compliance with state laws.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Regulation'
+  },
+  {
+    id: 10,
+    title: 'Texas: Payroll Processing (Full-Service)',
+    state: 'Texas',
+    stateSlug: 'texas',
+    category: 'HR & Employment',
+    excerpt: 'Payroll processing for Texas local governments must comply with state and federal requirements for calculating wages, withholding taxes, and reporting employment information. Your payroll system needs to handle multiple pay rates, deductions, benefits, and reporting to state agencies.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Guide'
+  },
+  {
+    id: 11,
+    title: 'Colorado: Single Audit Support (A-133/Uniform Guidance)',
+    state: 'Colorado',
+    stateSlug: 'colorado',
+    category: 'Financial Management',
+    excerpt: 'Single Audit is a federal requirement for local governments in Colorado that spend more than $750,000 in federal grants per year. You\'ll need to track federal spending carefully and have an independent auditor review your spending annually.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Regulation'
+  },
+  {
+    id: 12,
+    title: 'Colorado: General Ledger with Fund Accounting (GASB 54)',
+    state: 'Colorado',
+    stateSlug: 'colorado',
+    category: 'Financial Management',
+    excerpt: 'GASB 54 requires local governments in Colorado to classify fund balances in their financial reports. This standard helps make your financial statements clearer by showing which funds are available to spend and which have restrictions.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Regulation'
+  },
+  {
+    id: 13,
+    title: 'Colorado: Encumbrance Accounting',
+    state: 'Colorado',
+    stateSlug: 'colorado',
+    category: 'Financial Management',
+    excerpt: 'Encumbrance accounting helps Colorado local governments track purchase orders and commitments before money is actually spent. It\'s required for maintaining accurate budget tracking and gives you better budget control.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Regulation'
+  },
+  {
+    id: 14,
+    title: 'Colorado: Grant Management (Federal, State, Foundation)',
+    state: 'Colorado',
+    stateSlug: 'colorado',
+    category: 'Financial Management',
+    excerpt: 'Grant management systems help Colorado local governments track federal, state, and foundation grants from application through closeout. Proper grant management prevents audit findings and potential repayment of grant funds.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Guide'
+  },
+  {
+    id: 15,
+    title: 'Colorado: eProcurement Portal (Supplier Self-Service)',
+    state: 'Colorado',
+    stateSlug: 'colorado',
+    category: 'Procurement & Purchasing',
+    excerpt: 'This required compliance requirement for Colorado local governments relates to eProcurement Portal (Supplier Self-Service). Proper implementation ensures your organization meets state and federal standards while maintaining accurate records and reporting.',
+    lastUpdated: '2025-12-14',
+    contentType: 'Guide'
   }
 ]
 
