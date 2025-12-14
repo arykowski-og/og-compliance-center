@@ -29,7 +29,6 @@
       "maxSteps": 15
     },
     "competitive-analyst": {
-      "disable": false,
       "maxSteps": 20
     },
     "content-marketer": {
@@ -48,7 +47,6 @@
       "maxSteps": 15
     },
     "market-researcher": {
-      "disable": false,
       "maxSteps": 20
     },
     "product-manager": {
@@ -61,6 +59,7 @@
       "maxSteps": 10
     },
     "sales-engineer": {
+      "disable": false,
       "maxSteps": 20
     },
     "scrum-master": {
@@ -84,6 +83,7 @@
       "maxSteps": 8
     },
     "ux-researcher": {
+      "disable": false,
       "maxSteps": 15
     },
     "wordpress-master": {
