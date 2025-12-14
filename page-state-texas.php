@@ -435,8 +435,8 @@ $compliance_requirements = array(
     <section class="state-header">
         <div class="container">
             <div class="breadcrumb">
-                <a href="/">Home</a> / 
-                <a href="/states/">State Guides</a> / 
+                <a href="<?php echo home_url('/'); ?>">Home</a> / 
+                <a href="<?php echo home_url('/states/'); ?>">State Guides</a> / 
                 <span><?php echo $state_name; ?></span>
             </div>
             

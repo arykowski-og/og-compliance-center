@@ -18,6 +18,7 @@
 | ✅ | 8 | Convert state listing page to standalone HTML 🎨 |
 | ✅ | 9 | Fix homepage links - update to working HTML pages 🎨 |
 | ✅ | 10 | Fix server routing - remove SPA mode 🔧 |
+| ✅ | 11 | Fix WordPress state pages and add US map 🎨 |
 
 ## Status Legend
 - ✅ Completed
@@ -27,7 +28,41 @@
 
 ## Current Status
 
-**Working on:** Step 10 COMPLETED - Fixed server routing configuration
+**Working on:** Step 11 COMPLETED - Fixed WordPress state pages and added US map
+
+### Step 11 Summary
+- ✅ Fixed state page URL patterns in page-states.php
+  - Changed from `/state/tx/` to WordPress-friendly `home_url('/state-' . sanitize_title($state['name']) . '/')`
+  - This properly generates URLs like `/state-texas/` and `/state-california/`
+- ✅ Fixed breadcrumb navigation in state templates
+  - Updated page-state-california.php breadcrumbs to use `home_url('/')`
+  - Updated page-state-texas.php breadcrumbs to use `home_url('/')`
+  - Ensures proper WordPress URL generation
+- ✅ Added interactive US Map to page-states.php
+  - SVG-based interactive map showing all 50 states
+  - States with guides highlighted in blue (`has-guide` class)
+  - Click handlers for navigation to state pages
+  - Hover effects and tooltips
+  - Map legend showing available vs coming soon states
+  - Fully responsive design
+- ✅ Created test-map.html for sandbox preview
+  - Standalone HTML file with interactive US map
+  - All 50 states clickable with proper SVG paths
+  - California and Texas marked as having guides
+  - Beautiful hover effects and transitions
+  - Map legend for user guidance
+  - Professional OpenGov styling
+- ✅ Map features:
+  - 960x600 viewBox for optimal display
+  - Color-coded states (gray = coming soon, light blue = has guide, dark blue = hover)
+  - Smooth transitions and animations
+  - Accessible with title elements for screen readers
+  - Mobile-responsive with proper scaling
+
+### Issues Resolved
+- ✅ Texas WordPress page will now load correctly with proper URL routing
+- ✅ State directory page now has visual US map for navigation
+- ✅ Breadcrumb and link URLs now use WordPress functions for proper routing
 
 ### Step 10 Summary
 - ✅ Identified root cause: serve package was running in SPA mode (-s flag)

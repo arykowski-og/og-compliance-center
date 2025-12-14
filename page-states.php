@@ -240,6 +240,52 @@ $states = array(
     margin-bottom: 3rem;
 }
 
+.map-section {
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--og-dark);
+}
+
+.us-map-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.us-map-svg {
+    width: 100%;
+    height: auto;
+}
+
+.us-map-svg path {
+    fill: var(--og-gray-300);
+    stroke: white;
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.us-map-svg path:hover {
+    fill: var(--og-primary);
+    transform: scale(1.05);
+    transform-origin: center;
+}
+
+.us-map-svg path.has-guide {
+    fill: var(--og-primary-light);
+}
+
+.us-map-svg path.has-guide:hover {
+    fill: var(--og-primary);
+}
+
 .stat-card {
     background: white;
     padding: 1.5rem;
@@ -330,10 +376,23 @@ $states = array(
             </div>
         </div>
         
+        <!-- Interactive US Map -->
+        <div class="map-section">
+            <h2 class="section-title text-center">Interactive US Map</h2>
+            <p class="text-center" style="margin-bottom: 2rem; color: var(--og-gray-700);">
+                Click on any state to view its compliance guide
+            </p>
+            <div id="us-map" class="us-map-container">
+                <svg viewBox="0 0 960 600" class="us-map-svg">
+                    <g id="states-group"></g>
+                </svg>
+            </div>
+        </div>
+        
         <!-- States Grid -->
         <div class="states-grid" id="states-grid">
             <?php foreach ($states as $state): ?>
-                <a href="/state/<?php echo strtolower($state['code']); ?>/" class="state-card" data-state="<?php echo $state['name']; ?>">
+                <a href="<?php echo home_url('/state-' . sanitize_title($state['name']) . '/'); ?>" class="state-card" data-state="<?php echo $state['name']; ?>">
                     <div class="state-card-header">
                         <div class="state-icon">
                             <?php echo $state['code']; ?>
@@ -381,6 +440,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const stateCards = document.querySelectorAll('.state-card');
     const filterButtons = document.querySelectorAll('.filter-btn');
     
+    // Initialize US Map
+    initUSMap();
+    
+    // Search functionality
     searchInput.addEventListener('input', function(e) {
         const searchTerm = e.target.value.toLowerCase();
         
@@ -394,6 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Filter functionality
     filterButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             filterButtons.forEach(b => b.classList.remove('active'));
@@ -409,6 +473,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function initUSMap() {
+    const statesGroup = document.getElementById('states-group');
+    if (!statesGroup) return;
+    
+    // Simplified US map with major states
+    const stateShapes = {
+        'CA': 'M 50,300 L 50,150 L 150,100 L 170,250 L 100,350 Z',
+        'TX': 'M 350,500 L 350,350 L 500,330 L 520,480 L 400,520 Z',
+        'FL': 'M 750,450 L 750,400 L 800,420 L 810,500 L 790,520 L 750,510 Z',
+        'NY': 'M 800,150 L 850,140 L 860,180 L 820,200 Z',
+    };
+    
+    const statesWithGuides = ['CA', 'TX'];
+    
+    // Draw basic state shapes
+    Object.keys(stateShapes).forEach(stateCode => {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', stateShapes[stateCode]);
+        path.setAttribute('data-state', stateCode);
+        
+        if (statesWithGuides.includes(stateCode)) {
+            path.classList.add('has-guide');
+        }
+        
+        // Add click handler
+        path.addEventListener('click', function() {
+            const stateName = getStateName(stateCode);
+            const stateSlug = stateName.toLowerCase().replace(/\s+/g, '-');
+            window.location.href = '/state-' + stateSlug + '/';
+        });
+        
+        // Add tooltip on hover
+        const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+        title.textContent = getStateName(stateCode);
+        path.appendChild(title);
+        
+        statesGroup.appendChild(path);
+    });
+}
+
+function getStateName(code) {
+    const names = {
+        'CA': 'California',
+        'TX': 'Texas',
+        'FL': 'Florida',
+        'NY': 'New York',
+        'AL': 'Alabama',
+        'AK': 'Alaska'
+    };
+    return names[code] || code;
+}
 </script>
 
 <?php
