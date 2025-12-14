@@ -32,7 +32,6 @@
       "maxSteps": 20
     },
     "content-marketer": {
-      "disable": false,
       "maxSteps": 8
     },
     "context-manager": {
@@ -42,11 +41,9 @@
       "maxSteps": 20
     },
     "fullstack-developer": {
-      "disable": false,
       "maxSteps": 10
     },
     "legal-advisor": {
-      "disable": false,
       "maxSteps": 15
     },
     "market-researcher": {
@@ -59,7 +56,6 @@
       "maxSteps": 10
     },
     "qa-expert": {
-      "disable": false,
       "maxSteps": 10
     },
     "sales-engineer": {
@@ -72,7 +68,6 @@
       "maxSteps": 20
     },
     "seamstress": {
-      "disable": false,
       "maxSteps": 8
     },
     "technical-writer": {
@@ -82,14 +77,12 @@
       "maxSteps": 20
     },
     "ui-designer": {
-      "disable": false,
       "maxSteps": 8
     },
     "ux-researcher": {
       "maxSteps": 15
     },
     "wordpress-master": {
-      "disable": false,
       "maxSteps": 8
     },
     "build": {
