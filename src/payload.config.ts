@@ -20,8 +20,6 @@ export default buildConfig({
     user: Users.slug,
     meta: {
       titleSuffix: '- OpenGov Compliance Center',
-      favicon: '/favicon.ico',
-      ogImage: '/og-image.png',
     },
   },
   collections: [
@@ -38,11 +36,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      host: 'localhost',
-      port: 5432,
-      user: 'arykowski',
-      password: '',
-      database: 'og_compliance',
+      connectionString: process.env.DATABASE_URI || process.env.DATABASE_URL,
     },
   }),
   sharp,

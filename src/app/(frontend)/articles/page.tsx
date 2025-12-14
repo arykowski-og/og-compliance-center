@@ -57,7 +57,7 @@ export default async function ArticlesPage() {
         </div>
       </section>
       
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{__html: `
         .articles-section {
           padding: var(--spacing-3xl) 0;
         }
@@ -107,7 +107,7 @@ export default async function ArticlesPage() {
             grid-template-columns: 1fr;
           }
         }
-      `}</style>
+      `}} />
     </>
   )
 }

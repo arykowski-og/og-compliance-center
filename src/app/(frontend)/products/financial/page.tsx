@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { Icon } from '@/components/Icon'
 
 export default function FinancialManagementPage() {
   return (
@@ -35,7 +38,9 @@ export default function FinancialManagementPage() {
 
           <div className="features-grid">
             <div className="feature-card">
-              <div className="feature-icon">📊</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_Validate-2c-71" size={56} alt="GASB Compliance" />
+              </div>
               <h3>GASB Compliance</h3>
               <p>
                 Automatically comply with all GASB standards including GASB 34, 
@@ -50,7 +55,9 @@ export default function FinancialManagementPage() {
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">💼</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_General Ledger-2c" size={56} alt="General Ledger" />
+              </div>
               <h3>General Ledger</h3>
               <p>
                 Powerful general ledger with multi-fund accounting and real-time 
@@ -65,7 +72,9 @@ export default function FinancialManagementPage() {
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">💳</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_Accounts Payable-2c" size={56} alt="Accounts Payable" />
+              </div>
               <h3>Accounts Payable</h3>
               <p>
                 Streamline invoice processing, approvals, and payments with 
@@ -80,7 +89,9 @@ export default function FinancialManagementPage() {
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">💰</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_Accounts Receivable-2c" size={56} alt="Accounts Receivable" />
+              </div>
               <h3>Accounts Receivable</h3>
               <p>
                 Manage billing, collections, and revenue tracking with automated 
@@ -95,7 +106,9 @@ export default function FinancialManagementPage() {
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">📈</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_Financial Reporting-2c" size={56} alt="Financial Reporting" />
+              </div>
               <h3>Financial Reporting</h3>
               <p>
                 Generate comprehensive financial reports instantly with real-time 
@@ -110,7 +123,9 @@ export default function FinancialManagementPage() {
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">🔍</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_Inquiry-2c" size={56} alt="Audit Support" />
+              </div>
               <h3>Audit Support</h3>
               <p>
                 Complete audit trails and documentation to make audits fast, 
@@ -342,4 +357,3 @@ export default function FinancialManagementPage() {
     </>
   )
 }
-

@@ -24,14 +24,15 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
+  const { slug } = await params
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
     collection: 'states',
     where: {
       slug: {
-        equals: params.slug,
+        equals: slug,
       },
     },
     limit: 1,
@@ -48,14 +49,15 @@ export async function generateMetadata({
   }
 }
 
-export default async function StatePage({ params }: { params: { slug: string } }) {
+export default async function StatePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const payload = await getPayload({ config })
   
   const { docs } = await payload.find({
     collection: 'states',
     where: {
       slug: {
-        equals: params.slug,
+        equals: slug,
       },
     },
     limit: 1,
@@ -97,7 +99,7 @@ export default async function StatePage({ params }: { params: { slug: string } }
           {/* Quick Stats */}
           {state.quickStats && state.quickStats.length > 0 && (
             <div className="quick-stats">
-              {state.quickStats.map((stat, index) => (
+              {state.quickStats.map((stat: any, index: number) => (
                 <div key={index} className="quick-stat">
                   {stat.icon && <div className="stat-icon">{stat.icon}</div>}
                   <div className="stat-value">{stat.value}</div>
@@ -138,7 +140,7 @@ export default async function StatePage({ params }: { params: { slug: string } }
             <div className="features-list">
               <h3>Key Features</h3>
               <div className="features-grid">
-                {state.financialManagement.keyFeatures.map((feature, index) => (
+                {state.financialManagement.keyFeatures.map((feature: any, index: number) => (
                   <div key={index} className="feature-item">
                     {feature.icon && <div className="feature-icon">{feature.icon}</div>}
                     <h4>{feature.title}</h4>
@@ -168,7 +170,7 @@ export default async function StatePage({ params }: { params: { slug: string } }
             <div className="features-list">
               <h3>Key Features</h3>
               <div className="features-grid">
-                {state.budgeting.keyFeatures.map((feature, index) => (
+                {state.budgeting.keyFeatures.map((feature: any, index: number) => (
                   <div key={index} className="feature-item">
                     <h4>{feature.title}</h4>
                     <p>{feature.description}</p>
@@ -197,7 +199,7 @@ export default async function StatePage({ params }: { params: { slug: string } }
             <div className="features-list">
               <h3>Key Features</h3>
               <div className="features-grid">
-                {state.procurement.keyFeatures.map((feature, index) => (
+                {state.procurement.keyFeatures.map((feature: any, index: number) => (
                   <div key={index} className="feature-item">
                     <h4>{feature.title}</h4>
                     <p>{feature.description}</p>
@@ -238,7 +240,7 @@ export default async function StatePage({ params }: { params: { slug: string } }
             <div className="resources-section">
               <h3>External Resources</h3>
               <ul className="resources-list">
-                {state.externalResources.map((resource, index) => (
+                {state.externalResources.map((resource: any, index: number) => (
                   <li key={index}>
                     <a 
                       href={resource.url} 
@@ -262,7 +264,7 @@ export default async function StatePage({ params }: { params: { slug: string } }
             <div className="resources-section">
               <h3>Downloads</h3>
               <ul className="downloads-list">
-                {state.downloadableResources.map((resource, index) => (
+                {state.downloadableResources.map((resource: any, index: number) => (
                   <li key={index}>
                     <a 
                       href={typeof resource.file === 'object' ? resource.file.url : '#'}

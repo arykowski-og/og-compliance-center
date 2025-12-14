@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { Icon } from '@/components/Icon'
 
 export default function ProductsPage() {
   return (
@@ -20,7 +23,9 @@ export default function ProductsPage() {
           <div className="products-grid">
             {/* Financial Management */}
             <Link href="/products/financial" className="product-card">
-              <div className="product-icon">💰</div>
+              <div className="product-icon">
+                <Icon name="OG-Icons_FIN-2c" size={72} alt="Financial Management" />
+              </div>
               <h2>Financial Management</h2>
               <p>
                 Complete financial transparency with GASB-compliant accounting, 
@@ -36,7 +41,9 @@ export default function ProductsPage() {
 
             {/* Budgeting & Planning */}
             <Link href="/products/budgeting" className="product-card">
-              <div className="product-icon">📊</div>
+              <div className="product-icon">
+                <Icon name="OG-Icons_B&P-2c" size={72} alt="Budgeting & Planning" />
+              </div>
               <h2>Budgeting & Planning</h2>
               <p>
                 Strategic budget development with scenario modeling, performance 
@@ -52,7 +59,9 @@ export default function ProductsPage() {
 
             {/* Procurement */}
             <Link href="/products/procurement" className="product-card">
-              <div className="product-icon">🛒</div>
+              <div className="product-icon">
+                <Icon name="OG-Icons_Purchasing-2c" size={72} alt="Procurement" />
+              </div>
               <h2>Procurement</h2>
               <p>
                 Streamlined procurement processes with vendor management, 
@@ -68,7 +77,9 @@ export default function ProductsPage() {
 
             {/* Reporting & Analytics */}
             <Link href="/products/reporting" className="product-card">
-              <div className="product-icon">📈</div>
+              <div className="product-icon">
+                <Icon name="OG-Icons_Financial Reporting-2c" size={72} alt="Reporting & Analytics" />
+              </div>
               <h2>Reporting & Analytics</h2>
               <p>
                 Powerful analytics and customizable reporting tools to make 
@@ -95,7 +106,9 @@ export default function ProductsPage() {
 
           <div className="features-grid">
             <div className="feature-item">
-              <div className="feature-icon-large">🏛️</div>
+              <div className="feature-icon-large">
+                <Icon name="OG-Icons_Gov-2c" size={80} alt="Government-Specific" />
+              </div>
               <h3>Government-Specific</h3>
               <p>
                 Purpose-built for local government needs, not adapted from 
@@ -104,7 +117,9 @@ export default function ProductsPage() {
             </div>
 
             <div className="feature-item">
-              <div className="feature-icon-large">✅</div>
+              <div className="feature-icon-large">
+                <Icon name="OG-Icons_Validate-2c-71" size={80} alt="Compliance First" />
+              </div>
               <h3>Compliance First</h3>
               <p>
                 Stay compliant with GASB, state regulations, and federal 
@@ -113,7 +128,9 @@ export default function ProductsPage() {
             </div>
 
             <div className="feature-item">
-              <div className="feature-icon-large">☁️</div>
+              <div className="feature-icon-large">
+                <Icon name="OG-Icons_Cloud-2c" size={80} alt="Cloud-Based" />
+              </div>
               <h3>Cloud-Based</h3>
               <p>
                 Access your data securely from anywhere, with automatic 
@@ -122,7 +139,9 @@ export default function ProductsPage() {
             </div>
 
             <div className="feature-item">
-              <div className="feature-icon-large">🤝</div>
+              <div className="feature-icon-large">
+                <Icon name="OG-Icons_Partner-2c" size={80} alt="Expert Support" />
+              </div>
               <h3>Expert Support</h3>
               <p>
                 Dedicated support from government finance and compliance 
@@ -254,4 +273,3 @@ export default function ProductsPage() {
     </>
   )
 }
-

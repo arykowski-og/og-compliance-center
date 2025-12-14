@@ -1,3 +1,5 @@
+'use client'
+
 export default function ContactPage() {
   return (
     <>
@@ -218,4 +220,3 @@ export default function ContactPage() {
     </>
   )
 }
-

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Icon } from '@/components/Icon'
 
 export default function HomePage() {
   return (
@@ -35,7 +36,9 @@ export default function HomePage() {
           </div>
           <div className="features-grid">
             <div className="feature-card">
-              <div className="feature-icon">📊</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_Financial Reporting-2c" size={64} alt="Financial Management" />
+              </div>
               <h3>Financial Management</h3>
               <p>
                 GASB-compliant financial tracking, reporting, and audit-ready 
@@ -46,7 +49,9 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">📋</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_B&P-2c" size={64} alt="Budgeting & Planning" />
+              </div>
               <h3>Budgeting & Planning</h3>
               <p>
                 Strategic budget development tools with scenario modeling and 
@@ -57,7 +62,9 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">🔍</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_Purchasing-2c" size={64} alt="Procurement" />
+              </div>
               <h3>Procurement</h3>
               <p>
                 Streamlined procurement processes with vendor management and 
@@ -68,7 +75,9 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">🏛️</div>
+              <div className="feature-icon">
+                <Icon name="OG-Icons_Gov-2c" size={64} alt="State-Specific Guides" />
+              </div>
               <h3>State-Specific Guides</h3>
               <p>
                 Detailed compliance requirements and best practices for all 

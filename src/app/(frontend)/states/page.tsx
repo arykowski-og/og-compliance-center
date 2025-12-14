@@ -34,7 +34,7 @@ export default async function StatesPage() {
       <section className="map-section">
         <div className="container">
           <div className="map-container">
-            <StateMap states={states} />
+            <StateMap states={states as any} />
           </div>
         </div>
       </section>

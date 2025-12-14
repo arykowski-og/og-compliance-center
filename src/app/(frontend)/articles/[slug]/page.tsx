@@ -24,14 +24,15 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
+  const { slug } = await params
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
     collection: 'articles',
     where: {
       slug: {
-        equals: params.slug,
+        equals: slug,
       },
     },
     limit: 1,
@@ -49,14 +50,15 @@ export async function generateMetadata({
   }
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const payload = await getPayload({ config })
   
   const { docs } = await payload.find({
     collection: 'articles',
     where: {
       slug: {
-        equals: params.slug,
+        equals: slug,
       },
     },
     limit: 1,
@@ -146,7 +148,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             <div className="container-narrow">
               <h4>Tags</h4>
               <div className="tags-list">
-                {article.tags.map((tagObj, index) => (
+                {article.tags.map((tagObj: any, index: number) => (
                   <span key={index} className="tag">
                     {tagObj.tag}
                   </span>
@@ -178,7 +180,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         </div>
       </section>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{__html: `
         .article-container {
           background: var(--og-white);
         }
@@ -318,8 +320,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             grid-template-columns: 1fr 1fr;
           }
         }
-      `}</style>
+      `}} />
     </>
   )
 }
-
