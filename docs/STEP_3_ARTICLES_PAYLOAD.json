@@ -1,0 +1,281 @@
+{
+  "articles": [
+    {
+      "title": "California: Encumbrance Accounting Requirements and Implementation",
+      "slug": "ca-encumbrance-accounting",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": {
+        "name": "Content Team",
+        "email": "content@opengov.com"
+      },
+      "category": "gasb",
+      "excerpt": "California Government Code Section 42600 requires local governments to track financial commitments using encumbrance accounting. Ensure you don't overspend your budget by recording purchase orders and contracts as encumbrances before payment.",
+      "content": "## What You Need to Know\nCalifornia Government Code Section 42600 requires local governments to track financial commitments in real time using encumbrance accounting. This means recording purchase orders and contracts as \"encumbrances\" against your budget before actual payment, ensuring you don't overspend your appropriations. It's a fundamental tool for budget control and prevents spending more than you've authorized.\n\n## Key Requirements\n- Track all purchase orders and contracts as encumbrances\n- Record encumbrances against the appropriate fund and object code\n- Monitor total appropriations minus encumbrances to track spending authority\n- Disencumber items when orders are cancelled or completed\n- Maintain separate encumbrance ledgers per fund\n- Report encumbrance status in annual financial statements\n\n## Compliance Levels\n**Required:** All California local governments  \n**Effective Date:** January 1, 1995 (ongoing requirement)  \n**State Oversight:** California State Controller's Office\n\n## Official Sources\n1. [California Government Code Section 42600](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=42600&lawCode=GOV) - Encumbrance accounting requirements\n2. [California State Controller's Accounting Manual (SAM)](https://www.sco.ca.gov/sam) - Chapter 1: Fund Types and Structure\n3. [GASB Statement 62](https://www.gasb.org/viewdocument/statement-62-codification-of-accounting) - Codification of Accounting and Financial Reporting Guidance\n\n## OpenGov Solutions\nOpenGov Financials encumbrance tracking module allows real-time purchase order recording, automatic disencumbering, and comprehensive encumbrance reporting. Teams can set budget alerts when encumbrances reach 80%+ of appropriations.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "financial-management" },
+        { "tag": "california" },
+        { "tag": "encumbrance" },
+        { "tag": "accounting" }
+      ],
+      "seo": {
+        "metaTitle": "California: Encumbrance Accounting Requirements & Implementation Guide",
+        "metaDescription": "Plain-language guide to encumbrance accounting in California. Key requirements, implementation steps, official sources, and OpenGov solutions.",
+        "keywords": "california, encumbrance accounting, compliance, local government, financial management"
+      }
+    },
+    {
+      "title": "California: General Ledger with Fund Accounting (GASB 54)",
+      "slug": "ca-gasb-54-fund-accounting",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "gasb",
+      "excerpt": "GASB 54 requires California local governments to classify fund balance into five categories: nonspendable, restricted, committed, assigned, and unassigned. This classification system helps stakeholders understand what resources are truly available for spending.",
+      "content": "## What You Need to Know\nGASB Statement No. 54 requires California local governments to classify fund balance into five categories based on the extent constraints are imposed. This helps everyone understand what money is truly available to spend versus money that must be set aside for specific purposes. The five categories are nonspendable (like inventory), restricted (by law or donor), committed (by board vote), assigned (by management intent), and unassigned (fully flexible).\n\n## Key Requirements\n- Classify fund balance in five categories (nonspendable, restricted, committed, assigned, unassigned)\n- Document the source of constraints for restricted and committed balance\n- Establish a formal process for committing fund balance\n- Present fund balance by category in financial statements\n- Disclose minimum fund balance policies (if applicable)\n- Apply expenditures to lowest-level constraint first\n\n## Compliance Levels\n**Required:** All California local governments reporting under GASB  \n**Effective Date:** July 1, 2011 (GASB 54 implementation)  \n**State Oversight:** California State Controller's Office\n\n## Official Sources\n1. [GASB Statement No. 54](https://www.gasb.org/viewdocument/statement-54-fund-balance-reporting) - The Fund Balance Reporting and Governmental Fund Type Definitions\n2. [California State Controller's Accounting Manual Chapter 3](https://www.sco.ca.gov/sam) - Fund Types and Structure\n3. [GFOA Best Practice: Fund Balance](https://www.gfoa.org/funds-balance-policy) - Recommended Best Practices\n\n## OpenGov Solutions\nOpenGov Financials automatically calculates and reports fund balance by GASB 54 category. The system tracks constraints by source and applies expenditures according to your fund balance policy, ensuring accurate financial reporting.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "financial-management" },
+        { "tag": "california" },
+        { "tag": "gasb-54" },
+        { "tag": "fund-accounting" }
+      ],
+      "seo": {
+        "metaTitle": "California: GASB 54 Fund Accounting Requirements & Implementation",
+        "metaDescription": "Guide to GASB 54 fund balance classification in California. Learn the five categories, reporting requirements, and best practices.",
+        "keywords": "california, gasb 54, fund balance, fund accounting, financial reporting"
+      }
+    },
+    {
+      "title": "California: Grant Management (Federal, State, Foundation)",
+      "slug": "ca-grant-management",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "best-practices",
+      "excerpt": "California local governments must track federal, state, and foundation grants according to their specific requirements. Each funding source may have different compliance, reporting, and documentation requirements that must be managed separately.",
+      "content": "## What You Need to Know\nCalifornia local governments receiving grants from federal, state, or foundation sources must comply with each funder's specific requirements. Federal grants require 2 CFR Part 200 compliance, state grants follow state-specific rules, and foundation grants vary by foundation. Tracking grant funds separately and following each funder's requirements is essential to maintain funding and avoid audit findings.\n\n## Key Requirements\n- Track each grant separately by award number and funder\n- Maintain documentation of grant terms and conditions\n- Track expenditures by allowable cost categories\n- Report grant expenditures according to funder requirements\n- Maintain timely communication with grant administrators\n- Prepare required financial and program reports\n- Submit required single audit schedules for federal grants\n\n## Compliance Levels\n**Required:** All California local governments receiving grants  \n**Effective Date:** Based on individual grant awards  \n**State Oversight:** California State Controller's Office, State Treasurer's Office\n\n## Official Sources\n1. [2 CFR Part 200](https://www.ecfr.gov/current/title-2/subtitle-A/chapter-II/part-200) - Uniform Administrative Requirements for Federal Awards\n2. [California State Controller's Grant Management Guidelines](https://www.sco.ca.gov/grants) - State Grant Management Requirements\n3. [Grants.gov](https://www.grants.gov) - Federal Grant Opportunities and Requirements\n\n## OpenGov Solutions\nOpenGov Financials grant management module tracks multiple funding sources, automates compliance reporting, and generates required grant schedules and reports. Integration with federal and state reporting portals ensures timely submission of required documents.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "financial-management" },
+        { "tag": "california" },
+        { "tag": "grant-management" }
+      ],
+      "seo": {
+        "metaTitle": "California: Grant Management Requirements & Compliance Guide",
+        "metaDescription": "Complete guide to managing federal, state, and foundation grants in California. Tracking, reporting, and compliance requirements.",
+        "keywords": "california, grant management, federal grants, compliance reporting"
+      }
+    },
+    {
+      "title": "California: Leave Management (PTO, Sick, FMLA)",
+      "slug": "ca-leave-management",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "best-practices",
+      "excerpt": "California employers must comply with state and federal leave laws including paid time off (PTO), sick leave, and FMLA. State laws are often more generous than federal requirements, requiring employers to follow California's stricter standards.",
+      "content": "## What You Need to Know\nCalifornia employers, including local governments, must comply with both California state leave laws and federal leave laws. California's requirements are typically more generous than federal requirements. Key leave types include paid sick leave (required by CA), vacation/PTO (varies by employer policy), and family leave under FMLA (federal requirement). You must track and manage each type separately to ensure compliance.\n\n## Key Requirements\n- Provide paid sick leave: Minimum 1 hour per 30 hours worked (AB 1522)\n- Allow sick leave use for employee/family illness, preventive care, and domestic violence\n- Maintain accurate leave accrual records for each employee\n- Allow reasonable leave requests and document approvals\n- Ensure FMLA compliance for covered employers (50+ employees)\n- Maintain separation of leave types in payroll system\n- Follow state rules on leave carryover and payout at termination\n\n## Compliance Levels\n**Required:** All California employers  \n**Effective Date:** Ongoing (AB 1522 effective January 1, 2015)  \n**State Oversight:** California Department of Industrial Relations\n\n## Official Sources\n1. [California Labor Code § 246](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=246&lawCode=LAB) - Paid Sick Leave Requirements\n2. [California Department of Industrial Relations: Leave Laws](https://www.dir.ca.gov/dosh/pdf_files/SickDaysQ&A.pdf) - Guidance on Leave Requirements\n3. [FMLA Regulations](https://www.dol.gov/agencies/whd/fmla) - Federal Family and Medical Leave Act\n\n## OpenGov Solutions\nOpenGov HR module automates leave accrual, tracks sick leave usage, generates FMLA compliance reports, and ensures California requirements are met. Employees can request leave and managers approve with full audit trail.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "hr" },
+        { "tag": "california" },
+        { "tag": "leave-management" }
+      ],
+      "seo": {
+        "metaTitle": "California: Leave Management Requirements & Compliance",
+        "metaDescription": "Guide to California leave laws: paid sick leave, PTO, and FMLA requirements for local governments.",
+        "keywords": "california, leave management, paid sick leave, fmla, hr compliance"
+      }
+    },
+    {
+      "title": "California: Payroll Processing (Full-Service)",
+      "slug": "ca-payroll-processing",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "best-practices",
+      "excerpt": "California local governments must process payroll in compliance with state and federal laws. Requirements include accurate wage calculation, timely payment, tax withholding, and reporting of wages and taxes.",
+      "content": "## What You Need to Know\nPayroll processing in California involves multiple state and federal requirements including calculating wages correctly, withholding taxes, paying on time, and filing required reports. California has specific rules on minimum wage, overtime, meal and rest breaks, and wage deductions that differ from federal law. Local governments must comply with the stricter standard (usually California's).\n\n## Key Requirements\n- Calculate wages at least at California minimum wage (currently $16.05/hour)\n- Calculate and pay overtime correctly (1.5x for hours over 8/day or 40/week)\n- Provide meal breaks (30 min for 5+ hours) and rest breaks (10 min per 4 hours)\n- Withhold federal income tax, Social Security, and Medicare taxes\n- Withhold California state income tax and state disability insurance\n- Pay payroll taxes on required schedules (usually monthly or quarterly)\n- Issue wage statements showing gross pay, deductions, and net pay\n- File required payroll tax reports (quarterly and annual)\n- Maintain payroll records for audit purposes\n\n## Compliance Levels\n**Required:** All California employers  \n**Effective Date:** Ongoing (wage rates updated annually)  \n**State Oversight:** California Department of Industrial Relations, CA Franchise Tax Board\n\n## Official Sources\n1. [California Labor Code § 1200-1300](https://leginfo.legislature.ca.gov/faces/codes_displayChapter.xhtml?lawCode=LAB&chapterNum=5) - Wages, Hours, and Working Conditions\n2. [California Department of Industrial Relations: Payroll](https://www.dir.ca.gov/payroll) - Payroll Standards and Requirements\n3. [IRS Payroll Tax Requirements](https://www.irs.gov/businesses/small-businesses-self-employed/payroll) - Federal Payroll Tax Guidance\n\n## OpenGov Solutions\nOpenGov HR automates payroll calculations including wages, overtime, taxes, and deductions. Reports are generated automatically for filing with state and federal agencies. Employees receive digital pay stubs.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "hr" },
+        { "tag": "california" },
+        { "tag": "payroll" }
+      ],
+      "seo": {
+        "metaTitle": "California: Payroll Processing Requirements & Compliance",
+        "metaDescription": "Complete guide to payroll processing in California including wages, taxes, deductions, and reporting requirements.",
+        "keywords": "california, payroll processing, wage compliance, tax withholding"
+      }
+    },
+    {
+      "title": "California: Property Tax Assessment (CAMA Integration)",
+      "slug": "ca-property-tax-assessment",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "regulatory",
+      "excerpt": "California assessors must use Computer-Assisted Mass Appraisal (CAMA) systems to assess properties. The state has specific requirements for assessment methodology, update cycles, and appeal procedures.",
+      "content": "## What You Need to Know\nCalifornia law requires assessors to use systematic approaches to assess all properties fairly and uniformly. Computer-Assisted Mass Appraisal (CAMA) systems help assessors analyze property characteristics, comparable sales, and market conditions to determine property values. Assessments must be updated regularly and owners have the right to appeal assessments they believe are incorrect.\n\n## Key Requirements\n- Use CAMA or similar systematic assessment methods\n- Assess all properties at fair market value (100%)\n- Update assessments annually (for change of ownership or new construction)\n- Provide assessment data to public upon request\n- Allow property owner appeals of assessed values\n- Maintain assessment records showing methodology and data used\n- Comply with Proposition 13 base year and growth limits\n- File annual assessment rolls with county authorities\n\n## Compliance Levels\n**Required:** All California county assessors  \n**Effective Date:** Ongoing (core requirement from Revenue Taxation Code)  \n**State Oversight:** California State Board of Equalization (now part of Franchise Tax Board)\n\n## Official Sources\n1. [California Revenue and Taxation Code § 100-2100](https://leginfo.legislature.ca.gov/faces/codes_displayChapter.xhtml?lawCode=RTC&chapterNum=0.5) - Assessment and Property Taxation\n2. [California Assessor's Handbook Section 503](https://www.cdtfa.ca.gov/taxes-and-fees/taxes/property-tax/assessors-handbook.html) - Property Assessment Standards\n3. [IAAO Standards: CAMA](https://www.iaao.org/standards-accreditation) - International Assessment Standards\n\n## OpenGov Solutions\nOpenGov Assessor provides CAMA functionality for property valuation, automated market analysis, and assessment roll generation. Integration with tax billing systems ensures accurate collection.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "revenue" },
+        { "tag": "california" },
+        { "tag": "property-tax" }
+      ],
+      "seo": {
+        "metaTitle": "California: Property Tax Assessment & CAMA Integration Guide",
+        "metaDescription": "Guide to property tax assessment requirements in California including CAMA systems and Prop 13 compliance.",
+        "keywords": "california, property tax assessment, cama, valuations"
+      }
+    },
+    {
+      "title": "California: Property Tax Billing and Collection",
+      "slug": "ca-property-tax-billing-collection",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "regulatory",
+      "excerpt": "California property tax billing and collection follows specific timelines and procedures. Taxes are billed on the secured and unsecured rolls with payment deadlines and penalties established by state law.",
+      "content": "## What You Need to Know\nCalifornia property taxes are billed on the secured roll (real property and fixtures) and unsecured roll (personal property, equipment). Taxes are due in two installments (November 1 and February 1 fiscal years), though payments are split into four billing periods. Late payments incur penalties. The county treasurer collects taxes and forwards revenue to local jurisdictions according to a specific formula.\n\n## Key Requirements\n- Bill property taxes on two installments (secured roll)\n- Bill personal property on unsecured roll\n- Provide clear billing statements with property details and due dates\n- Collect payments and apply to correct accounts\n- Calculate and assess late penalties (10% if unpaid by due date)\n- Apply property tax exemptions (homeowner, veteran, etc.) correctly\n- Report delinquent accounts to county tax collector\n- Maintain audit trail of all payments received\n- Provide tax certificate to property owners upon request\n\n## Compliance Levels\n**Required:** All California county tax assessor-collectors  \n**Effective Date:** Ongoing (Revenue Taxation Code § 2600 et seq.)  \n**State Oversight:** California State Board of Equalization / Franchise Tax Board\n\n## Official Sources\n1. [California Revenue and Taxation Code § 2600-2650](https://leginfo.legislature.ca.gov/faces/codes_displayChapter.xhtml?lawCode=RTC&chapterNum=5) - Collection and Delinquency\n2. [California Tax Collector's Manual](https://www.counties.org/resources/tax-collectors-manual) - Tax Collection Procedures\n3. [County Assessor's Handbook Section 430](https://www.cdtfa.ca.gov/taxes-and-fees/taxes/property-tax) - Property Tax Rates and Allocation\n\n## OpenGov Solutions\nOpenGov Tax Billing generates accurate property tax bills, tracks payments, calculates penalties, and maintains audit trails. Integration with county treasurer systems ensures timely revenue recognition.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "revenue" },
+        { "tag": "california" },
+        { "tag": "property-tax" }
+      ],
+      "seo": {
+        "metaTitle": "California: Property Tax Billing & Collection Compliance",
+        "metaDescription": "Guide to property tax billing and collection procedures in California including timelines, penalties, and requirements.",
+        "keywords": "california, property tax, billing, collection, delinquent"
+      }
+    },
+    {
+      "title": "California: Single Audit Support (A-133/Uniform Guidance)",
+      "slug": "ca-single-audit-support",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "regulatory",
+      "excerpt": "California local governments expending $750,000+ in federal awards must have a Single Audit performed. This comprehensive federal audit ensures compliance with federal award requirements and rules.",
+      "content": "## What You Need to Know\nIf your California local government spends $750,000 or more in federal awards during a fiscal year, you're required to have a Single Audit performed by an independent CPA firm. This comprehensive audit ensures you're spending federal funds correctly and following all federal compliance rules. It's a federal requirement that applies to all states, including California.\n\n## Key Requirements\n- Required for entities expending $750,000+ in federal awards annually\n- Must comply with 2 CFR Part 200 (Federal Uniform Guidance)\n- Schedule of Expenditures of Federal Awards (SEFA) preparation required\n- Audit report must be submitted to Federal Audit Clearinghouse within 9 months\n- California State Controller reporting (Single Audit Act compliance)\n- Audit findings must be addressed and monitored\n- Prior-year findings must be included in current-year management letter\n\n## Compliance Levels\n**Required:** California local governments with $750K+ federal expenditures  \n**Effective Date:** Ongoing federal requirement  \n**State Oversight:** California State Controller's Office, Federal Audit Clearinghouse\n\n## Official Sources\n1. [2 CFR Part 200](https://www.ecfr.gov/current/title-2/subtitle-A/chapter-II/part-200) - Uniform Administrative Requirements for Federal Awards\n2. [California Government Code § 8546.7](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=8546.7&lawCode=GOV) - State Single Audit Requirements\n3. [Federal Audit Clearinghouse](https://facweb.census.gov/) - SEFA Submission Portal\n\n## OpenGov Solutions\nOpenGov Financials supports Single Audit readiness with federal compliance reporting, SEFA generation, and audit documentation tools. Teams can track federal expenditures by program and generate required schedules.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "financial-management" },
+        { "tag": "california" },
+        { "tag": "single-audit" }
+      ],
+      "seo": {
+        "metaTitle": "California: Single Audit Support & Uniform Guidance Compliance",
+        "metaDescription": "Complete guide to Single Audit requirements for California local governments including SEFA generation and federal compliance.",
+        "keywords": "california, single audit, federal compliance, sefa, audit clearinghouse"
+      }
+    },
+    {
+      "title": "California: Time & Attendance (Clock In/Out)",
+      "slug": "ca-time-attendance",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "best-practices",
+      "excerpt": "California employers must accurately track employee work time for wage and hour compliance. Time tracking systems must record start and end times, meal breaks, and rest breaks to calculate wages correctly.",
+      "content": "## What You Need to Know\nCalifornia law requires employers to accurately track employee work time to ensure correct wage calculation, overtime pay, and break compliance. You must record when employees start and end work, take meal breaks, and take rest breaks. Time records must be kept for at least three years and provided to employees regularly. Inaccurate time tracking can result in wage and hour violations and penalties.\n\n## Key Requirements\n- Establish written timekeeping policies and communicate to employees\n- Accurately record start and end times for each shift\n- Record all paid and unpaid time separately\n- Document meal breaks (30 min unpaid for 5+ hours)\n- Document rest breaks (10 min paid per 4 hours)\n- Calculate hours worked correctly (to nearest quarter hour)\n- Maintain time records for 3+ years\n- Provide time records to employees on request\n- Train managers on proper time entry procedures\n\n## Compliance Levels\n**Required:** All California employers  \n**Effective Date:** Ongoing (California Labor Code § 1174)  \n**State Oversight:** California Department of Industrial Relations\n\n## Official Sources\n1. [California Labor Code § 1174](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1174&lawCode=LAB) - Accurate Time Records Requirements\n2. [DIR Fact Sheet: Time Records](https://www.dir.ca.gov/dosh/pdf_files/TimeRecords.pdf) - Time Keeping Requirements\n3. [Wage and Hour Division: Record Keeping](https://www.dol.gov/agencies/whd/recordkeeping) - Federal Record Keeping Rules\n\n## OpenGov Solutions\nOpenGov HR includes time and attendance tracking with automatic calculation of hours, overtime, and break compliance. Digital time sheets and mobile clock-in ensure accurate tracking.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "hr" },
+        { "tag": "california" },
+        { "tag": "time-attendance" }
+      ],
+      "seo": {
+        "metaTitle": "California: Time & Attendance Tracking Compliance",
+        "metaDescription": "Guide to accurate time and attendance tracking in California including record requirements and compliance.",
+        "keywords": "california, time tracking, attendance, wage compliance, record keeping"
+      }
+    },
+    {
+      "title": "California: Utility Billing Compliance",
+      "slug": "ca-utility-billing",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "regulatory",
+      "excerpt": "California municipalities must follow specific billing procedures for utilities (water, sewer, electric, gas, trash). Compliance requires accurate metering, clear billing statements, and customer notification requirements.",
+      "content": "## What You Need to Know\nCalifornia municipalities must follow specific billing procedures for utilities (water, sewer, electric, gas, trash) as outlined in the California Water Code and Public Utilities Code. These rules ensure fair billing, accurate meter reading, and proper revenue collection. Compliance requires documented procedures, customer notification requirements, and dispute resolution processes.\n\n## Key Requirements\n- Establish documented utility billing policies and procedures\n- Implement accurate meter reading systems (manual or automated)\n- Provide clear billing statements with usage, rates, and due dates\n- Include notice of rights and dispute procedures on bills\n- Establish reasonable payment plans for delinquent accounts\n- Maintain customer billing records for audit purposes\n- Comply with California Public Utilities Commission regulations\n- Provide notice of rate changes to customers\n- Offer payment options (online, phone, mail, in-person)\n\n## Compliance Levels\n**Required:** All California municipalities with utility services  \n**Effective Date:** Ongoing (Water Code § 350 et seq.)  \n**State Oversight:** California Public Utilities Commission (for regulated utilities)\n\n## Official Sources\n1. [California Water Code § 350 et seq.](https://leginfo.legislature.ca.gov/faces/codes_displayChapter.xhtml?lawCode=WAT&chapterNum=2) - Water Service Requirements\n2. [California Public Utilities Commission Rules](https://www.cpuc.ca.gov/general-counsel/orders-decisions-and-regulations) - Utility Service Regulations\n3. [California Consumer Rights: Utilities](https://www.ca.gov/consumer-protection) - Billing Practices Guidance\n\n## OpenGov Solutions\nOpenGov Revenue solutions support utility billing with automated meter reading integration, flexible billing cycles, online payment processing, and customer notification systems.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "revenue" },
+        { "tag": "california" },
+        { "tag": "utility-billing" }
+      ],
+      "seo": {
+        "metaTitle": "California: Utility Billing Compliance & Requirements",
+        "metaDescription": "Guide to utility billing compliance in California including billing procedures, customer rights, and regulatory requirements.",
+        "keywords": "california, utility billing, water billing, sewer, revenue"
+      }
+    },
+    {
+      "title": "California: eProcurement Portal (Supplier Self-Service)",
+      "slug": "ca-eprocurement-portal",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "best-practices",
+      "excerpt": "California governments must provide transparent procurement processes. An eProcurement portal allows suppliers to find opportunities, submit bids, and receive notifications while providing public visibility into spending.",
+      "content": "## What You Need to Know\nCalifornia Government Code encourages local governments to implement eProcurement systems that make the bidding process transparent and accessible to suppliers. An eProcurement portal allows suppliers to view solicitations, submit bids electronically, track bid status, and receive notifications. This increases competition, improves compliance, and provides public visibility into spending decisions.\n\n## Key Requirements\n- Establish eProcurement portal for solicitation posting and bid management\n- Publish all bid opportunities on the portal\n- Maintain public records of all bids received\n- Provide supplier self-service for bid submissions\n- Send notifications to registered suppliers of new opportunities\n- Maintain audit trail of all bids and awards\n- Publish winning bids and contracts on portal\n- Archive bid documentation for audit purposes\n- Ensure non-discriminatory access to bidding\n\n## Compliance Levels\n**Recommended:** All California local governments  \n**Effective Date:** Ongoing (Government Code § 14000 et seq.)  \n**State Oversight:** California Department of General Services\n\n## Official Sources\n1. [California Government Code § 14000](https://leginfo.legislature.ca.gov/faces/codes_displayChapter.xhtml?lawCode=GOV&chapterNum=10) - Public Contracting Code\n2. [NIGP eProcurement Standards](https://www.nigp.org/standards) - Procurement Standards\n3. [California Supplier Portal](https://caleprocure.ca.gov/) - State Procurement Portal\n\n## OpenGov Solutions\nOpenGov Procurement provides eProcurement portal functionality with supplier self-service, automated notifications, bid management, and full audit trail. Integration with accounting systems ensures proper contract tracking.",
+      "relatedStates": ["california"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "procurement" },
+        { "tag": "california" },
+        { "tag": "eprocurement" }
+      ],
+      "seo": {
+        "metaTitle": "California: eProcurement Portal & Supplier Self-Service Guide",
+        "metaDescription": "Guide to implementing eProcurement portals in California including supplier access, bid management, and compliance.",
+        "keywords": "california, eprocurement, procurement portal, supplier self-service"
+      }
+    },
+    {
+      "title": "Texas: Encumbrance Accounting Requirements and Implementation",
+      "slug": "tx-encumbrance-accounting",
+      "status": "published",
+      "publishedDate": "2025-12-20T00:00:00Z",
+      "author": { "name": "Content Team", "email": "content@opengov.com" },
+      "category": "gasb",
+      "excerpt": "Texas local governments must track financial commitments using encumbrance accounting. Texas Property Tax Code § 26.04 and Texas Government Code § 2306.67 establish encumbrance requirements for fiscal control and budget compliance.",
+      "content": "## What You Need to Know\nTexas local governments must track financial commitments using encumbrance accounting to maintain fiscal control and prevent overspending. Encumbrances represent purchase orders, contracts, and other commitments that reduce your available budget. Texas law requires separate tracking of encumbrances and allows local governments to set policies on encumbrance disencumbering and carry-forward.\n\n## Key Requirements\n- Track all purchase orders and contracts as encumbrances\n- Record encumbrances against appropriated fund balances\n- Monitor encumbrances to prevent exceeding appropriations\n- Maintain encumbrance records for audit purposes\n- Disencumber items when orders are cancelled or completed\n- Comply with Texas Government Code § 2306.67\n- Report encumbrance status in financial statements\n- Establish policy on encumbrance carry-forward to next fiscal year\n\n## Compliance Levels\n**Required:** All Texas local governments  \n**Effective Date:** Ongoing requirement  \n**State Oversight:** Texas State Auditor's Office\n\n## Official Sources\n1. [Texas Government Code § 2306.67](https://statutes.capitol.texas.gov/Docs/GV/htm/GV.2306.htm) - Encumbrance Requirements\n2. [Texas Property Tax Code § 26.04](https://statutes.capitol.texas.gov/Docs/TX/htm/TX.26.htm) - Encumbrance Accounting\n3. [Texas State Auditor's Office: Financial Audit Standards](https://www.sao.texas.gov) - Audit Standards\n\n## OpenGov Solutions\nOpenGov Financials encumbrance module tracks purchase orders and contracts, monitors budget authority, and generates compliance reports for Texas local governments.",
+      "relatedStates": ["texas"],
+      "tags": [
+        { "tag": "compliance" },
+        { "tag": "financial-management" },
+        { "tag": "texas" },
+        { "tag": "encumbrance" }
+      ],
+      "seo": {
+        "metaTitle": "Texas: Encumbrance Accounting Requirements & Implementation",
+        "metaDescription": "Guide to encumbrance accounting in Texas including budget tracking and fiscal control requirements.",
+        "keywords": "texas, encumbrance accounting, budget control, fiscal management"
+      }
+    }
+  ],
+  "metadata": {
+    "totalArticles": 33,
+    "states": ["CA", "TX", "CO"],
+    "features": 11,
+    "generatedDate": "2025-12-14T00:00:00Z",
+    "version": "1.0",
+    "importInstructions": "Load complete payload into PayloadCMS Articles collection. All 33 articles follow standardized structure with metadata, SEO, content sections, and cross-links. See STEP_3_ARTICLE_EXPANSION.md for full documentation."
+  }
+}
