@@ -2,7 +2,7 @@
 
 > **Task:** Build features and content for OpenGov Compliance Center based on functional requirements and technical design (Next.js + PayloadCMS)
 
-**Last Updated:** December 14, 2025 - 11:55 AM
+**Last Updated:** December 14, 2025 - 12:57 PM
 
 ## Progress (Next.js + PayloadCMS Implementation)
 
@@ -12,7 +12,7 @@
 | ✅ | 2 | Build state profile pages with topic categories 🎨 |
 | ✅ | 3 | Create content detail pages with full article view 🎨 |
 | ✅ | 4 | Implement search functionality with filters 🎨 |
-| ⬜ | 5 | Add user dashboard with saved items and alerts 🎨 |
+| ✅ | 5 | Add user dashboard with saved items and alerts 🎨 |
 
 ## Status Legend
 - ✅ Completed
@@ -40,6 +40,55 @@
 - ✅ OpenGov design system colors and styling
 - ✅ 560+ lines of production-ready code
 - ✅ Follows wireframe from INFORMATION_ARCHITECTURE.md exactly
+
+**Working on:** Step 5 COMPLETED - User dashboard with saved items and alerts
+
+### Step 5 Summary
+- ✅ Created user dashboard page (src/app/(frontend)/dashboard/page.tsx)
+- ✅ Created comprehensive dashboard client component (src/app/(frontend)/dashboard/DashboardClient.tsx - 820 lines)
+- ✅ Features implemented:
+  - Welcome Section with monitoring summary (subscribed states/topics count)
+  - Quick Actions Toolbar (Compare States, Create Checklist, Download Template, Contact Expert)
+  - New Updates Section with 5 recent regulatory changes:
+    - Each update shows: state badge, category badge, NEW badge, date, title, summary
+    - Actions: Read More, Save (heart icon), Dismiss (X)
+    - Real-time dismiss functionality removes updates from view
+    - Save toggle for bookmarking updates
+    - "All caught up" empty state when no updates remain
+  - Saved Items Section (grid layout):
+    - 4 sample saved articles with state/category badges
+    - Remove button (X) on each card
+    - Shows saved date
+    - Clickable titles linking to articles
+    - Grid layout for easy scanning
+  - Upcoming Deadlines Section (sidebar):
+    - 5 compliance deadlines with countdown
+    - Sorted by urgency (days until due)
+    - Urgent items (≤7 days) highlighted in red
+    - Each shows: state, title, date, category
+    - "View Full Calendar" button
+  - Active Subscriptions Section (sidebar):
+    - 4 subscriptions (2 states, 2 topics)
+    - Shows type icon (📍 for states, 📂 for topics)
+    - Frequency display (Immediate, Daily digest, Weekly digest)
+    - Last alert timestamp
+    - Unsubscribe button per subscription
+    - "Manage Alerts" button
+- ✅ Interactive features:
+  - Dismiss updates with visual removal
+  - Toggle save/unsave on update cards
+  - Remove saved items (alert confirmation)
+  - Unsubscribe from alerts (alert confirmation)
+  - All buttons and links functional
+- ✅ Two-column responsive layout:
+  - Main column: Updates and Saved Items
+  - Sidebar: Deadlines and Subscriptions
+  - Stacks to single column on tablet/mobile
+- ✅ Professional OpenGov styling with CSS-in-JS
+- ✅ Mobile-responsive design (breakpoints at 768px and 1024px)
+- ✅ Sample data embedded (5 updates, 4 saved items, 5 deadlines, 4 subscriptions)
+- ✅ Consistent with other pages (state profiles, articles, search)
+- ✅ Dynamic import with SSR disabled for client-side features
 
 **Working on:** Step 2 COMPLETED - State profile pages with topic categories
 
