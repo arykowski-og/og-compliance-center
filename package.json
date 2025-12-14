@@ -4,9 +4,9 @@
   "description": "OpenGov Compliance Center - State-by-state regulatory guidance for local governments",
   "main": "index.html",
   "scripts": {
-    "dev": "npx serve -l 3000 -s .",
-    "start": "npx serve -l 3000 -s .",
-    "preview": "npx serve -l 3000 -s ."
+    "dev": "npx serve -l 3000 .",
+    "start": "npx serve -l 3000 .",
+    "preview": "npx serve -l 3000 ."
   },
   "keywords": [
     "opengov",

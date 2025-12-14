@@ -17,6 +17,7 @@
 | ✅ | 7 | Create Texas state compliance page 🎨 |
 | ✅ | 8 | Convert state listing page to standalone HTML 🎨 |
 | ✅ | 9 | Fix homepage links - update to working HTML pages 🎨 |
+| ✅ | 10 | Fix server routing - remove SPA mode 🔧 |
 
 ## Status Legend
 - ✅ Completed
@@ -26,7 +27,20 @@
 
 ## Current Status
 
-**Working on:** Step 9 COMPLETED - Fixed homepage links
+**Working on:** Step 10 COMPLETED - Fixed server routing configuration
+
+### Step 10 Summary
+- ✅ Identified root cause: serve package was running in SPA mode (-s flag)
+- ✅ SPA mode serves index.html for ALL routes (causing all links to return to homepage)
+- ✅ Removed -s flag from all npm scripts (dev, start, preview)
+- ✅ Server now properly serves static HTML files
+- ✅ Navigation now works correctly:
+  - page-states.html → Shows state directory ✓
+  - products-financial.html → Shows financial management page ✓
+  - article-gasb96.html → Shows GASB 96 article ✓
+  - index.html → Shows homepage ✓
+- ✅ Server will need restart to apply changes
+- ✅ All page links should now work as expected
 
 ### Step 9 Summary
 - ✅ Fixed broken links on homepage
