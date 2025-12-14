@@ -3,6 +3,8 @@ import config from '@/payload.config'
 import Link from 'next/link'
 import { StateMap } from '@/components/StateMap'
 
+export const dynamic = 'force-dynamic'
+
 export default async function StatesPage() {
   const payload = await getPayload({ config })
   

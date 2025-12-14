@@ -4,21 +4,11 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config })
-  const { docs: states } = await payload.find({
-    collection: 'states',
-    where: {
-      status: {
-        equals: 'published',
-      },
-    },
-    limit: 100,
-  })
+export const dynamic = 'force-dynamic'
 
-  return states.map((state) => ({
-    slug: state.slug,
-  }))
+export async function generateStaticParams() {
+  // Return empty array to skip static generation at build time
+  return []
 }
 
 export async function generateMetadata({
