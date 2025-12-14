@@ -325,7 +325,7 @@ export default function SearchPage() {
                       </div>
                       
                       <h3 className="result-title">
-                        <Link href={`/states/${article.stateSlug}/financial-management/budget-adoption`}>
+                        <Link href={`/articles/${article.stateSlug}-${article.title.toLowerCase().split(':')[1].trim().replace(/[()]/g, '').replace(/\s+/g, '-').replace(/\//g, '-')}`}>
                           {article.title}
                         </Link>
                       </h3>

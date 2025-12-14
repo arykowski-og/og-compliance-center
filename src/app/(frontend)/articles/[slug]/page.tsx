@@ -61,7 +61,68 @@ const COMPLIANCE_ARTICLES: Record<string, any> = {
     laws: ['Colorado Revised Statutes Title 29'],
     regulations: ['Colorado Office of the State Auditor guidance'],
     notes: 'Colorado requires encumbrance accounting for budget compliance',
-    opengovSolution: 'OpenGov Financials supports encumbrance accounting for budget control with real-time tracking.'
+    opengovSolution: 'OpenGov Financials supports encumbrance accounting for budget control with real-time tracking.',
+    featureTag: 'encumbrance-accounting'
+  },
+  'california-gasb-54': {
+    title: 'California: General Ledger with Fund Accounting (GASB 54)',
+    state: 'California',
+    stateCode: 'CA',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'GASB 54 requires California local governments to classify fund balances as nonspendable, restricted, committed, assigned, or unassigned. This provides transparency about how funds can be used.',
+    requirements: [
+      'Classify fund balances into five categories',
+      'Report fund balance classifications in financial statements',
+      'Maintain documentation of constraints on fund usage',
+      'Update classifications when constraints change'
+    ],
+    laws: ['California Government Code Section 30200'],
+    regulations: ['GASB Statement No. 54', 'State Controller reporting requirements'],
+    notes: 'Fund balance classification is critical for California ACFR preparation',
+    opengovSolution: 'OpenGov Financials provides automated GASB 54 fund balance classification.',
+    featureTag: 'gasb-54'
+  },
+  'texas-gasb-54': {
+    title: 'Texas: General Ledger with Fund Accounting (GASB 54)',
+    state: 'Texas',
+    stateCode: 'TX',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'Texas local governments must classify fund balances per GASB 54 standards with proper reporting to the state.',
+    requirements: [
+      'Implement five-tier fund balance classification',
+      'Report to Texas Comptroller annually',
+      'Document fund balance policies',
+      'Maintain audit trail for classifications'
+    ],
+    laws: ['Texas Local Government Code Chapter 140'],
+    regulations: ['GASB Statement No. 54', 'Texas Comptroller requirements'],
+    notes: 'Texas requires fund balance reporting in annual financial reports',
+    opengovSolution: 'OpenGov Financials automates GASB 54 compliance and Texas-specific reporting.',
+    featureTag: 'gasb-54'
+  },
+  'colorado-gasb-54': {
+    title: 'Colorado: General Ledger with Fund Accounting (GASB 54)',
+    state: 'Colorado',
+    stateCode: 'CO',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'Fund accounting with GASB 54 classifications for transparent financial reporting in Colorado.',
+    requirements: [
+      'Apply GASB 54 fund balance categories',
+      'Report to State Auditor',
+      'Establish fund balance policies',
+      'Annual financial statement compliance'
+    ],
+    laws: ['Colorado Revised Statutes Title 29-1-601'],
+    regulations: ['GASB Statement No. 54', 'Colorado OSA guidance'],
+    notes: 'Colorado emphasizes fund balance transparency for public accountability',
+    opengovSolution: 'OpenGov Financials delivers GASB 54 compliant fund accounting.',
+    featureTag: 'gasb-54'
   }
 }
 
@@ -72,6 +133,29 @@ export default function ArticlePage() {
   const article = useMemo(() => {
     return COMPLIANCE_ARTICLES[slug] || null
   }, [slug])
+
+  const relatedArticles = useMemo(() => {
+    if (!article) return []
+    
+    return Object.entries(COMPLIANCE_ARTICLES)
+      .filter(([key, art]) => {
+        if (key === slug) return false
+        return art.category === article.category || art.featureTag === article.featureTag
+      })
+      .map(([key, art]) => ({ slug: key, ...art }))
+      .slice(0, 3)
+  }, [article, slug])
+
+  const stateComparisons = useMemo(() => {
+    if (!article || !article.featureTag) return []
+    
+    return Object.entries(COMPLIANCE_ARTICLES)
+      .filter(([key, art]) => {
+        if (key === slug) return false
+        return art.featureTag === article.featureTag
+      })
+      .map(([key, art]) => ({ slug: key, ...art }))
+  }, [article, slug])
 
   if (!article) {
     return (
@@ -210,6 +294,70 @@ export default function ArticlePage() {
           </div>
         </div>
       </section>
+
+      {stateComparisons.length > 0 && (
+        <section className="content-section comparison-section">
+          <div className="container-narrow">
+            <h2 className="section-title">State Comparison: {article.featureTag?.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}</h2>
+            <p className="comparison-intro">
+              See how different states handle this requirement:
+            </p>
+            
+            <div className="comparison-grid">
+              <div className="comparison-card current-state">
+                <div className="comparison-header">
+                  <h3>{article.state}</h3>
+                  <span className="current-badge">Current Article</span>
+                </div>
+                <div className="comparison-level">
+                  <span className={`level-badge ${article.complianceLevel}`}>
+                    {article.complianceLevel.toUpperCase()}
+                  </span>
+                </div>
+                <p className="comparison-summary">{article.summary}</p>
+              </div>
+              
+              {stateComparisons.map((comp: any) => (
+                <Link key={comp.slug} href={`/articles/${comp.slug}`} className="comparison-card">
+                  <div className="comparison-header">
+                    <h3>{comp.state}</h3>
+                  </div>
+                  <div className="comparison-level">
+                    <span className={`level-badge ${comp.complianceLevel}`}>
+                      {comp.complianceLevel.toUpperCase()}
+                    </span>
+                  </div>
+                  <p className="comparison-summary">{comp.summary}</p>
+                  <div className="comparison-link">View Details →</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {relatedArticles.length > 0 && (
+        <section className="content-section related-section">
+          <div className="container-narrow">
+            <h2 className="section-title">Related Compliance Articles</h2>
+            <div className="related-grid">
+              {relatedArticles.map((related: any) => (
+                <Link key={related.slug} href={`/articles/${related.slug}`} className="related-card">
+                  <div className="related-badges">
+                    <span className="state-badge">{related.stateCode}</span>
+                    <span className={`compliance-badge ${related.complianceLevel}`}>
+                      {related.complianceLevel}
+                    </span>
+                  </div>
+                  <h3 className="related-title">{related.title}</h3>
+                  <p className="related-excerpt">{related.summary.substring(0, 120)}...</p>
+                  <div className="related-link">Read More →</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="cta-section">
         <div className="container">
