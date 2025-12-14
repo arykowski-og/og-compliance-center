@@ -1,0 +1,1976 @@
+openapi: 3.1.0
+info:
+  title: OpenGov Compliance Center API
+  version: 1.0.0
+  description: |
+    The OpenGov Compliance Center API provides programmatic access to state-by-state 
+    compliance guidance for local governments. Access regulatory content, manage 
+    subscriptions, create comparisons, and integrate compliance data into your workflows.
+    
+    ## Features
+    - Public content access (states, articles, search)
+    - User authentication (JWT tokens)
+    - Personalized dashboard and saved items
+    - Alert subscriptions and notifications
+    - Multi-state comparison tool
+    - Template and resource downloads
+    
+    ## Authentication
+    Most endpoints require JWT bearer token authentication. Obtain tokens via `/auth/login`.
+    
+    ## Rate Limiting
+    - Standard: 1,000 requests/hour
+    - Professional: 5,000 requests/hour
+    - Enterprise: 50,000 requests/hour
+    
+  contact:
+    name: OpenGov API Support
+    email: api-support@opengov.com
+    url: https://developers.opengov.com
+  license:
+    name: Proprietary
+    url: https://www.opengov.com/terms
+
+servers:
+  - url: https://api.compliance.opengov.com/v1
+    description: Production server
+  - url: https://api-staging.compliance.opengov.com/v1
+    description: Staging server
+
+tags:
+  - name: Authentication
+    description: User authentication and token management
+  - name: States
+    description: US state compliance profiles
+  - name: Articles
+    description: Compliance articles and regulations
+  - name: Topics
+    description: Compliance topic categories
+  - name: Search
+    description: Full-text content search
+  - name: Dashboard
+    description: Personalized user dashboard
+  - name: Saved Items
+    description: User bookmarks and saved content
+  - name: Subscriptions
+    description: Alert subscriptions and notifications
+  - name: Comparisons
+    description: Multi-state compliance comparisons
+  - name: Resources
+    description: Templates, checklists, and downloadable resources
+  - name: Users
+    description: User profile and preferences
+
+paths:
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: Login and obtain JWT token
+      description: Authenticate with email and password to receive a JWT access token
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: securePassword123
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /auth/refresh:
+    post:
+      tags: [Authentication]
+      summary: Refresh access token
+      description: Use refresh token to obtain a new access token
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refreshToken]
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/logout:
+    post:
+      tags: [Authentication]
+      summary: Logout and invalidate token
+      description: Invalidate the current JWT token
+      operationId: logout
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /states:
+    get:
+      tags: [States]
+      summary: List all states
+      description: Retrieve a list of all 50 US states with compliance metadata
+      operationId: listStates
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated list of fields to return
+          schema:
+            type: string
+          example: id,slug,name,abbreviation
+      responses:
+        '200':
+          description: List of states
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/State'
+
+  /states/{stateId}:
+    get:
+      tags: [States]
+      summary: Get state details
+      description: Retrieve detailed information about a specific state
+      operationId: getState
+      parameters:
+        - name: stateId
+          in: path
+          required: true
+          description: State ID or slug (e.g., 'colorado' or 'state_co')
+          schema:
+            type: string
+          example: colorado
+      responses:
+        '200':
+          description: State details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/StateDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /states/{stateId}/articles:
+    get:
+      tags: [States]
+      summary: Get state articles
+      description: Retrieve all articles for a specific state with filtering and pagination
+      operationId: getStateArticles
+      parameters:
+        - name: stateId
+          in: path
+          required: true
+          description: State ID or slug
+          schema:
+            type: string
+          example: colorado
+        - name: topic
+          in: query
+          description: Filter by topic slug
+          schema:
+            type: string
+          example: financial-management
+        - name: contentType
+          in: query
+          description: Filter by content type
+          schema:
+            type: string
+            enum: [regulation, guide, template, checklist, video]
+          example: regulation
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: List of articles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleListResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /articles:
+    get:
+      tags: [Articles]
+      summary: List articles
+      description: List all articles with filtering and pagination
+      operationId: listArticles
+      parameters:
+        - name: state
+          in: query
+          description: Filter by state slug
+          schema:
+            type: string
+          example: colorado
+        - name: topic
+          in: query
+          description: Filter by topic slug
+          schema:
+            type: string
+          example: financial-management
+        - name: contentType
+          in: query
+          description: Filter by content type
+          schema:
+            type: string
+            enum: [regulation, guide, template, checklist, video]
+        - name: search
+          in: query
+          description: Full-text search query
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          description: Filter articles updated after date (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: dateTo
+          in: query
+          description: Filter articles updated before date (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: List of articles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleListResponse'
+
+  /articles/{articleId}:
+    get:
+      tags: [Articles]
+      summary: Get article details
+      description: Retrieve full article content including requirements, sources, and resources
+      operationId: getArticle
+      parameters:
+        - name: articleId
+          in: path
+          required: true
+          description: Article ID or slug
+          schema:
+            type: string
+          example: art_123
+      responses:
+        '200':
+          description: Article details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/ArticleDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /topics:
+    get:
+      tags: [Topics]
+      summary: List all topics
+      description: Retrieve all compliance topic categories
+      operationId: listTopics
+      responses:
+        '200':
+          description: List of topics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Topic'
+
+  /topics/{topicId}:
+    get:
+      tags: [Topics]
+      summary: Get topic details
+      description: Get detailed information about a specific topic including articles across all states
+      operationId: getTopic
+      parameters:
+        - name: topicId
+          in: path
+          required: true
+          description: Topic ID or slug
+          schema:
+            type: string
+          example: financial-management
+        - name: state
+          in: query
+          description: Filter by state
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Topic details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/TopicDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /search:
+    get:
+      tags: [Search]
+      summary: Search content
+      description: Full-text search across all content with advanced filtering
+      operationId: searchContent
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Search query string
+          schema:
+            type: string
+          example: budget adoption
+        - name: state[]
+          in: query
+          description: Filter by states (multi-select)
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+          example: [colorado, texas]
+        - name: topic[]
+          in: query
+          description: Filter by topics (multi-select)
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        - name: contentType[]
+          in: query
+          description: Filter by content types (multi-select)
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [regulation, guide, template, checklist, video]
+          style: form
+          explode: true
+        - name: dateFrom
+          in: query
+          description: Date range start (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: dateTo
+          in: query
+          description: Date range end (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: Sort by field
+          schema:
+            type: string
+            enum: [relevance, date, title]
+            default: relevance
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+
+  /dashboard:
+    get:
+      tags: [Dashboard]
+      summary: Get user dashboard
+      description: Retrieve personalized dashboard with updates, saved items, subscriptions, and deadlines
+      operationId: getDashboard
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Dashboard data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Dashboard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /saved-items:
+    get:
+      tags: [Saved Items]
+      summary: List saved items
+      description: Retrieve user's saved/bookmarked content
+      operationId: listSavedItems
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: state
+          in: query
+          description: Filter by state
+          schema:
+            type: string
+        - name: topic
+          in: query
+          description: Filter by topic
+          schema:
+            type: string
+        - name: contentType
+          in: query
+          description: Filter by content type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - name: sort
+          in: query
+          description: Sort field
+          schema:
+            type: string
+            enum: [saved_at:desc, title:asc]
+            default: saved_at:desc
+      responses:
+        '200':
+          description: List of saved items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedItemsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    
+    post:
+      tags: [Saved Items]
+      summary: Save item
+      description: Save/bookmark an article
+      operationId: saveItem
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [articleId]
+              properties:
+                articleId:
+                  type: string
+                  example: art_123
+                notes:
+                  type: string
+                  example: Important for FY26 budget process
+      responses:
+        '201':
+          description: Item saved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/SavedItem'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /saved-items/{savedItemId}:
+    delete:
+      tags: [Saved Items]
+      summary: Remove saved item
+      description: Remove an item from saved items
+      operationId: removeSavedItem
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: savedItemId
+          in: path
+          required: true
+          description: Saved item ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Item removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /subscriptions:
+    get:
+      tags: [Subscriptions]
+      summary: List subscriptions
+      description: Retrieve user's alert subscriptions
+      operationId: listSubscriptions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of subscriptions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    
+    post:
+      tags: [Subscriptions]
+      summary: Create subscription
+      description: Create a new alert subscription
+      operationId: createSubscription
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionInput'
+      responses:
+        '201':
+          description: Subscription created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /subscriptions/{subscriptionId}:
+    patch:
+      tags: [Subscriptions]
+      summary: Update subscription
+      description: Update an existing subscription
+      operationId: updateSubscription
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          description: Subscription ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                frequency:
+                  type: string
+                  enum: [immediate, daily, weekly, monthly]
+                isActive:
+                  type: boolean
+      responses:
+        '200':
+          description: Subscription updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    
+    delete:
+      tags: [Subscriptions]
+      summary: Delete subscription
+      description: Delete an alert subscription
+      operationId: deleteSubscription
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          description: Subscription ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Subscription deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /comparisons:
+    get:
+      tags: [Comparisons]
+      summary: Get saved comparisons
+      description: Retrieve user's saved comparisons
+      operationId: listComparisons
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of comparisons
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ComparisonSummary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    
+    post:
+      tags: [Comparisons]
+      summary: Create comparison
+      description: Generate a multi-state comparison for a specific topic/requirement
+      operationId: createComparison
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComparisonInput'
+      responses:
+        '201':
+          description: Comparison created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Comparison'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /comparisons/{comparisonId}/export/{format}:
+    get:
+      tags: [Comparisons]
+      summary: Export comparison
+      description: Export comparison as Excel or PDF
+      operationId: exportComparison
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: comparisonId
+          in: path
+          required: true
+          description: Comparison ID
+          schema:
+            type: string
+        - name: format
+          in: path
+          required: true
+          description: Export format
+          schema:
+            type: string
+            enum: [excel, pdf]
+      responses:
+        '200':
+          description: File download
+          content:
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /resources:
+    get:
+      tags: [Resources]
+      summary: List resources
+      description: Retrieve document templates, checklists, and other downloadable resources
+      operationId: listResources
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: type
+          in: query
+          description: Filter by resource type
+          schema:
+            type: string
+            enum: [template, checklist, guide, video]
+        - name: state
+          in: query
+          description: Filter by state
+          schema:
+            type: string
+        - name: topic
+          in: query
+          description: Filter by topic
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: List of resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourcesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /resources/{resourceId}/download:
+    get:
+      tags: [Resources]
+      summary: Download resource
+      description: Download a template, checklist, or other resource file
+      operationId: downloadResource
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: resourceId
+          in: path
+          required: true
+          description: Resource ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File download
+          content:
+            application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+              schema:
+                type: string
+                format: binary
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /users/me:
+    get:
+      tags: [Users]
+      summary: Get current user
+      description: Retrieve current user's profile and preferences
+      operationId: getCurrentUser
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    
+    patch:
+      tags: [Users]
+      summary: Update user profile
+      description: Update current user's profile and preferences
+      operationId: updateUser
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                preferences:
+                  type: object
+                  properties:
+                    timezone:
+                      type: string
+                    emailNotifications:
+                      type: boolean
+                    inAppNotifications:
+                      type: boolean
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from /auth/login
+    
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for enterprise customers (server-to-server)
+
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Number of items per page (max 100)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+      example: 25
+    
+    Cursor:
+      name: cursor
+      in: query
+      description: Cursor for pagination
+      schema:
+        type: string
+      example: eyJpZCI6ImFydF8xMjMifQ
+    
+    Sort:
+      name: sort
+      in: query
+      description: Sort field and direction (field:asc or field:desc)
+      schema:
+        type: string
+      example: updated_at:desc
+
+  schemas:
+    LoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+              description: JWT access token
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+            refreshToken:
+              type: string
+              description: JWT refresh token
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+            expiresIn:
+              type: integer
+              description: Token expiration in seconds
+              example: 3600
+            user:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: user_123
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                name:
+                  type: string
+                  example: Sarah Smith
+
+    State:
+      type: object
+      properties:
+        id:
+          type: string
+          example: state_co
+        slug:
+          type: string
+          example: colorado
+        name:
+          type: string
+          example: Colorado
+        abbreviation:
+          type: string
+          example: CO
+        fiscalYear:
+          type: object
+          properties:
+            start:
+              type: string
+              example: '07-01'
+            end:
+              type: string
+              example: '06-30'
+        articleCount:
+          type: integer
+          example: 42
+        lastUpdated:
+          type: string
+          format: date-time
+          example: '2025-12-14T10:30:00Z'
+
+    StateDetail:
+      allOf:
+        - $ref: '#/components/schemas/State'
+        - type: object
+          properties:
+            characteristics:
+              type: object
+              properties:
+                population:
+                  type: integer
+                  example: 5773714
+                localGovernments:
+                  type: integer
+                  example: 276
+                oversightAgency:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Colorado Department of Local Affairs
+                    website:
+                      type: string
+                      format: uri
+                      example: https://cdola.colorado.gov
+            topics:
+              type: array
+              items:
+                $ref: '#/components/schemas/Topic'
+            recentUpdates:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  updatedAt:
+                    type: string
+                    format: date-time
+
+    Article:
+      type: object
+      properties:
+        id:
+          type: string
+          example: art_123
+        slug:
+          type: string
+          example: budget-adoption-deadlines
+        title:
+          type: string
+          example: Budget Adoption Deadlines
+        state:
+          type: object
+          properties:
+            id:
+              type: string
+              example: state_co
+            name:
+              type: string
+              example: Colorado
+        topic:
+          type: object
+          properties:
+            id:
+              type: string
+              example: topic_fin
+            name:
+              type: string
+              example: Financial Management
+        contentType:
+          type: string
+          enum: [regulation, guide, template, checklist, video]
+          example: regulation
+        summary:
+          type: string
+          example: Colorado requires all jurisdictions to adopt a formal budget by September 30...
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2025-12-14T10:30:00Z'
+        effectiveDate:
+          type: string
+          format: date
+          example: '2025-01-01'
+        url:
+          type: string
+          example: /articles/art_123
+
+    ArticleDetail:
+      allOf:
+        - $ref: '#/components/schemas/Article'
+        - type: object
+          properties:
+            content:
+              type: object
+              properties:
+                whatYouNeedToKnow:
+                  type: string
+                  description: Plain language summary
+                keyRequirements:
+                  type: array
+                  items:
+                    type: string
+                  example: [Public hearing required, At least 10 days' notice]
+                implementation:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      step:
+                        type: integer
+                      title:
+                        type: string
+                      description:
+                        type: string
+                body:
+                  type: string
+                  description: Full HTML content
+            sources:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  url:
+                    type: string
+                    format: uri
+                  type:
+                    type: string
+                    enum: [statute, regulation, administrative_rule]
+            relatedArticles:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+            resources:
+              type: array
+              items:
+                $ref: '#/components/schemas/Resource'
+            metadata:
+              type: object
+              properties:
+                effectiveDate:
+                  type: string
+                  format: date
+                lastReviewed:
+                  type: string
+                  format: date
+                reviewedBy:
+                  type: string
+                confidenceLevel:
+                  type: string
+                  enum: [verified, unverified, needs_review]
+            createdAt:
+              type: string
+              format: date-time
+
+    ArticleListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Article'
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+
+    Topic:
+      type: object
+      properties:
+        id:
+          type: string
+          example: topic_fin
+        slug:
+          type: string
+          example: financial-management
+        name:
+          type: string
+          example: Financial Management
+        description:
+          type: string
+          example: Budget adoption, financial reporting, audits, and fiscal compliance
+        icon:
+          type: string
+          example: chart-bar
+        articleCount:
+          type: integer
+          example: 234
+        stateCount:
+          type: integer
+          example: 50
+
+    TopicDetail:
+      allOf:
+        - $ref: '#/components/schemas/Topic'
+        - type: object
+          properties:
+            articles:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Article'
+                pagination:
+                  $ref: '#/components/schemas/Pagination'
+            stateCoverage:
+              type: array
+              items:
+                type: object
+                properties:
+                  state:
+                    type: string
+                  articleCount:
+                    type: integer
+                  lastUpdated:
+                    type: string
+                    format: date-time
+
+    SearchResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            query:
+              type: string
+              example: budget adoption
+            items:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Article'
+                  - type: object
+                    properties:
+                      snippet:
+                        type: string
+                        description: Search result snippet with highlighted terms
+                        example: Colorado requires all jurisdictions to adopt a formal <mark>budget</mark>...
+                      relevanceScore:
+                        type: number
+                        format: float
+                        example: 0.95
+            facets:
+              type: object
+              properties:
+                states:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      slug:
+                        type: string
+                      count:
+                        type: integer
+                topics:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      slug:
+                        type: string
+                      count:
+                        type: integer
+                contentTypes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      count:
+                        type: integer
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+
+    Dashboard:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            email:
+              type: string
+        monitoring:
+          type: object
+          properties:
+            states:
+              type: array
+              items:
+                type: string
+            topics:
+              type: array
+              items:
+                type: string
+        newUpdates:
+          type: object
+          properties:
+            count:
+              type: integer
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  state:
+                    type: string
+                  topic:
+                    type: string
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  isNew:
+                    type: boolean
+        savedItems:
+          type: object
+          properties:
+            count:
+              type: integer
+            recentItems:
+              type: array
+              items:
+                $ref: '#/components/schemas/SavedItem'
+        activeSubscriptions:
+          type: object
+          properties:
+            count:
+              type: integer
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  frequency:
+                    type: string
+                  lastAlertSent:
+                    type: string
+                    format: date-time
+                  itemsInLastAlert:
+                    type: integer
+        upcomingDeadlines:
+          type: object
+          properties:
+            count:
+              type: integer
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+                  title:
+                    type: string
+                  state:
+                    type: string
+                  daysRemaining:
+                    type: integer
+        lastLogin:
+          type: string
+          format: date-time
+
+    SavedItem:
+      type: object
+      properties:
+        id:
+          type: string
+          example: saved_001
+        article:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            state:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+            topic:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+            url:
+              type: string
+        savedAt:
+          type: string
+          format: date-time
+        notes:
+          type: string
+
+    SavedItemsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/SavedItem'
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+          example: sub_001
+        name:
+          type: string
+          example: Colorado - All Topics
+        states:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+        topics:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+        frequency:
+          type: string
+          enum: [immediate, daily, weekly, monthly]
+          example: weekly
+        deliveryMethod:
+          type: string
+          enum: [email, in_app, sms]
+          example: email
+        isActive:
+          type: boolean
+          example: true
+        lastAlertSent:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+
+    SubscriptionInput:
+      type: object
+      required: [name, frequency, deliveryMethod]
+      properties:
+        name:
+          type: string
+          example: Colorado - All Topics
+        states:
+          type: array
+          items:
+            type: string
+          example: [state_co]
+        topics:
+          type: array
+          items:
+            type: string
+          example: [topic_fin]
+        frequency:
+          type: string
+          enum: [immediate, daily, weekly, monthly]
+          example: weekly
+        deliveryMethod:
+          type: string
+          enum: [email, in_app, sms]
+          example: email
+
+    Comparison:
+      type: object
+      properties:
+        id:
+          type: string
+          example: comp_001
+        title:
+          type: string
+          example: 'Budget Adoption Deadlines: Colorado vs Texas vs California'
+        states:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+        topic:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        requirement:
+          type: string
+          example: Budget Adoption Deadlines
+        comparison:
+          type: array
+          items:
+            type: object
+            properties:
+              attribute:
+                type: string
+                example: Adoption Deadline
+              values:
+                type: object
+                additionalProperties:
+                  type: string
+                example:
+                  state_co: September 30
+                  state_tx: June 30
+                  state_ca: July 15
+              differenceLevel:
+                type: string
+                enum: [consistent, similar, significant]
+                example: significant
+        keyTakeaways:
+          type: array
+          items:
+            type: string
+        exportUrls:
+          type: object
+          properties:
+            excel:
+              type: string
+            pdf:
+              type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    ComparisonSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: comp_001
+        title:
+          type: string
+          example: 'Budget Adoption Deadlines: CO vs TX vs CA'
+        stateCount:
+          type: integer
+          example: 3
+        createdAt:
+          type: string
+          format: date-time
+        url:
+          type: string
+
+    ComparisonInput:
+      type: object
+      required: [states, topicId, requirementSlug]
+      properties:
+        states:
+          type: array
+          minItems: 2
+          maxItems: 5
+          items:
+            type: string
+          example: [state_co, state_tx, state_ca]
+        topicId:
+          type: string
+          example: topic_fin
+        requirementSlug:
+          type: string
+          example: budget-adoption-deadlines
+        save:
+          type: boolean
+          default: true
+
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+          example: res_001
+        type:
+          type: string
+          enum: [template, checklist, guide, video]
+          example: template
+        name:
+          type: string
+          example: Budget Resolution Template
+        description:
+          type: string
+        state:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        topic:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        fileType:
+          type: string
+          example: docx
+        fileSize:
+          type: integer
+          description: File size in bytes
+          example: 45120
+        downloadUrl:
+          type: string
+          example: /api/v1/resources/res_001/download
+        previewUrl:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+
+    ResourcesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Resource'
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: user_123
+        email:
+          type: string
+          format: email
+          example: sarah@county.gov
+        name:
+          type: string
+          example: Sarah Smith
+        role:
+          type: string
+          example: Finance Director
+        organization:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Jefferson County
+            type:
+              type: string
+              enum: [county, city, special_district, other]
+              example: county
+            size:
+              type: string
+              enum: [small, medium, large]
+              example: medium
+        preferences:
+          type: object
+          properties:
+            operatingStates:
+              type: array
+              items:
+                type: string
+            topicsOfInterest:
+              type: array
+              items:
+                type: string
+            timezone:
+              type: string
+              example: America/Denver
+            emailNotifications:
+              type: boolean
+            inAppNotifications:
+              type: boolean
+        subscription:
+          type: object
+          properties:
+            plan:
+              type: string
+              enum: [free, standard, professional, enterprise]
+              example: professional
+            status:
+              type: string
+              enum: [active, inactive, trial, expired]
+              example: active
+            expiresAt:
+              type: string
+              format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        lastLoginAt:
+          type: string
+          format: date-time
+
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 25
+        hasMore:
+          type: boolean
+          example: true
+        nextCursor:
+          type: string
+          nullable: true
+          example: eyJpZCI6ImFydF8xNTAifQ
+        prevCursor:
+          type: string
+          nullable: true
+          example: eyJpZCI6ImFydF8xMDAifQ
+        totalCount:
+          type: integer
+          example: 247
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Operation completed successfully
+
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: RESOURCE_NOT_FOUND
+            message:
+              type: string
+              example: The requested resource was not found
+            details:
+              type: object
+            timestamp:
+              type: string
+              format: date-time
+            requestId:
+              type: string
+              example: req_abc123
+            documentation:
+              type: string
+              format: uri
+
+  responses:
+    BadRequest:
+      description: Bad request - validation error or malformed request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            error:
+              code: VALIDATION_ERROR
+              message: Request validation failed
+              details:
+                fields:
+                  - field: email
+                    message: Invalid email format
+              timestamp: '2025-12-14T12:00:00Z'
+
+    Unauthorized:
+      description: Unauthorized - authentication required or invalid token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            error:
+              code: AUTHENTICATION_REQUIRED
+              message: Authentication required to access this resource
+              timestamp: '2025-12-14T12:00:00Z'
+
+    Forbidden:
+      description: Forbidden - insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            error:
+              code: INSUFFICIENT_PERMISSIONS
+              message: You do not have permission to access this resource
+              timestamp: '2025-12-14T12:00:00Z'
+
+    NotFound:
+      description: Not found - resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            error:
+              code: RESOURCE_NOT_FOUND
+              message: The requested resource was not found
+              details:
+                resourceType: article
+                resourceId: art_999
+              timestamp: '2025-12-14T12:00:00Z'
+
+    RateLimitExceeded:
+      description: Rate limit exceeded
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Request limit per hour
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Requests remaining
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Unix timestamp when limit resets
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            error:
+              code: RATE_LIMIT_EXCEEDED
+              message: Rate limit exceeded. Please try again later.
+              details:
+                limit: 5000
+                remaining: 0
+                resetAt: '2025-12-14T13:00:00Z'
+              timestamp: '2025-12-14T12:00:00Z'
