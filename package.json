@@ -1,0 +1,22 @@
+{
+  "name": "og-compliance-center",
+  "version": "1.0.0",
+  "description": "OpenGov Compliance Center - State-by-state regulatory guidance for local governments",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve -l 3000 -s .",
+    "start": "npx serve -l 3000 -s .",
+    "preview": "npx serve -l 3000 -s ."
+  },
+  "keywords": [
+    "opengov",
+    "compliance",
+    "government",
+    "regulatory",
+    "state-guides"
+  ],
+  "author": "OpenGov",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}

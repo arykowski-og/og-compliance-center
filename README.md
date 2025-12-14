@@ -1,5 +1,37 @@
-# OpenGov Compliance Center WordPress Theme
+# OpenGov Compliance Center
 
+Your complete guide to local government compliance across all 50 states. Navigate regulatory requirements, understand product capabilities, and operate with confidence.
+
+## 🚀 Quick Start (Sandbox - Port 3000)
+
+### Running in Sandbox/Local Development
+
+```bash
+npm run dev
+```
+
+This starts a static file server on **port 3000** (sandbox proxy compatible):
+- Serves `index.html` automatically
+- No build step required
+- Works with sandbox proxy URLs
+- Hot reload on file changes
+
+### Alternative Commands
+
+```bash
+npm start       # Same as npm run dev
+npm run preview # Same as npm run dev
+```
+
+## 📦 What's Included
+
+### ✅ Standalone HTML Version (Port 3000)
+- `index.html` - Complete homepage with inline CSS/JS
+- Fully functional without WordPress
+- All features working (smooth scroll, hover effects, animations)
+- **Ready to view at:** `http://localhost:3000`
+
+### ✅ WordPress Theme Files (PHP)
 A modern, professional WordPress theme inspired by [OpenGov.com](https://opengov.com/), designed for government compliance and public service platforms.
 
 ## Features
