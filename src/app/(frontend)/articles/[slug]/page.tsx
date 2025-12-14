@@ -1,316 +1,376 @@
-import { getPayload } from 'payload'
-import config from '@/payload.config'
-import { notFound } from 'next/navigation'
+'use client'
+
 import Link from 'next/link'
-import type { Metadata } from 'next'
+import { useParams } from 'next/navigation'
+import { useMemo } from 'react'
+import './article.css'
 
-export const dynamic = 'force-dynamic'
-
-export async function generateStaticParams() {
-  // Return empty array to skip static generation at build time
-  return []
+// Comprehensive compliance articles data
+const COMPLIANCE_ARTICLES: Record<string, any> = {
+  'california-single-audit-support-a-133-uniform-guidance': {
+    title: 'California: Single Audit Support (A-133/Uniform Guidance)',
+    state: 'California',
+    stateCode: 'CA',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'Single Audit is a federal requirement for local governments in California that spend more than $750,000 in federal grants per year. This audit ensures your organization is using federal funds correctly and following all compliance rules.',
+    requirements: [
+      'Required for entities expending $750,000+ in federal awards annually',
+      'Must comply with federal Single Audit Act requirements',
+      'State Controller Office reporting requirements',
+      'Schedule of Expenditures of Federal Awards (SEFA) preparation'
+    ],
+    laws: ['California Government Code Section 8546.7'],
+    regulations: ['2 CFR Part 200 (Federal Uniform Guidance)', 'OMB Compliance Supplement'],
+    notes: 'CA has additional state-level single audit requirements beyond federal mandates',
+    opengovSolution: 'OpenGov Financials supports Single Audit requirements with federal compliance reporting and SEFA generation.'
+  },
+  'texas-encumbrance-accounting': {
+    title: 'Texas: Encumbrance Accounting',
+    state: 'Texas',
+    stateCode: 'TX',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'Encumbrance accounting helps Texas local governments track purchase orders and commitments before money is actually spent. This gives you better budget control by reserving funds when you commit to a purchase.',
+    requirements: [
+      'Encumbrance tracking required by Texas statute',
+      'Purchase order commitment tracking mandatory',
+      'Year-end encumbrance carry-forward required',
+      'Budget vs. actual reporting must include encumbrances'
+    ],
+    laws: ['Texas Local Government Code Chapter 140'],
+    regulations: ['Texas Comptroller requirements', 'GAAP for governments'],
+    notes: 'Texas is one of few states that statutorily requires encumbrance accounting',
+    opengovSolution: 'OpenGov Financials supports encumbrance accounting with automatic purchase order tracking.'
+  },
+  'colorado-encumbrance-accounting': {
+    title: 'Colorado: Encumbrance Accounting',
+    state: 'Colorado',
+    stateCode: 'CO',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'Encumbrance accounting helps Colorado local governments track purchase orders before money is spent. Required for maintaining accurate budget tracking.',
+    requirements: [
+      'Encumbrance tracking required for budget control',
+      'Purchase order commitment tracking',
+      'Year-end encumbrance carry-forward procedures'
+    ],
+    laws: ['Colorado Revised Statutes Title 29'],
+    regulations: ['Colorado Office of the State Auditor guidance'],
+    notes: 'Colorado requires encumbrance accounting for budget compliance',
+    opengovSolution: 'OpenGov Financials supports encumbrance accounting for budget control with real-time tracking.',
+    featureTag: 'encumbrance-accounting'
+  },
+  'california-gasb-54': {
+    title: 'California: General Ledger with Fund Accounting (GASB 54)',
+    state: 'California',
+    stateCode: 'CA',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'GASB 54 requires California local governments to classify fund balances as nonspendable, restricted, committed, assigned, or unassigned. This provides transparency about how funds can be used.',
+    requirements: [
+      'Classify fund balances into five categories',
+      'Report fund balance classifications in financial statements',
+      'Maintain documentation of constraints on fund usage',
+      'Update classifications when constraints change'
+    ],
+    laws: ['California Government Code Section 30200'],
+    regulations: ['GASB Statement No. 54', 'State Controller reporting requirements'],
+    notes: 'Fund balance classification is critical for California ACFR preparation',
+    opengovSolution: 'OpenGov Financials provides automated GASB 54 fund balance classification.',
+    featureTag: 'gasb-54'
+  },
+  'texas-gasb-54': {
+    title: 'Texas: General Ledger with Fund Accounting (GASB 54)',
+    state: 'Texas',
+    stateCode: 'TX',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'Texas local governments must classify fund balances per GASB 54 standards with proper reporting to the state.',
+    requirements: [
+      'Implement five-tier fund balance classification',
+      'Report to Texas Comptroller annually',
+      'Document fund balance policies',
+      'Maintain audit trail for classifications'
+    ],
+    laws: ['Texas Local Government Code Chapter 140'],
+    regulations: ['GASB Statement No. 54', 'Texas Comptroller requirements'],
+    notes: 'Texas requires fund balance reporting in annual financial reports',
+    opengovSolution: 'OpenGov Financials automates GASB 54 compliance and Texas-specific reporting.',
+    featureTag: 'gasb-54'
+  },
+  'colorado-gasb-54': {
+    title: 'Colorado: General Ledger with Fund Accounting (GASB 54)',
+    state: 'Colorado',
+    stateCode: 'CO',
+    category: 'Financial Management',
+    complianceLevel: 'required',
+    lastUpdated: '2025-12-14',
+    summary: 'Fund accounting with GASB 54 classifications for transparent financial reporting in Colorado.',
+    requirements: [
+      'Apply GASB 54 fund balance categories',
+      'Report to State Auditor',
+      'Establish fund balance policies',
+      'Annual financial statement compliance'
+    ],
+    laws: ['Colorado Revised Statutes Title 29-1-601'],
+    regulations: ['GASB Statement No. 54', 'Colorado OSA guidance'],
+    notes: 'Colorado emphasizes fund balance transparency for public accountability',
+    opengovSolution: 'OpenGov Financials delivers GASB 54 compliant fund accounting.',
+    featureTag: 'gasb-54'
+  }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}): Promise<Metadata> {
-  const { slug } = await params
-  const payload = await getPayload({ config })
-  const { docs } = await payload.find({
-    collection: 'articles',
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-    limit: 1,
-  })
-
-  const article = docs[0]
-  if (!article) {
-    return {}
-  }
-
-  return {
-    title: article.seo?.metaTitle || `${article.title} - OpenGov`,
-    description: article.seo?.metaDescription || article.excerpt,
-    keywords: article.seo?.keywords,
-  }
-}
-
-export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const payload = await getPayload({ config })
+export default function ArticlePage() {
+  const params = useParams()
+  const slug = (params?.slug as string) || ''
   
-  const { docs } = await payload.find({
-    collection: 'articles',
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-    limit: 1,
-  })
+  const article = useMemo(() => {
+    return COMPLIANCE_ARTICLES[slug] || null
+  }, [slug])
 
-  const article = docs[0]
+  const relatedArticles = useMemo(() => {
+    if (!article) return []
+    
+    return Object.entries(COMPLIANCE_ARTICLES)
+      .filter(([key, art]) => {
+        if (key === slug) return false
+        return art.category === article.category || art.featureTag === article.featureTag
+      })
+      .map(([key, art]) => ({ slug: key, ...art }))
+      .slice(0, 3)
+  }, [article, slug])
 
-  if (!article || article.status !== 'published') {
-    notFound()
+  const stateComparisons = useMemo(() => {
+    if (!article || !article.featureTag) return []
+    
+    return Object.entries(COMPLIANCE_ARTICLES)
+      .filter(([key, art]) => {
+        if (key === slug) return false
+        return art.featureTag === article.featureTag
+      })
+      .map(([key, art]) => ({ slug: key, ...art }))
+  }, [article, slug])
+
+  if (!article) {
+    return (
+      <div className="not-found-container">
+        <div className="container">
+          <h1>Article Not Found</h1>
+          <p>The compliance article you are looking for does not exist.</p>
+          <Link href="/articles" className="btn btn-primary">Browse All Articles</Link>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <>
-      {/* Article Header */}
-      <article className="article-container">
-        <header className="article-header">
-          <div className="container-narrow">
-            <div className="article-meta-top">
-              <Link href="/articles" className="back-link">
-                ← Back to Articles
-              </Link>
-              <span className="article-category">{article.category}</span>
-            </div>
-            
-            <h1 className="article-title">{article.title}</h1>
-            
-            <div className="article-meta">
-              <time dateTime={article.publishedDate}>
-                {new Date(article.publishedDate).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </time>
-              {typeof article.author === 'object' && (
-                <>
-                  <span className="meta-separator">•</span>
-                  <span className="article-author">By {article.author.name}</span>
-                </>
-              )}
-            </div>
-
-            {article.excerpt && (
-              <p className="article-excerpt">{article.excerpt}</p>
-            )}
+    <article className="article-detail">
+      <header className="article-header">
+        <div className="container-narrow">
+          <div className="breadcrumb">
+            <Link href="/">Home</Link>
+            <span className="breadcrumb-sep">›</span>
+            <Link href="/articles">Articles</Link>
+            <span className="breadcrumb-sep">›</span>
+            <span className="breadcrumb-current">{article.state}</span>
           </div>
-        </header>
 
-        {/* Article Content */}
-        <div className="article-content">
-          <div className="container-narrow">
-            {article.content && (
-              <div 
-                className="rich-content"
-                dangerouslySetInnerHTML={{ 
-                  __html: JSON.stringify(article.content) 
-                }}
-              />
-            )}
+          <div className="article-badges">
+            <span className={`compliance-badge ${article.complianceLevel}`}>
+              {article.complianceLevel.toUpperCase()}
+            </span>
+            <span className="category-badge">{article.category}</span>
+          </div>
+
+          <h1 className="article-title">{article.title}</h1>
+
+          <div className="article-meta">
+            <span>Last Updated: {new Date(article.lastUpdated).toLocaleDateString()}</span>
           </div>
         </div>
+      </header>
 
-        {/* Related Content */}
-        {article.relatedStates && article.relatedStates.length > 0 && (
-          <aside className="article-related">
-            <div className="container-narrow">
-              <h3>Related States</h3>
-              <div className="related-states-grid">
-                {article.relatedStates.map((state: any) => (
-                  <Link
-                    key={state.id}
-                    href={`/states/${state.slug}`}
-                    className="related-state-card"
-                  >
-                    <span className="state-name">{state.name}</span>
-                    <span className="state-abbr">{state.abbreviation}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </aside>
-        )}
-
-        {/* Tags */}
-        {article.tags && article.tags.length > 0 && (
-          <div className="article-tags">
-            <div className="container-narrow">
-              <h4>Tags</h4>
-              <div className="tags-list">
-                {article.tags.map((tagObj: any, index: number) => (
-                  <span key={index} className="tag">
-                    {tagObj.tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+      <section className="content-section summary-section">
+        <div className="container-narrow">
+          <h2 className="section-title">What You Need to Know</h2>
+          <div className="callout-box">
+            <p className="summary-text">{article.summary}</p>
           </div>
-        )}
-      </article>
+        </div>
+      </section>
 
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="container">
-          <div className="cta-content">
-            <h2>Stay Updated on Compliance</h2>
-            <p>
-              Subscribe to our newsletter for the latest compliance insights, 
-              regulatory updates, and best practices.
-            </p>
-            <div className="cta-buttons">
-              <Link href="/contact" className="btn btn-primary btn-lg">
-                Contact an Expert
-              </Link>
-              <Link href="/articles" className="btn btn-outline-light btn-lg">
-                More Articles
-              </Link>
+      <section className="content-section">
+        <div className="container-narrow">
+          <h2 className="section-title">Key Requirements</h2>
+          <ul className="requirements-list">
+            {article.requirements.map((req: string, index: number) => (
+              <li key={index} className="requirement-item">{req}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="content-section highlight-section">
+        <div className="container-narrow">
+          <h2 className="section-title">Compliance Level</h2>
+          <div className="compliance-info">
+            <div className="compliance-level-large">
+              <span className={`level-badge ${article.complianceLevel}`}>
+                {article.complianceLevel.toUpperCase()}
+              </span>
+              <p>This requirement is <strong>{article.complianceLevel}</strong> for local governments in {article.state}.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <style dangerouslySetInnerHTML={{__html: `
-        .article-container {
-          background: var(--og-white);
-        }
+      {(article.laws.length > 0 || article.regulations.length > 0) && (
+        <section className="content-section">
+          <div className="container-narrow">
+            <h2 className="section-title">Official Sources</h2>
+            
+            {article.laws.length > 0 && (
+              <>
+                <h3 className="subsection-title">Applicable Laws</h3>
+                <ul className="sources-list">
+                  {article.laws.map((law: string, index: number) => (
+                    <li key={index}>{law}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+            
+            {article.regulations.length > 0 && (
+              <>
+                <h3 className="subsection-title">Regulations</h3>
+                <ul className="sources-list">
+                  {article.regulations.map((reg: string, index: number) => (
+                    <li key={index}>{reg}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </section>
+      )}
 
-        .article-header {
-          background: linear-gradient(135deg, var(--og-gray-100) 0%, var(--og-white) 100%);
-          padding: var(--spacing-2xl) 0 var(--spacing-xl);
-        }
+      {article.opengovSolution && (
+        <section className="content-section solution-section">
+          <div className="container-narrow">
+            <h2 className="section-title">OpenGov Solution</h2>
+            <div className="solution-box">
+              <div className="solution-icon">✓</div>
+              <p className="solution-text">{article.opengovSolution}</p>
+            </div>
+          </div>
+        </section>
+      )}
 
-        .container-narrow {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 0 var(--spacing-md);
-        }
+      <section className="article-actions">
+        <div className="container-narrow">
+          <div className="actions-grid">
+            <button className="action-btn">
+              <span className="action-icon">💾</span>
+              Save to Library
+            </button>
+            <button className="action-btn">
+              <span className="action-icon">🔗</span>
+              Share Article
+            </button>
+            <button className="action-btn">
+              <span className="action-icon">📄</span>
+              Export PDF
+            </button>
+            <button className="action-btn">
+              <span className="action-icon">🔔</span>
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </section>
 
-        .article-meta-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: var(--spacing-lg);
-        }
+      {stateComparisons.length > 0 && (
+        <section className="content-section comparison-section">
+          <div className="container-narrow">
+            <h2 className="section-title">State Comparison: {article.featureTag?.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}</h2>
+            <p className="comparison-intro">
+              See how different states handle this requirement:
+            </p>
+            
+            <div className="comparison-grid">
+              <div className="comparison-card current-state">
+                <div className="comparison-header">
+                  <h3>{article.state}</h3>
+                  <span className="current-badge">Current Article</span>
+                </div>
+                <div className="comparison-level">
+                  <span className={`level-badge ${article.complianceLevel}`}>
+                    {article.complianceLevel.toUpperCase()}
+                  </span>
+                </div>
+                <p className="comparison-summary">{article.summary}</p>
+              </div>
+              
+              {stateComparisons.map((comp: any) => (
+                <Link key={comp.slug} href={`/articles/${comp.slug}`} className="comparison-card">
+                  <div className="comparison-header">
+                    <h3>{comp.state}</h3>
+                  </div>
+                  <div className="comparison-level">
+                    <span className={`level-badge ${comp.complianceLevel}`}>
+                      {comp.complianceLevel.toUpperCase()}
+                    </span>
+                  </div>
+                  <p className="comparison-summary">{comp.summary}</p>
+                  <div className="comparison-link">View Details →</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-        .back-link {
-          color: var(--og-primary);
-          font-weight: 600;
-          transition: transform var(--transition-fast);
-        }
+      {relatedArticles.length > 0 && (
+        <section className="content-section related-section">
+          <div className="container-narrow">
+            <h2 className="section-title">Related Compliance Articles</h2>
+            <div className="related-grid">
+              {relatedArticles.map((related: any) => (
+                <Link key={related.slug} href={`/articles/${related.slug}`} className="related-card">
+                  <div className="related-badges">
+                    <span className="state-badge">{related.stateCode}</span>
+                    <span className={`compliance-badge ${related.complianceLevel}`}>
+                      {related.complianceLevel}
+                    </span>
+                  </div>
+                  <h3 className="related-title">{related.title}</h3>
+                  <p className="related-excerpt">{related.summary.substring(0, 120)}...</p>
+                  <div className="related-link">Read More →</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-        .back-link:hover {
-          transform: translateX(-4px);
-        }
-
-        .article-category {
-          display: inline-block;
-          padding: 0.25rem 0.75rem;
-          background: var(--og-primary-light);
-          color: var(--og-primary);
-          border-radius: var(--radius-sm);
-          font-size: 0.75rem;
-          font-weight: 700;
-          text-transform: uppercase;
-        }
-
-        .article-title {
-          margin-bottom: var(--spacing-md);
-        }
-
-        .article-meta {
-          display: flex;
-          gap: var(--spacing-sm);
-          align-items: center;
-          color: var(--og-gray-500);
-          font-size: 0.875rem;
-          margin-bottom: var(--spacing-lg);
-        }
-
-        .meta-separator {
-          color: var(--og-gray-300);
-        }
-
-        .article-excerpt {
-          font-size: 1.25rem;
-          color: var(--og-gray-700);
-          line-height: 1.8;
-        }
-
-        .article-content {
-          padding: var(--spacing-3xl) 0;
-        }
-
-        .rich-content {
-          font-size: 1.125rem;
-          line-height: 1.8;
-          color: var(--og-gray-900);
-        }
-
-        .article-related {
-          background: var(--og-gray-100);
-          padding: var(--spacing-2xl) 0;
-        }
-
-        .related-states-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-          gap: var(--spacing-md);
-          margin-top: var(--spacing-lg);
-        }
-
-        .related-state-card {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: var(--spacing-md);
-          background: var(--og-white);
-          border-radius: var(--radius-md);
-          border: 1px solid var(--og-gray-300);
-          transition: all var(--transition-fast);
-        }
-
-        .related-state-card:hover {
-          border-color: var(--og-primary);
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-md);
-        }
-
-        .state-abbr {
-          background: var(--og-primary);
-          color: var(--og-white);
-          padding: 0.25rem 0.5rem;
-          border-radius: var(--radius-sm);
-          font-size: 0.75rem;
-          font-weight: 700;
-        }
-
-        .article-tags {
-          padding: var(--spacing-xl) 0;
-        }
-
-        .tags-list {
-          display: flex;
-          flex-wrap: wrap;
-          gap: var(--spacing-sm);
-          margin-top: var(--spacing-md);
-        }
-
-        .tag {
-          display: inline-block;
-          padding: 0.5rem 1rem;
-          background: var(--og-gray-100);
-          color: var(--og-gray-700);
-          border-radius: var(--radius-full);
-          font-size: 0.875rem;
-        }
-
-        @media (max-width: 768px) {
-          .related-states-grid {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-      `}} />
-    </>
+      <section className="cta-section">
+        <div className="container">
+          <div className="cta-content">
+            <h2>Need Help with Compliance?</h2>
+            <p>Our team of experts can help you understand and implement these requirements.</p>
+            <div className="cta-buttons">
+              <Link href="/contact" className="btn btn-primary btn-lg">Contact an Expert</Link>
+              <Link href="/articles" className="btn btn-outline-light btn-lg">More Articles</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
   )
 }
