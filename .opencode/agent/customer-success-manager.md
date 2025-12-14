@@ -4,7 +4,6 @@ description: Expert customer success manager specializing in customer retention,
 mode: subagent
 model: anthropic.claude-haiku-4-5-20251001-v1:0
 temperature: 0.3
-disable: true
 tools:
   read: true
   write: true

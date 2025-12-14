@@ -38,6 +38,7 @@
       "maxSteps": 20
     },
     "customer-success-manager": {
+      "disable": false,
       "maxSteps": 20
     },
     "fullstack-developer": {
@@ -50,6 +51,7 @@
       "maxSteps": 20
     },
     "product-manager": {
+      "disable": false,
       "maxSteps": 20
     },
     "project-manager": {
@@ -83,7 +85,6 @@
       "maxSteps": 8
     },
     "ux-researcher": {
-      "disable": false,
       "maxSteps": 15
     },
     "wordpress-master": {
