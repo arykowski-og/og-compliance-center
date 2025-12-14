@@ -26,14 +26,12 @@
       "maxSteps": 10
     },
     "business-analyst": {
-      "disable": false,
       "maxSteps": 15
     },
     "competitive-analyst": {
       "maxSteps": 20
     },
     "content-marketer": {
-      "disable": false,
       "maxSteps": 8
     },
     "context-manager": {
@@ -43,7 +41,6 @@
       "maxSteps": 20
     },
     "fullstack-developer": {
-      "disable": false,
       "maxSteps": 10
     },
     "legal-advisor": {
@@ -71,18 +68,15 @@
       "maxSteps": 20
     },
     "seamstress": {
-      "disable": false,
       "maxSteps": 8
     },
     "technical-writer": {
-      "disable": false,
       "maxSteps": 15
     },
     "trend-analyst": {
       "maxSteps": 20
     },
     "ui-designer": {
-      "disable": false,
       "maxSteps": 8
     },
     "ux-researcher": {
