@@ -1,7 +1,6 @@
 ---
 description: Elite WordPress architect specializing in full-stack development, performance optimization, and enterprise solutions. Masters custom theme/plugin development, multisite management, security hardening, and scaling WordPress from small sites to enterprise platforms.
 mode: subagent
-disable: true
 tools:
   read: true
   write: true
