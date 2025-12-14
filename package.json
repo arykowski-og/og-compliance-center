@@ -11,7 +11,8 @@
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
     "seed": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx src/seed/index.ts",
-    "seed:compliance": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx src/seed/compliance-seed.ts"
+    "seed:compliance": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx src/seed/compliance-seed.ts",
+    "import:articles": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx src/seed/import-all-markdown-articles.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.0.0",
@@ -19,6 +20,7 @@
     "@payloadcms/richtext-lexical": "^3.0.0",
     "@payloadcms/ui": "^3.0.0",
     "cross-env": "^7.0.3",
+    "dotenv": "^17.2.3",
     "graphql": "^16.8.1",
     "next": "^15.0.0",
     "payload": "^3.0.0",

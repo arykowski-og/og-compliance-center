@@ -1,7 +1,46 @@
 import { getPayload } from 'payload'
-import config from '../payload.config'
 import fs from 'fs'
 import path from 'path'
+import { config as dotenvConfig } from 'dotenv'
+import { buildConfig } from 'payload'
+import { postgresAdapter } from '@payloadcms/db-postgres'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import sharp from 'sharp'
+
+// Load environment variables
+dotenvConfig({ path: path.resolve(process.cwd(), '.env.development.local') })
+dotenvConfig({ path: path.resolve(process.cwd(), '.env.local') })
+
+// Import collections
+import { Users } from '../collections/Users'
+import { States } from '../collections/States'
+import { Articles } from '../collections/Articles'
+import { Pages } from '../collections/Pages'
+import { Media } from '../collections/Media'
+
+// Create custom config
+const customConfig = buildConfig({
+  admin: {
+    user: Users.slug,
+    meta: {
+      titleSuffix: '- OpenGov Compliance Center',
+    },
+  },
+  collections: [Users, States, Articles, Pages, Media],
+  editor: lexicalEditor({}),
+  secret: process.env.PAYLOAD_SECRET || 'your-secret-key-here',
+  typescript: {
+    outputFile: path.resolve(process.cwd(), 'src/payload-types.ts'),
+  },
+  db: postgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    },
+  }),
+  sharp,
+  plugins: [],
+})
 
 const US_STATES = [
   { name: 'Alabama', abbreviation: 'AL' },
@@ -115,7 +154,7 @@ function generateKeyRequirements(record: any): string[] {
 }
 
 async function seed() {
-  const payload = await getPayload({ config })
+  const payload = await getPayload({ config: customConfig })
 
   console.log('🌱 Starting seed...')
 

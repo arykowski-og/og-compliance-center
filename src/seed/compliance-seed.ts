@@ -1,7 +1,46 @@
 import { getPayload } from 'payload'
-import config from '../payload.config'
 import fs from 'fs'
 import path from 'path'
+import { config as dotenvConfig } from 'dotenv'
+import { buildConfig } from 'payload'
+import { postgresAdapter } from '@payloadcms/db-postgres'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import sharp from 'sharp'
+
+// Load environment variables
+dotenvConfig({ path: path.resolve(process.cwd(), '.env.development.local') })
+dotenvConfig({ path: path.resolve(process.cwd(), '.env.local') })
+
+// Import collections
+import { Users } from '../collections/Users'
+import { States } from '../collections/States'
+import { Articles } from '../collections/Articles'
+import { Pages } from '../collections/Pages'
+import { Media } from '../collections/Media'
+
+// Create custom config
+const customConfig = buildConfig({
+  admin: {
+    user: Users.slug,
+    meta: {
+      titleSuffix: '- OpenGov Compliance Center',
+    },
+  },
+  collections: [Users, States, Articles, Pages, Media],
+  editor: lexicalEditor({}),
+  secret: process.env.PAYLOAD_SECRET || 'your-secret-key-here',
+  typescript: {
+    outputFile: path.resolve(process.cwd(), 'src/payload-types.ts'),
+  },
+  db: postgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    },
+  }),
+  sharp,
+  plugins: [],
+})
 
 const US_STATES = [
   { name: 'Alabama', abbreviation: 'AL' },
@@ -240,7 +279,7 @@ function generateArticleContent(record: ComplianceRecord, stateName: string): an
 }
 
 async function seedComplianceArticles() {
-  const payload = await getPayload({ config })
+  const payload = await getPayload({ config: customConfig })
 
   console.log('🌱 Starting compliance articles seed...')
 
@@ -295,23 +334,63 @@ async function seedComplianceArticles() {
       limit: 1,
     })
 
+    // Map category to the new schema
+    let category = 'financial-management'
+    if (record.category === 'HR') {
+      category = 'hr-employment'
+    } else if (record.category === 'Procurement') {
+      category = 'procurement-purchasing'
+    } else if (record.category === 'Revenue') {
+      category = 'revenue-taxation'
+    }
+    
+    // Determine compliance level
+    let complianceLevel: 'required' | 'recommended' | 'optional' = 'required'
+    if (record.complianceLevel.toLowerCase().includes('recommended')) {
+      complianceLevel = 'recommended'
+    } else if (record.complianceLevel.toLowerCase().includes('optional')) {
+      complianceLevel = 'optional'
+    }
+    
     try {
       await payload.create({
         collection: 'articles',
         data: {
           title,
           slug,
-          excerpt: summary.substring(0, 190) + '...',
-          content,
+          state: states.length > 0 ? states[0].id : undefined,
+          stateCode: record.stateCode,
+          featureName: record.featureName,
+          category,
+          complianceLevel,
+          summary: summary.substring(0, 500),
+          keyRequirements: record.requirements.map(req => ({ requirement: req })),
+          whoDoesThisApplyTo: {
+            root: {
+              type: 'root',
+              children: [{
+                type: 'paragraph',
+                children: [{ type: 'text', text: record.notes || `This applies to local governments in ${stateName}.` }]
+              }],
+              direction: 'ltr',
+              format: '',
+              indent: 0,
+              version: 1
+            }
+          },
+          officialSources: [...record.laws, ...record.regulations].filter(Boolean).map(law => ({
+            sourceName: law,
+            sourceUrl: '',
+            sourceType: 'statute' as const
+          })),
+          opengovReadiness: record.opengovReadiness === 'Full' ? 'full' : record.opengovReadiness === 'Partial' ? 'partial' : 'none',
+          opengovNotes: record.opengovNotes || '',
           status: 'published',
           publishedDate: new Date().toISOString(),
           author: authorId,
-          category: CATEGORY_MAP[record.category] || 'regulatory',
-          relatedStates: states.length > 0 ? [states[0].id] : [],
           tags: [
             { tag: record.featureName.toLowerCase().replace(/[^a-z0-9]+/g, '-') },
             { tag: record.category.toLowerCase().replace(/[^a-z0-9]+/g, '-') },
-            { tag: record.complianceLevel },
             { tag: stateName.toLowerCase().replace(/\s+/g, '-') },
           ],
         },
@@ -319,9 +398,9 @@ async function seedComplianceArticles() {
       
       created++
       console.log(`✅ Created: ${title}`)
-    } catch (error) {
+    } catch (error: any) {
       skipped++
-      console.log(`⚠️  Skipped (may exist): ${title}`)
+      console.log(`⚠️  Skipped: ${title} - ${error.message}`)
     }
   }
 
