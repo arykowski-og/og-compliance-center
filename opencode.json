@@ -20,11 +20,9 @@
   },
   "agent": {
     "api-designer": {
-      "disable": false,
       "maxSteps": 10
     },
     "backend-developer": {
-      "disable": false,
       "maxSteps": 10
     },
     "business-analyst": {
@@ -43,11 +41,9 @@
       "maxSteps": 20
     },
     "fullstack-developer": {
-      "disable": false,
       "maxSteps": 10
     },
     "legal-advisor": {
-      "disable": false,
       "maxSteps": 15
     },
     "market-researcher": {
@@ -63,7 +59,6 @@
       "maxSteps": 10
     },
     "sales-engineer": {
-      "disable": false,
       "maxSteps": 20
     },
     "scrum-master": {
