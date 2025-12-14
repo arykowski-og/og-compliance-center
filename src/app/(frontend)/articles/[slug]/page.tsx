@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation'
 async function getArticle(slug: string) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/articles?where[slug][equals]=${slug}&limit=1`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/articles?where[slug][equals]=${slug}&limit=1&depth=1`,
       { next: { revalidate: 60 } }
     )
     
@@ -24,17 +24,48 @@ async function getArticle(slug: string) {
 
 async function getRelatedArticles(stateId: string, category: string, currentId: string) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/articles?where[or][0][state][equals]=${stateId}&where[or][1][category][equals]=${category}&where[id][not_equals]=${currentId}&limit=3`,
+    // First try to get articles from the same state (most relevant)
+    const stateRes = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/articles?where[state][equals]=${stateId}&where[id][not_equals]=${currentId}&limit=3&depth=1`,
       { next: { revalidate: 60 }}
     )
     
-    if (!res.ok) {
+    if (!stateRes.ok) {
       return []
     }
     
-    const data = await res.json()
-    return data.docs || []
+    const stateData = await stateRes.json()
+    const stateArticles = stateData.docs || []
+    
+    // If we have 3 articles from the same state, return them
+    if (stateArticles.length >= 3) {
+      return stateArticles.slice(0, 3)
+    }
+    
+    // Otherwise, supplement with articles from the same category
+    const categoryRes = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/articles?where[category][equals]=${category}&where[id][not_equals]=${currentId}&limit=${3 - stateArticles.length}&depth=1`,
+      { next: { revalidate: 60 }}
+    )
+    
+    if (!categoryRes.ok) {
+      return stateArticles
+    }
+    
+    const categoryData = await categoryRes.json()
+    const categoryArticles = categoryData.docs || []
+    
+    // Combine and deduplicate
+    const combined = [...stateArticles]
+    const existingIds = new Set(stateArticles.map((a: any) => a.id))
+    
+    for (const article of categoryArticles) {
+      if (!existingIds.has(article.id) && combined.length < 3) {
+        combined.push(article)
+      }
+    }
+    
+    return combined
   } catch (error) {
     console.error('Error fetching related articles:', error)
     return []
@@ -178,8 +209,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div key={index} className="faq-item">
                 <h3 className="faq-question">{faq.question}</h3>
                 <div className="faq-answer">
-                  {/* Would render rich text here */}
-                  <p>{faq.answer?.root?.children?.[0]?.children?.[0]?.text || 'Answer not available'}</p>
+                  {faq.answer?.root?.children?.map((child: any, childIndex: number) => {
+                    if (child.type === 'paragraph') {
+                      const text = child.children?.map((textNode: any) => textNode.text).join('') || ''
+                      return <p key={childIndex}>{text}</p>
+                    }
+                    return null
+                  }) || <p>Answer not available</p>}
                 </div>
               </div>
             ))}

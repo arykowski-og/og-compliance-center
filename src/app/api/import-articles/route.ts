@@ -4,6 +4,48 @@ import path from 'path'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 
+/**
+ * Convert plain text to Lexical rich text format
+ */
+function textToLexical(text: string) {
+  if (!text || text.trim() === '') {
+    return {
+      root: {
+        type: 'root',
+        children: [],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    }
+  }
+
+  // Split text into paragraphs
+  const paragraphs = text.split('\n\n').filter(p => p.trim())
+  
+  return {
+    root: {
+      type: 'root',
+      children: paragraphs.map(para => ({
+        type: 'paragraph',
+        children: [{
+          type: 'text',
+          text: para.trim(),
+        }],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      })),
+      direction: 'ltr',
+      format: '',
+      indent: 0,
+      version: 1,
+    },
+  }
+}
+
 interface ArticleMetadata {
   title: string
   state: string
@@ -239,9 +281,15 @@ export async function POST(request: NextRequest) {
         complianceLevel: metadata.complianceLevel,
         summary: metadata.summary,
         keyRequirements: metadata.keyRequirements.map((req) => ({ requirement: req })),
-        whoDoesThisApplyTo: metadata.whoDoesThisApplyTo || '',
-        implementationSteps: metadata.implementationSteps,
-        faqs: metadata.faqs,
+        whoDoesThisApplyTo: metadata.whoDoesThisApplyTo ? textToLexical(metadata.whoDoesThisApplyTo) : undefined,
+        implementationSteps: metadata.implementationSteps.map(step => ({
+          ...step,
+          stepDescription: step.stepDescription ? textToLexical(step.stepDescription) : undefined,
+        })),
+        faqs: metadata.faqs.map(faq => ({
+          question: faq.question,
+          answer: textToLexical(faq.answer),
+        })),
         opengovNotes: metadata.opengovNotes || '',
         status: 'published',
         publishedDate: new Date().toISOString(),

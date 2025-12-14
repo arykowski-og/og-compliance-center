@@ -4,7 +4,7 @@ import './articles.css'
 
 async function getArticles() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/articles?limit=100&where[status][equals]=published`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/articles?limit=100&where[status][equals]=published&depth=1`, {
       next: { revalidate: 60 } // Revalidate every minute
     })
     
