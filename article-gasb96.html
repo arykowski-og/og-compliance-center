@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding GASB 96: Subscription-Based IT Arrangements | OpenGov Compliance Center</title>
+    <meta name="description" content="A comprehensive guide to GASB 96 implementation for local governments. Learn about SBITAs, recognition criteria, measurement, and compliance requirements.">
+    
+    <style>
+        :root {
+          --og-primary: #0052CC;
+          --og-primary-dark: #003D99;
+          --og-primary-light: #E6F0FF;
+          --og-secondary: #00B8D4;
+          --og-success: #00C853;
+          --og-warning: #FFB300;
+          --og-dark: #1A1A1A;
+          --og-gray-900: #2C2C2C;
+          --og-gray-700: #4A4A4A;
+          --og-gray-500: #757575;
+          --og-gray-300: #CCCCCC;
+          --og-gray-100: #F5F5F5;
+          --og-white: #FFFFFF;
+          
+          --spacing-sm: 1rem;
+          --spacing-md: 1.5rem;
+          --spacing-lg: 2rem;
+          --spacing-xl: 3rem;
+          --spacing-2xl: 4rem;
+          
+          --radius-md: 8px;
+          --radius-lg: 12px;
+          
+          --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+          --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+          --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          font-size: 18px;
+          line-height: 1.7;
+          color: var(--og-gray-900);
+          background: var(--og-gray-100);
+        }
+        
+        a {
+          color: var(--og-primary);
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+        
+        a:hover {
+          color: var(--og-primary-dark);
+          text-decoration: underline;
+        }
+        
+        /* Header */
+        .site-header {
+          background: white;
+          box-shadow: var(--shadow-sm);
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+        }
+        
+        .header-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: var(--spacing-sm) var(--spacing-lg);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        
+        .site-logo {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: var(--og-primary);
+        }
+        
+        .breadcrumb {
+          display: flex;
+          gap: 0.5rem;
+          font-size: 0.875rem;
+          color: var(--og-gray-700);
+        }
+        
+        /* Article Layout */
+        .article-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: var(--spacing-xl) var(--spacing-md);
+          display: grid;
+          grid-template-columns: 250px 1fr 300px;
+          gap: var(--spacing-xl);
+        }
+        
+        /* Article Header */
+        .article-header {
+          grid-column: 1 / -1;
+          text-align: center;
+          max-width: 800px;
+          margin: 0 auto var(--spacing-2xl);
+        }
+        
+        .article-category {
+          display: inline-block;
+          padding: 0.5rem 1rem;
+          background: var(--og-primary-light);
+          color: var(--og-primary);
+          border-radius: 20px;
+          font-size: 0.875rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: var(--spacing-md);
+        }
+        
+        .article-title {
+          font-size: clamp(2rem, 5vw, 3.5rem);
+          font-weight: 800;
+          line-height: 1.1;
+          color: var(--og-dark);
+          margin-bottom: var(--spacing-md);
+        }
+        
+        .article-subtitle {
+          font-size: 1.25rem;
+          color: var(--og-gray-700);
+          font-weight: 300;
+          margin-bottom: var(--spacing-lg);
+        }
+        
+        .article-meta {
+          display: flex;
+          justify-content: center;
+          gap: var(--spacing-lg);
+          flex-wrap: wrap;
+          font-size: 0.9375rem;
+          color: var(--og-gray-700);
+          margin-bottom: var(--spacing-lg);
+        }
+        
+        .meta-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .author-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: var(--og-primary-light);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          color: var(--og-primary);
+        }
+        
+        /* Table of Contents */
+        .toc {
+          position: sticky;
+          top: 100px;
+          height: fit-content;
+          background: white;
+          padding: var(--spacing-lg);
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-md);
+        }
+        
+        .toc h3 {
+          font-size: 1rem;
+          margin-bottom: var(--spacing-md);
+          color: var(--og-dark);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+        
+        .toc-list {
+          list-style: none;
+          padding: 0;
+        }
+        
+        .toc-list li {
+          margin-bottom: var(--spacing-sm);
+        }
+        
+        .toc-list a {
+          color: var(--og-gray-700);
+          font-size: 0.9375rem;
+          display: block;
+          padding: 0.5rem;
+          border-radius: var(--radius-md);
+          transition: all 0.3s ease;
+        }
+        
+        .toc-list a:hover,
+        .toc-list a.active {
+          background: var(--og-primary-light);
+          color: var(--og-primary);
+          text-decoration: none;
+          padding-left: 1rem;
+        }
+        
+        /* Article Content */
+        .article-content {
+          background: white;
+          padding: var(--spacing-2xl);
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-md);
+        }
+        
+        .article-content h2 {
+          font-size: 2rem;
+          margin: var(--spacing-2xl) 0 var(--spacing-lg);
+          color: var(--og-dark);
+          padding-bottom: var(--spacing-sm);
+          border-bottom: 3px solid var(--og-primary);
+        }
+        
+        .article-content h2:first-child {
+          margin-top: 0;
+        }
+        
+        .article-content h3 {
+          font-size: 1.5rem;
+          margin: var(--spacing-xl) 0 var(--spacing-md);
+          color: var(--og-dark);
+        }
+        
+        .article-content p {
+          margin-bottom: var(--spacing-lg);
+          line-height: 1.8;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+          margin: var(--spacing-lg) 0;
+          padding-left: var(--spacing-xl);
+        }
+        
+        .article-content li {
+          margin-bottom: var(--spacing-sm);
+          line-height: 1.8;
+        }
+        
+        .article-content strong {
+          color: var(--og-dark);
+          font-weight: 600;
+        }
+        
+        .highlight-box {
+          background: var(--og-primary-light);
+          border-left: 4px solid var(--og-primary);
+          padding: var(--spacing-lg);
+          margin: var(--spacing-xl) 0;
+          border-radius: var(--radius-md);
+        }
+        
+        .highlight-box h4 {
+          color: var(--og-primary);
+          margin-bottom: var(--spacing-sm);
+          font-size: 1.25rem;
+        }
+        
+        .warning-box {
+          background: #FFF4E5;
+          border-left: 4px solid var(--og-warning);
+          padding: var(--spacing-lg);
+          margin: var(--spacing-xl) 0;
+          border-radius: var(--radius-md);
+        }
+        
+        .warning-box h4 {
+          color: var(--og-warning);
+          margin-bottom: var(--spacing-sm);
+        }
+        
+        .key-takeaways {
+          background: #E8F5E9;
+          border-left: 4px solid var(--og-success);
+          padding: var(--spacing-lg);
+          margin: var(--spacing-xl) 0;
+          border-radius: var(--radius-md);
+        }
+        
+        .key-takeaways h4 {
+          color: var(--og-success);
+          margin-bottom: var(--spacing-md);
+        }
+        
+        .key-takeaways ul {
+          margin: 0;
+          padding-left: var(--spacing-lg);
+        }
+        
+        /* Sidebar */
+        .article-sidebar {
+          position: sticky;
+          top: 100px;
+          height: fit-content;
+        }
+        
+        .sidebar-card {
+          background: white;
+          padding: var(--spacing-lg);
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-md);
+          margin-bottom: var(--spacing-lg);
+        }
+        
+        .sidebar-card h3 {
+          font-size: 1rem;
+          margin-bottom: var(--spacing-md);
+          color: var(--og-dark);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+        
+        .related-article {
+          padding: var(--spacing-sm) 0;
+          border-bottom: 1px solid var(--og-gray-100);
+        }
+        
+        .related-article:last-child {
+          border-bottom: none;
+        }
+        
+        .related-article a {
+          color: var(--og-dark);
+          font-weight: 600;
+          font-size: 0.9375rem;
+          display: block;
+          margin-bottom: 0.25rem;
+        }
+        
+        .related-meta {
+          font-size: 0.8125rem;
+          color: var(--og-gray-500);
+        }
+        
+        .share-buttons {
+          display: flex;
+          gap: var(--spacing-sm);
+        }
+        
+        .share-btn {
+          flex: 1;
+          padding: var(--spacing-sm);
+          border-radius: var(--radius-md);
+          text-align: center;
+          font-size: 0.875rem;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+        
+        .share-linkedin {
+          background: #0077B5;
+          color: white;
+        }
+        
+        .share-twitter {
+          background: #1DA1F2;
+          color: white;
+        }
+        
+        .share-email {
+          background: var(--og-gray-300);
+          color: var(--og-dark);
+        }
+        
+        .share-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+          text-decoration: none;
+        }
+        
+        .cta-box {
+          background: linear-gradient(135deg, var(--og-primary) 0%, var(--og-primary-dark) 100%);
+          color: white;
+          padding: var(--spacing-lg);
+          border-radius: var(--radius-lg);
+          text-align: center;
+        }
+        
+        .cta-box h3 {
+          color: white;
+          margin-bottom: var(--spacing-sm);
+        }
+        
+        .cta-box p {
+          margin-bottom: var(--spacing-md);
+          opacity: 0.95;
+        }
+        
+        .btn-white {
+          display: inline-block;
+          padding: 0.75rem 1.5rem;
+          background: white;
+          color: var(--og-primary);
+          border-radius: 50px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+        
+        .btn-white:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+          text-decoration: none;
+        }
+        
+        /* Footer */
+        .site-footer {
+          background: var(--og-dark);
+          color: var(--og-gray-300);
+          padding: var(--spacing-xl) 0;
+          margin-top: var(--spacing-2xl);
+          text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+          .article-container {
+            grid-template-columns: 1fr;
+          }
+          
+          .toc,
+          .article-sidebar {
+            position: static;
+          }
+          
+          .toc {
+            grid-column: 1;
+            order: 1;
+          }
+          
+          .article-header {
+            order: 0;
+          }
+          
+          .article-content {
+            order: 2;
+            padding: var(--spacing-lg);
+          }
+          
+          .article-sidebar {
+            order: 3;
+          }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="site-logo">OpenGov Compliance Center</a>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / 
+                <a href="#insights">Insights</a> / 
+                <span>Article</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="article-container">
+        
+        <!-- Article Header -->
+        <div class="article-header">
+            <span class="article-category">Deep-Dive Analysis</span>
+            <h1 class="article-title">Understanding GASB 96: Subscription-Based IT Arrangements</h1>
+            <p class="article-subtitle">A comprehensive guide to implementing the new accounting standard for SaaS and cloud services in local government</p>
+            
+            <div class="article-meta">
+                <div class="meta-item">
+                    <div class="author-avatar">JD</div>
+                    <span>Jane Doe, CPA</span>
+                </div>
+                <div class="meta-item">
+                    <span>📅 December 10, 2025</span>
+                </div>
+                <div class="meta-item">
+                    <span>⏱️ 12 min read</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3>Table of Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction" class="active">Introduction</a></li>
+                <li><a href="#what-is-gasb96">What is GASB 96?</a></li>
+                <li><a href="#scope">Scope & Applicability</a></li>
+                <li><a href="#recognition">Recognition Criteria</a></li>
+                <li><a href="#measurement">Measurement & Accounting</a></li>
+                <li><a href="#implementation">Implementation Steps</a></li>
+                <li><a href="#opengov">How OpenGov Helps</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Article Content -->
+        <article class="article-content">
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>In May 2020, the Governmental Accounting Standards Board (GASB) issued Statement No. 96, <em>Subscription-Based Information Technology Arrangements</em>, fundamentally changing how state and local governments account for their software subscriptions and cloud-based services.</p>
+                
+                <p>With the effective date now upon us (fiscal years beginning after June 15, 2022), governments must adapt their accounting systems to properly recognize subscription assets and liabilities. This guide provides a comprehensive overview of GASB 96 requirements and practical implementation strategies.</p>
+                
+                <div class="key-takeaways">
+                    <h4>🎯 Key Takeaways</h4>
+                    <ul>
+                        <li>GASB 96 applies to subscription-based IT arrangements (SBITAs) where governments don't own the underlying IT assets</li>
+                        <li>SBITAs must be recognized as subscription assets and liabilities on the financial statements</li>
+                        <li>The standard is effective for fiscal years beginning after June 15, 2022</li>
+                        <li>Proper implementation requires inventory of all IT subscriptions and assessment of each arrangement</li>
+                        <li>OpenGov Financials provides tools to track and account for SBITAs in compliance with GASB 96</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="what-is-gasb96">
+                <h2>What is GASB 96?</h2>
+                <p>GASB Statement No. 96 establishes accounting and financial reporting requirements for subscription-based information technology arrangements (SBITAs). The standard is based on the principles established in GASB Statement No. 87, <em>Leases</em>, but tailored specifically for IT subscriptions.</p>
+                
+                <h3>Definition of a SBITA</h3>
+                <p>A SBITA is defined as a contract that conveys control of the right to use another party's IT software, alone or in combination with tangible capital assets, for a period of time in an exchange or exchange-like transaction.</p>
+                
+                <p><strong>Key characteristics include:</strong></p>
+                <ul>
+                    <li>Contract between the government and a vendor (SBITA vendor)</li>
+                    <li>Provides right to use IT software</li>
+                    <li>Government doesn't own the underlying IT assets</li>
+                    <li>Time period specified (typically multi-year)</li>
+                    <li>Exchange or exchange-like transaction</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h4>💡 Common Examples</h4>
+                    <p>Typical SBITAs in government include: Enterprise resource planning (ERP) systems, financial management software, payroll systems, HR management systems, permitting and licensing software, citizen engagement platforms, and document management systems.</p>
+                </div>
+            </section>
+            
+            <section id="scope">
+                <h2>Scope & Applicability</h2>
+                <p>GASB 96 applies to all state and local governments, including:</p>
+                <ul>
+                    <li>States and local governments</li>
+                    <li>Public benefit corporations and authorities</li>
+                    <li>Governmental colleges and universities</li>
+                    <li>Public employee retirement systems</li>
+                    <li>Special-purpose governments (school districts, utility districts, etc.)</li>
+                </ul>
+                
+                <h3>What's Included?</h3>
+                <p>The standard covers arrangements where the government has the right to use the vendor's software during the subscription term. This includes:</p>
+                <ul>
+                    <li>Software as a Service (SaaS)</li>
+                    <li>Platform as a Service (PaaS)</li>
+                    <li>Infrastructure as a Service (IaaS)</li>
+                    <li>Cloud-based applications</li>
+                    <li>Hosted software arrangements</li>
+                </ul>
+                
+                <h3>What's Excluded?</h3>
+                <div class="warning-box">
+                    <h4>⚠️ Exceptions</h4>
+                    <p>GASB 96 does NOT apply to:</p>
+                    <ul>
+                        <li>Short-term SBITAs (12 months or less, including renewal options)</li>
+                        <li>Contracts that convey ownership of software licenses</li>
+                        <li>Internally generated software (covered by GASB 51)</li>
+                        <li>Arrangements with other governments (except if proprietary fund or business-type activity)</li>
+                        <li>Nonexchange or nonexchange-like transactions</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="recognition">
+                <h2>Recognition Criteria</h2>
+                <p>A government should recognize a subscription asset and corresponding subscription liability at the commencement of the subscription term. The subscription term includes:</p>
+                
+                <ol>
+                    <li><strong>Noncancellable period:</strong> The period during which the government has a noncancellable right to use the software</li>
+                    <li><strong>Renewal options:</strong> Periods covered by renewal options that the government is reasonably certain to exercise</li>
+                    <li><strong>Termination options:</strong> Periods covered by termination options that the government is reasonably certain not to exercise</li>
+                </ol>
+                
+                <h3>Initial Measurement</h3>
+                <p><strong>Subscription Liability:</strong> Initially measured at the present value of subscription payments expected to be made during the subscription term.</p>
+                
+                <p><strong>Subscription Asset:</strong> Initially measured as the sum of:</p>
+                <ul>
+                    <li>Initial subscription liability amount</li>
+                    <li>Payments made to the vendor before commencement</li>
+                    <li>Capitalizable implementation costs (less any incentives received)</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h4>💰 What's Included in Subscription Payments?</h4>
+                    <ul>
+                        <li>Fixed payments (including in-substance fixed payments)</li>
+                        <li>Variable payments based on an index or rate</li>
+                        <li>Variable payments that are fixed in substance</li>
+                        <li>Purchase option price (if reasonably certain to exercise)</li>
+                        <li>Termination penalties (if subscription term assumes exercise)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="measurement">
+                <h2>Measurement & Accounting</h2>
+                
+                <h3>Discount Rate</h3>
+                <p>The subscription liability should be discounted using the interest rate the SBITA vendor charges the government, if readily determinable. If not, the government should use its estimated incremental borrowing rate.</p>
+                
+                <h3>Subsequent Measurement</h3>
+                <p><strong>Subscription Liability:</strong> Reduce the liability as payments are made, and recognize an outflow of resources (expense) for interest on the liability.</p>
+                
+                <p><strong>Subscription Asset:</strong> Amortize the asset systematically over the shorter of the subscription term or the useful life of the underlying IT asset.</p>
+                
+                <h3>Financial Statement Presentation</h3>
+                <ul>
+                    <li><strong>Government-wide statements:</strong> Present subscription assets as intangible assets and subscription liabilities as current/noncurrent liabilities</li>
+                    <li><strong>Fund statements:</strong> Governmental funds recognize expenditures and other financing sources; proprietary funds follow business-type activity reporting</li>
+                    <li><strong>Notes disclosure:</strong> Provide description of SBITAs, amounts recognized, and accounting policies</li>
+                </ul>
+            </section>
+            
+            <section id="implementation">
+                <h2>Implementation Steps</h2>
+                
+                <h3>Step 1: Inventory All IT Arrangements</h3>
+                <p>Identify all contracts that may qualify as SBITAs. Work with IT, procurement, and finance departments to compile a comprehensive list.</p>
+                
+                <h3>Step 2: Assess Each Arrangement</h3>
+                <p>For each identified contract, determine:</p>
+                <ul>
+                    <li>Does it meet the SBITA definition?</li>
+                    <li>Is it excluded under scope exceptions?</li>
+                    <li>What is the subscription term?</li>
+                    <li>What payments are included?</li>
+                </ul>
+                
+                <h3>Step 3: Calculate Initial Amounts</h3>
+                <p>For each SBITA, calculate:</p>
+                <ul>
+                    <li>Present value of subscription payments (liability)</li>
+                    <li>Total subscription asset (including implementation costs)</li>
+                    <li>Amortization schedule</li>
+                </ul>
+                
+                <h3>Step 4: Update Accounting Systems</h3>
+                <p>Configure your financial management system to:</p>
+                <ul>
+                    <li>Track subscription assets and liabilities</li>
+                    <li>Calculate amortization and interest expense</li>
+                    <li>Generate required disclosures</li>
+                    <li>Provide audit trail documentation</li>
+                </ul>
+                
+                <h3>Step 5: Establish Ongoing Processes</h3>
+                <p>Create procedures for:</p>
+                <ul>
+                    <li>New SBITA evaluation and setup</li>
+                    <li>Modifications and reassessments</li>
+                    <li>Quarterly/annual reporting</li>
+                    <li>Renewals and terminations</li>
+                </ul>
+            </section>
+            
+            <section id="opengov">
+                <h2>How OpenGov Helps</h2>
+                <p>OpenGov Financials provides comprehensive tools to support GASB 96 compliance:</p>
+                
+                <h3>Subscription Tracking Module</h3>
+                <ul>
+                    <li>Centralized repository for all SBITA contracts</li>
+                    <li>Automated calculation of subscription liabilities</li>
+                    <li>Present value calculations with configurable discount rates</li>
+                    <li>Subscription asset tracking and amortization schedules</li>
+                </ul>
+                
+                <h3>Automated Accounting</h3>
+                <ul>
+                    <li>Automatic journal entry generation for initial recognition</li>
+                    <li>Monthly amortization and interest accruals</li>
+                    <li>Payment tracking and liability reduction</li>
+                    <li>Modification and remeasurement support</li>
+                </ul>
+                
+                <h3>Reporting & Disclosure</h3>
+                <ul>
+                    <li>GASB 96-compliant financial statements</li>
+                    <li>Required notes disclosures</li>
+                    <li>Detailed subscription schedules</li>
+                    <li>Audit-ready documentation</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h4>🚀 Get Started with OpenGov</h4>
+                    <p>Our team can help you implement GASB 96 compliance in your organization. We provide implementation support, training, and ongoing assistance to ensure accurate SBITA accounting.</p>
+                </div>
+            </section>
+            
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+                <p>GASB 96 represents a significant change in how governments account for their IT subscriptions. While implementation requires effort, proper compliance provides better visibility into subscription commitments and their financial impact.</p>
+                
+                <p>Key success factors include:</p>
+                <ul>
+                    <li>Early planning and cross-departmental collaboration</li>
+                    <li>Comprehensive inventory of all IT arrangements</li>
+                    <li>Robust accounting systems that support subscription tracking</li>
+                    <li>Ongoing processes for new subscriptions and modifications</li>
+                    <li>Regular training and communication with stakeholders</li>
+                </ul>
+                
+                <p>With the right tools and processes, GASB 96 compliance can be achieved efficiently while providing valuable insights into your organization's subscription portfolio.</p>
+            </section>
+            
+        </article>
+        
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+            
+            <!-- Share -->
+            <div class="sidebar-card">
+                <h3>Share This Article</h3>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn share-linkedin">LinkedIn</a>
+                    <a href="#" class="share-btn share-twitter">Twitter</a>
+                    <a href="#" class="share-btn share-email">Email</a>
+                </div>
+            </div>
+            
+            <!-- Related Articles -->
+            <div class="sidebar-card">
+                <h3>Related Articles</h3>
+                
+                <div class="related-article">
+                    <a href="#">Understanding GASB 87: Lease Accounting for Governments</a>
+                    <div class="related-meta">8 min read • Deep-Dive Analysis</div>
+                </div>
+                
+                <div class="related-article">
+                    <a href="#">Single Audit Compliance: A State-by-State Guide</a>
+                    <div class="related-meta">15 min read • Compliance Guide</div>
+                </div>
+                
+                <div class="related-article">
+                    <a href="#">GASB 54 Fund Balance Reporting Best Practices</a>
+                    <div class="related-meta">10 min read • Best Practices</div>
+                </div>
+            </div>
+            
+            <!-- CTA -->
+            <div class="cta-box">
+                <h3>Need Help with GASB 96?</h3>
+                <p>Our compliance experts can guide you through implementation.</p>
+                <a href="index.html#contact" class="btn-white">Contact Us</a>
+            </div>
+            
+        </aside>
+        
+    </div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 OpenGov Compliance Center. All rights reserved.</p>
+            <p><a href="index.html" style="color: var(--og-gray-300);">← Back to Home</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // Table of contents active state on scroll
+        const sections = document.querySelectorAll('article section');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
