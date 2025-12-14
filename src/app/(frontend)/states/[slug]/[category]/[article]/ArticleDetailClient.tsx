@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Icon } from '@/components/Icon'
 import { useState } from 'react'
 
@@ -162,16 +163,25 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
                 onClick={() => setSavedArticle(!savedArticle)}
                 title="Save article"
               >
-                {savedArticle ? '❤️' : '🤍'} Save
+                <Image 
+                  src={savedArticle ? "/icons/heart-filled.svg" : "/icons/heart.svg"} 
+                  alt="" 
+                  width={16} 
+                  height={16} 
+                />
+                Save
               </button>
               <button className="btn-icon" title="Share article">
-                📤 Share
+                <Image src="/icons/upload.svg" alt="" width={16} height={16} />
+                Share
               </button>
               <button className="btn-icon" title="Export to PDF">
-                📥 Export
+                <Image src="/icons/download.svg" alt="" width={16} height={16} />
+                Export
               </button>
               <button className="btn-icon btn-primary" title="Get alerts">
-                🔔 Alert
+                <Image src="/icons/bell.svg" alt="" width={16} height={16} />
+                Alert
               </button>
             </div>
           </div>
@@ -221,7 +231,9 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
                     <ul className="requirements-list">
                       {SAMPLE_ARTICLE.keyRequirements.map((req, idx) => (
                         <li key={idx} className="requirement-item">
-                          <span className="requirement-bullet">✓</span>
+                          <span className="requirement-bullet">
+                            <Image src="/icons/check.svg" alt="" width={20} height={20} />
+                          </span>
                           <span className="requirement-text">{req}</span>
                         </li>
                       ))}
@@ -235,7 +247,8 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
                       {SAMPLE_ARTICLE.officialSources.map((source, idx) => (
                         <li key={idx}>
                           <a href={source.url} target="_blank" rel="noopener noreferrer" className="source-link">
-                            📄 {source.name}
+                            <Image src="/icons/document.svg" alt="" width={16} height={16} />
+                            {source.name}
                           </a>
                         </li>
                       ))}
@@ -249,7 +262,8 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
                       {SAMPLE_ARTICLE.practicalExamples.map((example, idx) => (
                         <li key={idx}>
                           <a href={example.url} className="example-link">
-                            📋 {example.name}
+                            <Image src="/icons/clipboard.svg" alt="" width={16} height={16} />
+                            {example.name}
                           </a>
                         </li>
                       ))}
@@ -322,8 +336,14 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
               <section className="feedback-section">
                 <h3>Was this helpful?</h3>
                 <div className="feedback-buttons">
-                  <button className="btn-feedback">👍 Yes</button>
-                  <button className="btn-feedback">👎 No</button>
+                  <button className="btn-feedback">
+                    <Image src="/icons/thumbs-up.svg" alt="" width={18} height={18} />
+                    Yes
+                  </button>
+                  <button className="btn-feedback">
+                    <Image src="/icons/thumbs-down.svg" alt="" width={18} height={18} />
+                    No
+                  </button>
                 </div>
                 <div className="feedback-actions">
                   <button className="btn-text">Send Feedback</button>
@@ -344,14 +364,20 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
                   <div className="ref-value">Sept 30: Adoption deadline</div>
                 </div>
                 <div className="quick-ref-item urgent">
-                  <div className="ref-label">⚠️ URGENT</div>
+                  <div className="ref-label">
+                    <Image src="/icons/alert-triangle.svg" alt="" width={16} height={16} className="urgent-icon" />
+                    URGENT
+                  </div>
                   <div className="ref-value">30 days until deadline</div>
                 </div>
               </div>
 
               {/* References */}
               <div className="sidebar-card">
-                <h3 className="sidebar-title">📋 References</h3>
+                <h3 className="sidebar-title">
+                  <Image src="/icons/clipboard.svg" alt="" width={18} height={18} className="title-icon" />
+                  References
+                </h3>
                 <ul className="ref-list">
                   <li><a href="#">CRS § 29-1-1103</a></li>
                   <li><a href="#">CRS § 29-1-1109</a></li>
@@ -360,7 +386,10 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
 
               {/* Related Topics */}
               <div className="sidebar-card">
-                <h3 className="sidebar-title">🔗 Related Topics</h3>
+                <h3 className="sidebar-title">
+                  <Image src="/icons/link.svg" alt="" width={18} height={18} className="title-icon" />
+                  Related Topics
+                </h3>
                 <ul className="ref-list">
                   <li><Link href="#">Tax Mill Levy</Link></li>
                   <li><Link href="#">Fund Structure</Link></li>
@@ -370,12 +399,16 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
 
               {/* Templates */}
               <div className="sidebar-card">
-                <h3 className="sidebar-title">📄 Templates</h3>
+                <h3 className="sidebar-title">
+                  <Image src="/icons/document.svg" alt="" width={18} height={18} className="title-icon" />
+                  Templates
+                </h3>
                 <ul className="template-list">
                   {SAMPLE_ARTICLE.templates.map((template, idx) => (
                     <li key={idx}>
                       <button className="template-download">
-                        📥 {template}
+                        <Image src="/icons/download.svg" alt="" width={16} height={16} />
+                        {template}
                       </button>
                     </li>
                   ))}
@@ -384,7 +417,10 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
 
               {/* Ask Expert CTA */}
               <div className="sidebar-card sidebar-cta">
-                <h3 className="sidebar-title">💬 Ask Expert</h3>
+                <h3 className="sidebar-title">
+                  <Image src="/icons/message.svg" alt="" width={18} height={18} className="title-icon" />
+                  Ask Expert
+                </h3>
                 <p>Schedule a call with a Colorado government law specialist</p>
                 <button className="btn btn-primary btn-block">
                   Schedule Call
@@ -510,7 +546,7 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
           font-weight: 600;
           cursor: pointer;
           transition: all var(--transition-fast);
-          display: flex;
+          display: inline-flex;
           align-items: center;
           gap: 0.5rem;
         }
@@ -526,6 +562,10 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
           color: var(--og-white);
         }
 
+        .btn-icon.active img {
+          filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%);
+        }
+
         .btn-icon.btn-primary {
           background: var(--og-primary);
           border-color: var(--og-primary);
@@ -534,6 +574,10 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
 
         .btn-icon.btn-primary:hover {
           background: var(--og-primary-dark);
+        }
+
+        .btn-icon.btn-primary img {
+          filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%);
         }
 
         .main-content-section {
@@ -631,10 +675,14 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
         }
 
         .requirement-bullet {
-          color: var(--og-success);
-          font-size: 1.25rem;
-          font-weight: bold;
           flex-shrink: 0;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .requirement-bullet img {
+          filter: brightness(0) saturate(100%) invert(56%) sepia(92%) saturate(418%) hue-rotate(79deg) brightness(93%) contrast(89%);
         }
 
         .requirement-text {
@@ -656,10 +704,17 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
           color: var(--og-primary);
           text-decoration: none;
           font-weight: 600;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
         }
 
         .source-link:hover, .example-link:hover {
           text-decoration: underline;
+        }
+
+        .source-link img, .example-link img {
+          flex-shrink: 0;
         }
 
         .enforcement-box {
@@ -792,6 +847,9 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
           font-weight: 600;
           cursor: pointer;
           transition: all var(--transition-fast);
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
         }
 
         .btn-feedback:hover {
@@ -819,13 +877,21 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
 
         .article-sidebar {
           position: sticky;
-          top: var(--spacing-lg);
+          top: calc(90px + var(--spacing-md));
           height: fit-content;
+          max-height: calc(100vh - 90px - var(--spacing-md) - var(--spacing-md));
+          overflow-y: auto;
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        .article-sidebar::-webkit-scrollbar {
+          display: none; /* Chrome, Safari, Opera */
         }
 
         .sidebar-card {
           background: var(--og-white);
-          border: 2px solid var(--og-gray-300);
+          border: 1px solid var(--og-gray-300);
           border-radius: var(--radius-lg);
           padding: var(--spacing-lg);
           margin-bottom: var(--spacing-md);
@@ -835,7 +901,14 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
           font-size: 1rem;
           margin-bottom: var(--spacing-md);
           padding-bottom: var(--spacing-sm);
-          border-bottom: 2px solid var(--og-gray-300);
+          border-bottom: 1px solid var(--og-gray-300);
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .sidebar-title .title-icon {
+          flex-shrink: 0;
         }
 
         .quick-ref-item {
@@ -848,6 +921,7 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
           padding: var(--spacing-md);
           border-radius: var(--radius-md);
           font-weight: 700;
+          margin-bottom: 0;
         }
 
         .ref-label {
@@ -855,10 +929,17 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
           text-transform: uppercase;
           color: var(--og-gray-500);
           margin-bottom: 0.25rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.375rem;
         }
 
         .quick-ref-item.urgent .ref-label {
           color: var(--og-white);
+        }
+
+        .urgent-icon {
+          filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%);
         }
 
         .ref-value {
@@ -904,11 +985,18 @@ export default function ArticleDetailClient({ stateName, stateSlug, categoryName
           font-weight: 600;
           cursor: pointer;
           transition: all var(--transition-fast);
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
         }
 
         .template-download:hover {
           background: var(--og-primary);
           color: var(--og-white);
+        }
+
+        .template-download:hover img {
+          filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%);
         }
 
         .sidebar-cta {

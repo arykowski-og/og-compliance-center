@@ -82,6 +82,7 @@ export function Footer() {
         .footer-col h4 {
           color: var(--og-white);
           font-size: 1rem;
+          font-weight: 700;
           margin-bottom: var(--spacing-md);
         }
         
@@ -94,12 +95,15 @@ export function Footer() {
         }
         
         .footer-links a {
-          color: var(--og-gray-300);
+          color: rgba(255, 255, 255, 0.75) !important;
           transition: color var(--transition-fast);
+          text-decoration: none;
+          font-size: 0.9375rem;
+          font-weight: 400;
         }
         
         .footer-links a:hover {
-          color: var(--og-primary-light);
+          color: var(--og-white) !important;
         }
         
         .footer-bottom {
@@ -113,8 +117,9 @@ export function Footer() {
         }
         
         .footer-copyright {
-          color: var(--og-gray-500);
+          color: rgba(255, 255, 255, 0.65) !important;
           margin: 0;
+          font-size: 0.875rem;
         }
         
         .footer-social {
@@ -123,12 +128,14 @@ export function Footer() {
         }
         
         .footer-social a {
-          color: var(--og-gray-300);
+          color: rgba(255, 255, 255, 0.75) !important;
           transition: color var(--transition-fast);
+          text-decoration: none;
+          font-weight: 500;
         }
         
         .footer-social a:hover {
-          color: var(--og-primary-light);
+          color: var(--og-white) !important;
         }
         
         @media (max-width: 768px) {

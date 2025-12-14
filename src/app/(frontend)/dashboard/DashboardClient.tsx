@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Update {
   id: string;
@@ -240,19 +241,27 @@ export default function DashboardClient() {
 
         <div className="quick-actions">
           <button className="action-btn primary">
-            <span className="icon">🔄</span>
+            <span className="icon">
+              <Image src="/icons/refresh.svg" alt="" width={20} height={20} />
+            </span>
             Compare States
           </button>
           <button className="action-btn">
-            <span className="icon">✓</span>
+            <span className="icon">
+              <Image src="/icons/check.svg" alt="" width={20} height={20} />
+            </span>
             Create Checklist
           </button>
           <button className="action-btn">
-            <span className="icon">📥</span>
+            <span className="icon">
+              <Image src="/icons/download.svg" alt="" width={20} height={20} />
+            </span>
             Download Template
           </button>
           <button className="action-btn">
-            <span className="icon">💬</span>
+            <span className="icon">
+              <Image src="/icons/message.svg" alt="" width={20} height={20} />
+            </span>
             Contact Expert
           </button>
         </div>
@@ -268,7 +277,10 @@ export default function DashboardClient() {
 
             {visibleUpdates.length === 0 ? (
               <div className="empty-state">
-                <p>🎉 You're all caught up!</p>
+                <div className="empty-icon">
+                  <Image src="/icons/party.svg" alt="" width={48} height={48} />
+                </div>
+                <p>You're all caught up!</p>
                 <p className="empty-subtitle">No new updates at this time.</p>
               </div>
             ) : (
@@ -297,14 +309,19 @@ export default function DashboardClient() {
                           onClick={() => handleSaveUpdate(update.id)}
                           title="Save"
                         >
-                          ❤️
+                          <Image 
+                            src={savedUpdateIds.includes(update.id) ? "/icons/heart-filled.svg" : "/icons/heart.svg"} 
+                            alt="Save" 
+                            width={18} 
+                            height={18} 
+                          />
                         </button>
                         <button 
                           className="icon-btn"
                           onClick={() => handleDismiss(update.id)}
                           title="Dismiss"
                         >
-                          ✕
+                          <Image src="/icons/x.svg" alt="Dismiss" width={18} height={18} />
                         </button>
                       </div>
                     </div>
@@ -333,7 +350,7 @@ export default function DashboardClient() {
                       onClick={() => handleRemoveSaved(item.id)}
                       title="Remove"
                     >
-                      ✕
+                      <Image src="/icons/x.svg" alt="Remove" width={18} height={18} />
                     </button>
                   </div>
                   <h3 className="saved-item-title">
@@ -384,7 +401,12 @@ export default function DashboardClient() {
                   <div className="subscription-info">
                     <div className="subscription-header">
                       <span className={`subscription-type ${sub.type}`}>
-                        {sub.type === 'state' ? '📍' : '📂'}
+                        <Image 
+                          src={sub.type === 'state' ? "/icons/map-pin.svg" : "/icons/folder.svg"} 
+                          alt={sub.type} 
+                          width={20} 
+                          height={20} 
+                        />
                       </span>
                       <h4 className="subscription-name">{sub.name}</h4>
                     </div>
@@ -410,222 +432,217 @@ export default function DashboardClient() {
 
       <style jsx>{`
         .dashboard-container {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 2rem 1.5rem;
+          background: var(--og-gray-100);
+          min-height: 100vh;
+          padding: var(--spacing-xl) 0;
         }
 
         .dashboard-header {
-          margin-bottom: 2.5rem;
-        }
-
-        .welcome-section {
-          margin-bottom: 1.5rem;
+          background: var(--og-white);
+          padding: var(--spacing-2xl);
+          border-radius: var(--radius-lg);
+          margin-bottom: var(--spacing-xl);
         }
 
         .welcome-section h1 {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #1a1a1a;
-          margin: 0 0 0.5rem 0;
+          font-size: 2.5rem;
+          margin-bottom: var(--spacing-sm);
+          color: var(--og-dark);
         }
 
         .subtitle {
-          font-size: 1rem;
-          color: #666;
-          margin: 0;
+          font-size: 1.125rem;
+          color: var(--og-gray-600);
+          margin-bottom: var(--spacing-xl);
         }
 
         .quick-actions {
           display: flex;
-          gap: 1rem;
+          gap: var(--spacing-md);
           flex-wrap: wrap;
         }
 
         .action-btn {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          padding: 0.75rem 1.25rem;
-          background: white;
-          border: 2px solid #e0e0e0;
-          border-radius: 8px;
-          font-size: 0.95rem;
+          gap: var(--spacing-sm);
+          padding: var(--spacing-md) var(--spacing-lg);
+          background: var(--og-white);
+          border: 2px solid var(--og-gray-300);
+          border-radius: var(--radius-md);
           font-weight: 600;
-          color: #333;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all var(--transition-fast);
         }
 
         .action-btn:hover {
-          border-color: #0066CC;
-          color: #0066CC;
-          transform: translateY(-1px);
+          border-color: var(--og-primary);
+          background: var(--og-primary-light);
         }
 
         .action-btn.primary {
-          background: #0066CC;
-          color: white;
-          border-color: #0066CC;
+          background: var(--og-primary);
+          border-color: var(--og-primary);
+          color: var(--og-white);
         }
 
         .action-btn.primary:hover {
-          background: #0052a3;
-          border-color: #0052a3;
-          color: white;
+          background: var(--og-primary-dark);
         }
 
-        .action-btn .icon {
-          font-size: 1.1rem;
+        .icon {
+          display: flex;
+          align-items: center;
         }
 
         .dashboard-grid {
           display: grid;
-          grid-template-columns: 1fr 380px;
-          gap: 2rem;
+          grid-template-columns: 1fr 350px;
+          gap: var(--spacing-xl);
         }
 
         .main-column {
           display: flex;
           flex-direction: column;
-          gap: 2rem;
+          gap: var(--spacing-xl);
         }
 
         .sidebar-column {
           display: flex;
           flex-direction: column;
-          gap: 2rem;
+          gap: var(--spacing-xl);
         }
 
         .dashboard-section {
-          background: white;
-          border-radius: 12px;
-          padding: 1.75rem;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+          background: var(--og-white);
+          padding: var(--spacing-2xl);
+          border-radius: var(--radius-lg);
         }
 
         .section-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 1.5rem;
+          margin-bottom: var(--spacing-xl);
         }
 
         .section-header h2 {
-          font-size: 1.4rem;
-          font-weight: 700;
-          color: #1a1a1a;
-          margin: 0;
+          font-size: 1.75rem;
+          color: var(--og-dark);
         }
 
         .badge-count {
-          background: #0066CC;
-          color: white;
-          padding: 0.35rem 0.75rem;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 600;
+          padding: 0.375rem 0.75rem;
+          background: var(--og-accent);
+          color: var(--og-white);
+          border-radius: var(--radius-full);
+          font-size: 0.875rem;
+          font-weight: 700;
         }
 
         .count {
-          color: #666;
-          font-size: 0.95rem;
+          color: var(--og-gray-500);
+          font-size: 0.875rem;
         }
 
         .empty-state {
           text-align: center;
-          padding: 3rem 1rem;
+          padding: var(--spacing-3xl);
+        }
+
+        .empty-icon {
+          margin-bottom: var(--spacing-lg);
         }
 
         .empty-state p {
-          font-size: 1.1rem;
-          color: #666;
-          margin: 0.5rem 0;
+          font-size: 1.125rem;
+          color: var(--og-dark);
+          margin-bottom: var(--spacing-sm);
         }
 
         .empty-subtitle {
-          font-size: 0.95rem !important;
-          color: #999 !important;
+          font-size: 1rem;
+          color: var(--og-gray-500);
         }
 
         .updates-list {
           display: flex;
           flex-direction: column;
-          gap: 1.25rem;
+          gap: var(--spacing-lg);
         }
 
         .update-card {
-          border: 2px solid #f0f0f0;
-          border-radius: 10px;
-          padding: 1.5rem;
-          transition: all 0.2s;
+          padding: var(--spacing-lg);
+          background: var(--og-white);
+          border: 2px solid var(--og-gray-300);
+          border-radius: var(--radius-md);
+          transition: all var(--transition-fast);
         }
 
         .update-card:hover {
-          border-color: #0066CC;
-          box-shadow: 0 4px 12px rgba(0,102,204,0.1);
+          border-color: var(--og-primary);
+          box-shadow: var(--shadow-sm);
         }
 
         .update-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 1rem;
+          margin-bottom: var(--spacing-md);
         }
 
         .update-badges {
           display: flex;
-          gap: 0.5rem;
+          gap: var(--spacing-sm);
           flex-wrap: wrap;
         }
 
         .badge {
-          display: inline-block;
-          padding: 0.35rem 0.75rem;
-          border-radius: 6px;
-          font-size: 0.8rem;
-          font-weight: 600;
+          padding: 0.25rem 0.75rem;
+          border-radius: var(--radius-sm);
+          font-size: 0.75rem;
+          font-weight: 700;
         }
 
         .state-badge {
-          background: #e3f2fd;
-          color: #1565c0;
+          background: var(--og-primary);
+          color: var(--og-white);
         }
 
         .category-badge {
-          background: #f3e5f5;
-          color: #7b1fa2;
+          background: var(--og-gray-200);
+          color: var(--og-gray-700);
         }
 
         .new-badge {
-          background: #ffebee;
-          color: #c62828;
+          background: var(--og-accent);
+          color: var(--og-white);
         }
 
         .update-date {
-          color: #999;
-          font-size: 0.85rem;
+          font-size: 0.875rem;
+          color: var(--og-gray-500);
         }
 
         .update-title {
-          font-size: 1.15rem;
-          font-weight: 600;
-          margin: 0 0 0.75rem 0;
+          font-size: 1.25rem;
+          margin-bottom: var(--spacing-sm);
         }
 
         .update-title a {
-          color: #1a1a1a;
+          color: var(--og-dark);
           text-decoration: none;
         }
 
         .update-title a:hover {
-          color: #0066CC;
+          color: var(--og-primary);
         }
 
         .update-summary {
-          color: #555;
+          font-size: 1rem;
           line-height: 1.6;
-          margin: 0 0 1rem 0;
+          color: var(--og-gray-700);
+          margin-bottom: var(--spacing-md);
         }
 
         .update-actions {
@@ -635,10 +652,9 @@ export default function DashboardClient() {
         }
 
         .read-more-btn {
-          color: #0066CC;
+          color: var(--og-primary);
           font-weight: 600;
           text-decoration: none;
-          font-size: 0.95rem;
         }
 
         .read-more-btn:hover {
@@ -647,21 +663,22 @@ export default function DashboardClient() {
 
         .action-buttons {
           display: flex;
-          gap: 0.5rem;
+          gap: var(--spacing-sm);
         }
 
         .icon-btn {
           background: none;
           border: none;
-          font-size: 1.1rem;
           cursor: pointer;
-          padding: 0.4rem;
-          opacity: 0.6;
-          transition: opacity 0.2s;
+          padding: 0.375rem;
+          border-radius: var(--radius-sm);
+          transition: all var(--transition-fast);
+          opacity: 0.7;
         }
 
         .icon-btn:hover {
           opacity: 1;
+          background: var(--og-gray-100);
         }
 
         .icon-btn.active {
@@ -670,82 +687,80 @@ export default function DashboardClient() {
 
         .saved-items-grid {
           display: grid;
-          gap: 1rem;
+          grid-template-columns: repeat(2, 1fr);
+          gap: var(--spacing-lg);
         }
 
         .saved-item-card {
-          border: 2px solid #f0f0f0;
-          border-radius: 10px;
-          padding: 1.25rem;
-          transition: all 0.2s;
+          padding: var(--spacing-lg);
+          background: var(--og-white);
+          border: 2px solid var(--og-gray-300);
+          border-radius: var(--radius-md);
+          transition: all var(--transition-fast);
         }
 
         .saved-item-card:hover {
-          border-color: #0066CC;
+          border-color: var(--og-primary);
         }
 
         .saved-item-header {
           display: flex;
           justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 0.75rem;
+          align-items: start;
+          margin-bottom: var(--spacing-md);
         }
 
         .saved-item-badges {
           display: flex;
-          gap: 0.5rem;
+          gap: var(--spacing-sm);
           flex-wrap: wrap;
         }
 
         .remove-btn {
           background: none;
           border: none;
-          font-size: 1.2rem;
-          color: #999;
           cursor: pointer;
-          padding: 0;
-          line-height: 1;
+          padding: 0.25rem;
+          opacity: 0.5;
+          transition: opacity var(--transition-fast);
         }
 
         .remove-btn:hover {
-          color: #c62828;
+          opacity: 1;
         }
 
         .saved-item-title {
           font-size: 1rem;
           font-weight: 600;
-          margin: 0 0 0.5rem 0;
+          margin-bottom: var(--spacing-sm);
         }
 
         .saved-item-title a {
-          color: #1a1a1a;
+          color: var(--og-dark);
           text-decoration: none;
         }
 
         .saved-item-title a:hover {
-          color: #0066CC;
+          color: var(--og-primary);
         }
 
         .saved-date {
-          color: #999;
-          font-size: 0.85rem;
-          margin: 0;
+          font-size: 0.875rem;
+          color: var(--og-gray-500);
         }
 
         .deadlines-list {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
-          margin-bottom: 1rem;
+          gap: var(--spacing-md);
         }
 
         .deadline-item {
           display: flex;
-          gap: 1rem;
-          padding: 1rem;
-          background: #f8f9fa;
-          border-radius: 8px;
-          border-left: 4px solid #0066CC;
+          gap: var(--spacing-md);
+          padding: var(--spacing-md);
+          background: var(--og-gray-100);
+          border-radius: var(--radius-md);
         }
 
         .deadline-countdown {
@@ -753,23 +768,22 @@ export default function DashboardClient() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          min-width: 50px;
+          min-width: 60px;
         }
 
         .days-count {
-          font-size: 1.75rem;
+          font-size: 1.5rem;
           font-weight: 700;
-          color: #0066CC;
-          line-height: 1;
+          color: var(--og-primary);
         }
 
         .days-count.urgent {
-          color: #c62828;
+          color: var(--og-accent);
         }
 
         .days-label {
           font-size: 0.75rem;
-          color: #666;
+          color: var(--og-gray-500);
           text-transform: uppercase;
         }
 
@@ -778,108 +792,116 @@ export default function DashboardClient() {
         }
 
         .deadline-state {
-          color: #0066CC;
-          font-size: 0.8rem;
-          font-weight: 600;
+          font-size: 0.75rem;
+          color: var(--og-gray-500);
           text-transform: uppercase;
-          display: block;
-          margin-bottom: 0.25rem;
+          font-weight: 600;
         }
 
         .deadline-title {
-          font-size: 0.95rem;
+          font-size: 1rem;
           font-weight: 600;
-          color: #1a1a1a;
-          margin: 0 0 0.25rem 0;
+          margin-bottom: 0.25rem;
+          color: var(--og-dark);
         }
 
         .deadline-date {
-          color: #666;
-          font-size: 0.85rem;
-          margin: 0;
+          font-size: 0.875rem;
+          color: var(--og-gray-600);
         }
 
         .view-all-btn,
         .manage-btn {
           width: 100%;
-          padding: 0.75rem;
-          background: white;
-          border: 2px solid #0066CC;
-          border-radius: 8px;
-          color: #0066CC;
+          padding: var(--spacing-md);
+          margin-top: var(--spacing-lg);
+          background: var(--og-primary);
+          color: var(--og-white);
+          border: none;
+          border-radius: var(--radius-md);
           font-weight: 600;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all var(--transition-fast);
         }
 
         .view-all-btn:hover,
         .manage-btn:hover {
-          background: #0066CC;
-          color: white;
+          background: var(--og-primary-dark);
         }
 
         .subscriptions-list {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
-          margin-bottom: 1rem;
+          gap: var(--spacing-md);
         }
 
         .subscription-item {
-          padding: 1rem;
-          background: #f8f9fa;
-          border-radius: 8px;
+          padding: var(--spacing-md);
+          background: var(--og-gray-100);
+          border-radius: var(--radius-md);
         }
 
         .subscription-info {
-          margin-bottom: 0.75rem;
+          margin-bottom: var(--spacing-md);
         }
 
         .subscription-header {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          margin-bottom: 0.5rem;
+          gap: var(--spacing-sm);
+          margin-bottom: var(--spacing-sm);
         }
 
         .subscription-type {
-          font-size: 1.2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 28px;
+          height: 28px;
+          border-radius: var(--radius-sm);
+        }
+
+        .subscription-type.state {
+          background: var(--og-primary-light);
+        }
+
+        .subscription-type.topic {
+          background: var(--og-accent-light);
         }
 
         .subscription-name {
           font-size: 1rem;
           font-weight: 600;
-          color: #1a1a1a;
-          margin: 0;
+          color: var(--og-dark);
         }
 
         .subscription-frequency {
-          color: #666;
-          font-size: 0.85rem;
-          margin: 0 0 0.25rem 0;
+          font-size: 0.875rem;
+          color: var(--og-gray-600);
+          margin-bottom: 0.25rem;
         }
 
         .subscription-last-alert {
-          color: #999;
-          font-size: 0.8rem;
-          margin: 0;
+          font-size: 0.75rem;
+          color: var(--og-gray-500);
         }
 
         .unsubscribe-btn {
           width: 100%;
-          padding: 0.5rem;
-          background: white;
-          border: 1px solid #e0e0e0;
-          border-radius: 6px;
-          color: #666;
-          font-size: 0.85rem;
+          padding: var(--spacing-sm);
+          background: var(--og-white);
+          border: 1px solid var(--og-gray-300);
+          border-radius: var(--radius-md);
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: var(--og-gray-700);
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all var(--transition-fast);
         }
 
         .unsubscribe-btn:hover {
-          border-color: #c62828;
-          color: #c62828;
+          border-color: var(--og-accent);
+          color: var(--og-accent);
         }
 
         @media (max-width: 1024px) {
@@ -887,50 +909,34 @@ export default function DashboardClient() {
             grid-template-columns: 1fr;
           }
 
-          .sidebar-column {
-            order: -1;
+          .saved-items-grid {
+            grid-template-columns: 1fr;
           }
         }
 
         @media (max-width: 768px) {
-          .dashboard-container {
-            padding: 1.5rem 1rem;
-          }
-
           .dashboard-header {
-            margin-bottom: 2rem;
+            padding: var(--spacing-lg);
           }
 
           .welcome-section h1 {
-            font-size: 1.5rem;
+            font-size: 2rem;
           }
 
           .quick-actions {
-            gap: 0.75rem;
+            flex-direction: column;
           }
 
           .action-btn {
-            padding: 0.65rem 1rem;
-            font-size: 0.9rem;
+            width: 100%;
+            justify-content: center;
           }
 
           .dashboard-section {
-            padding: 1.25rem;
-          }
-
-          .section-header h2 {
-            font-size: 1.2rem;
-          }
-
-          .update-card {
-            padding: 1.25rem;
-          }
-
-          .update-title {
-            font-size: 1.05rem;
+            padding: var(--spacing-lg);
           }
         }
       `}</style>
     </div>
-  );
+  )
 }

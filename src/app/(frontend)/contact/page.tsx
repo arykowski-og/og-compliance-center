@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 export default function ContactPage() {
   return (
     <>
@@ -24,20 +26,26 @@ export default function ContactPage() {
 
               <div className="contact-methods">
                 <div className="contact-method">
-                  <div className="method-icon">📧</div>
+                  <div className="method-icon">
+                    <Image src="/icons/mail.svg" alt="" width={32} height={32} />
+                  </div>
                   <h3>Email</h3>
                   <p>info@opengovcompliance.com</p>
                 </div>
 
                 <div className="contact-method">
-                  <div className="method-icon">📞</div>
+                  <div className="method-icon">
+                    <Image src="/icons/phone.svg" alt="" width={32} height={32} />
+                  </div>
                   <h3>Phone</h3>
                   <p>1-800-GOV-HELP</p>
                   <p className="small">Monday-Friday, 8am-6pm EST</p>
                 </div>
 
                 <div className="contact-method">
-                  <div className="method-icon">💬</div>
+                  <div className="method-icon">
+                    <Image src="/icons/message.svg" alt="" width={32} height={32} />
+                  </div>
                   <h3>Live Chat</h3>
                   <p>Available on our website</p>
                   <p className="small">Monday-Friday, 8am-8pm EST</p>
@@ -112,26 +120,50 @@ export default function ContactPage() {
       </section>
 
       <style jsx>{`
+        .page-hero {
+          background: linear-gradient(135deg, var(--og-primary-dark) 0%, var(--og-primary) 100%);
+          padding: var(--spacing-3xl) 0;
+          text-align: center;
+          color: var(--og-white);
+        }
+
+        .page-hero h1 {
+          font-size: 3rem;
+          margin-bottom: var(--spacing-md);
+          color: var(--og-white);
+        }
+
+        .lead {
+          font-size: 1.25rem;
+          max-width: 700px;
+          margin: 0 auto;
+          opacity: 0.95;
+          color: var(--og-white);
+          font-weight: 300;
+        }
+
         .contact-section {
           padding: var(--spacing-3xl) 0;
+          background: var(--og-white);
         }
 
         .contact-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: var(--spacing-3xl);
-          max-width: 1200px;
-          margin: 0 auto;
         }
 
         .contact-info h2 {
-          margin-bottom: var(--spacing-md);
+          font-size: 2rem;
+          margin-bottom: var(--spacing-lg);
+          color: var(--og-dark);
         }
 
-        .contact-info p {
+        .contact-info > p {
           font-size: 1.125rem;
+          line-height: 1.7;
           color: var(--og-gray-700);
-          margin-bottom: var(--spacing-xl);
+          margin-bottom: var(--spacing-2xl);
         }
 
         .contact-methods {
@@ -141,59 +173,63 @@ export default function ContactPage() {
         }
 
         .contact-method {
-          padding: var(--spacing-lg);
+          padding: var(--spacing-xl);
           background: var(--og-gray-100);
-          border-radius: var(--radius-md);
+          border-radius: var(--radius-lg);
         }
 
         .method-icon {
-          font-size: 2rem;
-          margin-bottom: var(--spacing-sm);
+          margin-bottom: var(--spacing-md);
         }
 
         .contact-method h3 {
-          margin-bottom: var(--spacing-xs);
           font-size: 1.25rem;
+          margin-bottom: var(--spacing-sm);
+          color: var(--og-dark);
         }
 
         .contact-method p {
-          margin: 0;
           font-size: 1rem;
+          color: var(--og-gray-700);
+          margin-bottom: 0.25rem;
         }
 
-        .small {
+        .contact-method p.small {
           font-size: 0.875rem;
           color: var(--og-gray-500);
         }
 
-        .contact-form {
-          background: var(--og-white);
+        .contact-form-container {
+          background: var(--og-gray-100);
           padding: var(--spacing-2xl);
           border-radius: var(--radius-lg);
-          border: 1px solid var(--og-gray-300);
+        }
+
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-lg);
         }
 
         .form-group {
-          margin-bottom: var(--spacing-lg);
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-sm);
         }
 
         .form-group label {
-          display: block;
-          margin-bottom: var(--spacing-xs);
           font-weight: 600;
-          color: var(--og-gray-900);
+          color: var(--og-dark);
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
-          width: 100%;
           padding: var(--spacing-md);
-          border: 1px solid var(--og-gray-300);
+          border: 2px solid var(--og-gray-300);
           border-radius: var(--radius-md);
           font-size: 1rem;
           font-family: inherit;
-          transition: border-color var(--transition-fast);
         }
 
         .form-group input:focus,
@@ -207,13 +243,14 @@ export default function ContactPage() {
           resize: vertical;
         }
 
-        button[type="submit"] {
-          width: 100%;
-        }
-
         @media (max-width: 768px) {
+          .page-hero h1 {
+            font-size: 2rem;
+          }
+
           .contact-grid {
             grid-template-columns: 1fr;
+            gap: var(--spacing-2xl);
           }
         }
       `}</style>

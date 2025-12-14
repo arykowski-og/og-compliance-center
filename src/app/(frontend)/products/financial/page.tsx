@@ -245,24 +245,47 @@ export default function FinancialManagementPage() {
 
       <style jsx>{`
         .product-hero {
-          background: linear-gradient(135deg, var(--og-primary) 0%, var(--og-primary-dark) 100%);
-          color: var(--og-white);
+          background: linear-gradient(135deg, var(--og-primary-dark) 0%, var(--og-primary) 100%);
           padding: var(--spacing-3xl) 0;
           text-align: center;
+          color: var(--og-white);
+        }
+
+        .hero-content {
+          max-width: 800px;
+          margin: 0 auto;
         }
 
         .hero-badge {
           display: inline-block;
-          padding: 0.5rem 1.5rem;
+          padding: 0.5rem 1rem;
           background: rgba(255, 255, 255, 0.2);
+          border: 1px solid var(--og-white);
           border-radius: var(--radius-full);
+          font-size: 0.875rem;
           font-weight: 600;
-          margin-bottom: var(--spacing-md);
+          margin-bottom: var(--spacing-lg);
+          color: var(--og-white);
         }
 
-        .product-hero h1 {
-          color: var(--og-white);
+        .hero-content h1 {
+          font-size: 3rem;
           margin-bottom: var(--spacing-md);
+          color: var(--og-white);
+        }
+
+        .lead {
+          font-size: 1.25rem;
+          margin-bottom: var(--spacing-2xl);
+          opacity: 0.95;
+          color: var(--og-white);
+          font-weight: 300;
+        }
+
+        .hero-cta {
+          display: flex;
+          gap: var(--spacing-md);
+          justify-content: center;
         }
 
         .features-section {
@@ -270,23 +293,77 @@ export default function FinancialManagementPage() {
           background: var(--og-white);
         }
 
+        .section-header {
+          text-align: center;
+          margin-bottom: var(--spacing-3xl);
+        }
+
+        .section-header h2 {
+          font-size: 2.5rem;
+          margin-bottom: var(--spacing-md);
+          color: var(--og-dark);
+        }
+
+        .section-header p {
+          font-size: 1.125rem;
+          color: var(--og-gray-600);
+        }
+
+        .features-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: var(--spacing-xl);
+        }
+
+        .feature-card {
+          padding: var(--spacing-xl);
+          background: var(--og-white);
+          border: 2px solid var(--og-gray-300);
+          border-radius: var(--radius-lg);
+          transition: all var(--transition-fast);
+        }
+
+        .feature-card:hover {
+          border-color: var(--og-primary);
+          box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+          margin-bottom: var(--spacing-lg);
+        }
+
+        .feature-card h3 {
+          font-size: 1.5rem;
+          margin-bottom: var(--spacing-md);
+          color: var(--og-dark);
+        }
+
+        .feature-card > p {
+          font-size: 1rem;
+          line-height: 1.7;
+          color: var(--og-gray-700);
+          margin-bottom: var(--spacing-lg);
+        }
+
         .feature-list {
           list-style: none;
           padding: 0;
-          margin-top: var(--spacing-md);
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-sm);
         }
 
         .feature-list li {
-          padding: 0.5rem 0;
-          padding-left: 1.5rem;
+          padding-left: var(--spacing-lg);
           position: relative;
+          color: var(--og-gray-700);
         }
 
         .feature-list li:before {
-          content: '✓';
+          content: "✓";
           position: absolute;
           left: 0;
-          color: var(--og-success);
+          color: var(--og-primary);
           font-weight: 700;
         }
 
@@ -302,39 +379,44 @@ export default function FinancialManagementPage() {
         }
 
         .gasb-card {
-          background: var(--og-white);
           padding: var(--spacing-xl);
+          background: var(--og-white);
           border-radius: var(--radius-lg);
-          border: 2px solid var(--og-gray-300);
-          transition: all var(--transition-base);
-        }
-
-        .gasb-card:hover {
-          border-color: var(--og-primary);
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-lg);
+          border-left: 4px solid var(--og-primary);
         }
 
         .gasb-card h3 {
+          font-size: 1.5rem;
           color: var(--og-primary);
           margin-bottom: var(--spacing-sm);
         }
 
         .gasb-card h4 {
-          color: var(--og-gray-700);
-          font-size: 1rem;
+          font-size: 1.125rem;
           margin-bottom: var(--spacing-md);
+          color: var(--og-dark);
+        }
+
+        .gasb-card p {
+          font-size: 1rem;
+          line-height: 1.7;
+          color: var(--og-gray-700);
+          margin-bottom: var(--spacing-lg);
         }
 
         .gasb-link {
-          display: inline-block;
-          margin-top: var(--spacing-md);
           color: var(--og-primary);
-          font-weight: 700;
+          font-weight: 600;
+          text-decoration: none;
+        }
+
+        .gasb-link:hover {
+          text-decoration: underline;
         }
 
         .states-section {
           padding: var(--spacing-3xl) 0;
+          background: var(--og-white);
         }
 
         .states-cta {
@@ -344,13 +426,63 @@ export default function FinancialManagementPage() {
         }
 
         .states-cta p {
-          font-size: 1.25rem;
+          font-size: 1.125rem;
+          line-height: 1.7;
+          color: var(--og-gray-700);
           margin-bottom: var(--spacing-xl);
         }
 
+        .cta-section {
+          padding: var(--spacing-3xl) 0;
+          background: linear-gradient(135deg, var(--og-primary-dark) 0%, var(--og-primary) 100%);
+          color: var(--og-white);
+          text-align: center;
+        }
+
+        .cta-content h2 {
+          font-size: 2.5rem;
+          margin-bottom: var(--spacing-md);
+          color: var(--og-white);
+        }
+
+        .cta-content p {
+          font-size: 1.25rem;
+          margin-bottom: var(--spacing-2xl);
+          opacity: 0.95;
+          max-width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .cta-buttons {
+          display: flex;
+          gap: var(--spacing-md);
+          justify-content: center;
+        }
+
         @media (max-width: 768px) {
+          .hero-content h1 {
+            font-size: 2rem;
+          }
+
+          .hero-cta {
+            flex-direction: column;
+            max-width: 300px;
+            margin: 0 auto;
+          }
+
+          .features-grid {
+            grid-template-columns: 1fr;
+          }
+
           .gasb-grid {
             grid-template-columns: 1fr;
+          }
+
+          .cta-buttons {
+            flex-direction: column;
+            max-width: 300px;
+            margin: 0 auto;
           }
         }
       `}</style>
