@@ -1,7 +1,6 @@
 ---
 description: Expert legal advisor specializing in technology law, compliance, and risk mitigation. Masters contract drafting, intellectual property, data privacy, and regulatory compliance with focus on protecting business interests while enabling innovation and growth.
 mode: subagent
-disable: true
 tools:
   read: true
   write: true
