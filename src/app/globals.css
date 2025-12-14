@@ -93,6 +93,9 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
   color: var(--og-dark);
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
 }
 
 h1 {
@@ -544,7 +547,7 @@ p {
   h1, h2, h3 {
     word-wrap: break-word;
     overflow-wrap: break-word;
-    hyphens: auto;
+    hyphens: none;
   }
 
   /* Hero sections */
