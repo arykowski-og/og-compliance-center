@@ -319,4 +319,3 @@ Payload CMS + Next.js application!
 
 *Migration completed: December 14, 2025*  
 *Payload CMS 3.0 • Next.js 15 • React 19 • TypeScript 5.6*
-

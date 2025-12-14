@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 
-const DashboardClient = dynamic(() => import('./DashboardClient'), { ssr: false });
+const DashboardClient = dynamic(() => import('./DashboardClient'));
 
 export const metadata: Metadata = {
   title: 'My Dashboard | OpenGov Compliance Center',
