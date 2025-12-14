@@ -34,7 +34,6 @@
       "maxSteps": 20
     },
     "content-marketer": {
-      "disable": false,
       "maxSteps": 8
     },
     "context-manager": {
@@ -74,7 +73,6 @@
       "maxSteps": 20
     },
     "seamstress": {
-      "disable": true,
       "maxSteps": 8
     },
     "technical-writer": {
@@ -84,7 +82,6 @@
       "maxSteps": 20
     },
     "ui-designer": {
-      "disable": true,
       "maxSteps": 8
     },
     "ux-researcher": {
