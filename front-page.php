@@ -1,6 +1,6 @@
 <?php
 /**
- * The front page template
+ * The front page template - OpenGov Compliance Center
  *
  * @package OpenGov_Compliance_Center
  */
@@ -11,142 +11,285 @@ get_header();
 <main id="main-content" class="site-main">
     
     <!-- Hero Section -->
-    <?php og_compliance_hero_section(); ?>
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>OpenGov Compliance Center</h1>
+                <p>Your complete guide to local government compliance across all 50 states. Navigate regulatory requirements, understand product capabilities, and operate with confidence.</p>
+                
+                <div class="hero-actions">
+                    <a href="#state-guides" class="btn btn-primary btn-lg">
+                        Explore State Guides
+                    </a>
+                    <a href="#product-centers" class="btn btn-secondary btn-lg">
+                        Product Compliance
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
     
-    <!-- Features Section -->
-    <section class="section content-section" id="learn-more">
+    <!-- State Guides Section -->
+    <section class="section content-section" id="state-guides">
         <div class="container">
             <div class="section-header">
-                <span class="section-label"><?php _e( 'Built for Local and State Government', 'og-compliance-center' ); ?></span>
-                <h2><?php _e( 'Become more strategic, responsive, resilient, and efficient', 'og-compliance-center' ); ?></h2>
+                <span class="section-label">State-by-State Regulatory Guides</span>
+                <h2>Compliance Requirements for All 50 States</h2>
+                <p class="lead">
+                    Each state has unique requirements for budgeting, procurement, transparency, and financial management. 
+                    Explore comprehensive guides tailored to your state's specific regulations.
+                </p>
             </div>
             
             <div class="features-grid">
                 
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        📋
-                    </div>
-                    <h3><?php _e( 'Enterprise Asset Management', 'og-compliance-center' ); ?></h3>
-                    <p><?php _e( 'Your infrastructure—roads, bridges, water mains, parks, and more—says everything about how your city grows and serves its people.', 'og-compliance-center' ); ?></p>
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Interactive State Map</h3>
+                    <p>Browse all 50 states with our interactive map interface. Click on any state to view its complete compliance requirements.</p>
                     <ul class="feature-list">
-                        <li><?php _e( 'Work Order Management', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Asset Lifecycle Tracking', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Infrastructure Planning', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Real-Time GIS Integration', 'og-compliance-center' ); ?></li>
+                        <li>Visual state selector</li>
+                        <li>Quick access to regulations</li>
+                        <li>Population and jurisdiction data</li>
+                        <li>Regional comparisons</li>
                     </ul>
-                    <a href="#" class="btn btn-secondary"><?php _e( 'Learn More', 'og-compliance-center' ); ?></a>
+                    <a href="/states/" class="btn btn-secondary">View State Map</a>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        📝
-                    </div>
-                    <h3><?php _e( 'Permitting & Licensing', 'og-compliance-center' ); ?></h3>
-                    <p><?php _e( 'Permits, licenses, and inspections are where government meets daily life. Cut through the red tape with adaptable AI-enabled software.', 'og-compliance-center' ); ?></p>
+                    <div class="feature-icon">📋</div>
+                    <h3>Budgeting & Planning</h3>
+                    <p>State-specific budget calendar rules, public hearing requirements, and GFOA compliance checklists.</p>
                     <ul class="feature-list">
-                        <li><?php _e( 'Intuitive Applicant Portal', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Workflow Automation', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Self-Service Tools', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Mobile App for Inspections', 'og-compliance-center' ); ?></li>
+                        <li>Required budget formats</li>
+                        <li>Publication requirements</li>
+                        <li>CIP transparency mandates</li>
+                        <li>Filing deadlines</li>
                     </ul>
-                    <a href="#" class="btn btn-secondary"><?php _e( 'Learn More', 'og-compliance-center' ); ?></a>
+                    <a href="/budgeting-requirements/" class="btn btn-secondary">Learn More</a>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        💰
-                    </div>
-                    <h3><?php _e( 'Budgeting & Performance', 'og-compliance-center' ); ?></h3>
-                    <p><?php _e( 'Budgeting isn\'t just numbers—it\'s how governments turn vision into action. Set goals and manage budgets with confidence.', 'og-compliance-center' ); ?></p>
+                    <div class="feature-icon">🛒</div>
+                    <h3>Procurement & Contracting</h3>
+                    <p>Thresholds for bids, required notices, vendor diversity requirements, and ethics rules by state.</p>
                     <ul class="feature-list">
-                        <li><?php _e( 'Performance Management', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Operating Budget', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Capital Planning', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Powerful Analytics', 'og-compliance-center' ); ?></li>
+                        <li>Bid thresholds</li>
+                        <li>Advertising requirements</li>
+                        <li>Contract retention standards</li>
+                        <li>Ethics compliance</li>
                     </ul>
-                    <a href="#" class="btn btn-secondary"><?php _e( 'Learn More', 'og-compliance-center' ); ?></a>
+                    <a href="/procurement-requirements/" class="btn btn-secondary">Learn More</a>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        🛒
-                    </div>
-                    <h3><?php _e( 'Procurement & Contract Management', 'og-compliance-center' ); ?></h3>
-                    <p><?php _e( 'Bring the entire procurement process together with workflow automation and AI built for local and state governments.', 'og-compliance-center' ); ?></p>
+                    <div class="feature-icon">💼</div>
+                    <h3>Financial Management</h3>
+                    <p>State accounting standards, chart of accounts structures, audit requirements, and GASB compliance.</p>
                     <ul class="feature-list">
-                        <li><?php _e( 'Request Management', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Solicitation Assembly', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Supplier Engagement', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Contract Management', 'og-compliance-center' ); ?></li>
+                        <li>GASB 54 requirements</li>
+                        <li>Single Audit thresholds</li>
+                        <li>Encumbrance accounting</li>
+                        <li>Annual reporting</li>
                     </ul>
-                    <a href="#" class="btn btn-secondary"><?php _e( 'Learn More', 'og-compliance-center' ); ?></a>
+                    <a href="/financial-requirements/" class="btn btn-secondary">Learn More</a>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        🏛️
-                    </div>
-                    <h3><?php _e( 'Tax & Revenue Collection', 'og-compliance-center' ); ?></h3>
-                    <p><?php _e( 'Centralize tax billing, filing, and payments in one place to improve collections and reduce administrative headaches.', 'og-compliance-center' ); ?></p>
+                    <div class="feature-icon">📊</div>
+                    <h3>Reporting & Transparency</h3>
+                    <p>Open data mandates, sunshine laws, public notice requirements, and financial statement publication.</p>
                     <ul class="feature-list">
-                        <li><?php _e( 'Revenue Workflows', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Self-Service Portal', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Dynamic Calculations', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Real-Time Analytics', 'og-compliance-center' ); ?></li>
+                        <li>Open data requirements</li>
+                        <li>Sunshine law compliance</li>
+                        <li>Public notice standards</li>
+                        <li>Transparency portals</li>
                     </ul>
-                    <a href="#" class="btn btn-secondary"><?php _e( 'Learn More', 'og-compliance-center' ); ?></a>
+                    <a href="/transparency-requirements/" class="btn btn-secondary">Learn More</a>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        💼
-                    </div>
-                    <h3><?php _e( 'Financial Management', 'og-compliance-center' ); ?></h3>
-                    <p><?php _e( 'Modern ERP platform built for local and state governments to operate strategically and manage every dollar with confidence.', 'og-compliance-center' ); ?></p>
+                    <div class="feature-icon">🏛️</div>
+                    <h3>Permitting & Licensing</h3>
+                    <p>Land use regulations, inspection requirements, permit posting laws, and fee calculation rules.</p>
                     <ul class="feature-list">
-                        <li><?php _e( 'General Ledger', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Accounts Payable', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Digital Workflows', 'og-compliance-center' ); ?></li>
-                        <li><?php _e( 'Integrated Spend Controls', 'og-compliance-center' ); ?></li>
+                        <li>Permit requirements</li>
+                        <li>Inspection standards</li>
+                        <li>Fee structures</li>
+                        <li>Appeals processes</li>
                     </ul>
-                    <a href="#" class="btn btn-secondary"><?php _e( 'Learn More', 'og-compliance-center' ); ?></a>
+                    <a href="/permitting-requirements/" class="btn btn-secondary">Learn More</a>
                 </div>
                 
             </div>
         </div>
     </section>
     
-    <!-- Benefits Section -->
-    <section class="section">
+    <!-- Product Compliance Centers -->
+    <section class="section" id="product-centers">
         <div class="container">
             <div class="section-header">
-                <span class="section-label"><?php _e( 'Hamstrung by cumbersome processes?', 'og-compliance-center' ); ?></span>
-                <h2><?php _e( 'It\'s time to modernize', 'og-compliance-center' ); ?></h2>
+                <span class="section-label">Product-Aligned Compliance Centers</span>
+                <h2>How OpenGov Supports Your Compliance Needs</h2>
                 <p class="lead">
-                    <?php _e( 'With 4,500+ successful software implementations under our belt, the OpenGov team will ensure you can:', 'og-compliance-center' ); ?>
+                    Understand how OpenGov products align with regulatory requirements across budgeting, 
+                    procurement, financial management, and more.
                 </p>
+            </div>
+            
+            <div class="features-grid">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="card-title">Budgeting & Planning</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Multi-year planning, budget book generation, and performance-based budgeting tools that meet state requirements.</p>
+                        <ul class="feature-list">
+                            <li>GFOA compliance support</li>
+                            <li>Budget vs actual reporting</li>
+                            <li>Capital improvement planning</li>
+                            <li>What-if scenario modeling</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/products/budgeting/" class="btn btn-primary">View Compliance Guide</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="feature-icon">🛒</div>
+                        <h3 class="card-title">Procurement (PRO)</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>eProcurement, contract management, and vendor portals designed for government compliance.</p>
+                        <ul class="feature-list">
+                            <li>Bid threshold enforcement</li>
+                            <li>RFx management</li>
+                            <li>Contract lifecycle tracking</li>
+                            <li>Vendor diversity reporting</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/products/procurement/" class="btn btn-primary">View Compliance Guide</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="feature-icon">💼</div>
+                        <h3 class="card-title">Financial Management</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>General ledger, accounts payable, and fund accounting built for GASB compliance.</p>
+                        <ul class="feature-list">
+                            <li>GASB 54 fund accounting</li>
+                            <li>Single Audit support</li>
+                            <li>Encumbrance accounting</li>
+                            <li>Multi-fund structures</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/products/financial/" class="btn btn-primary">View Compliance Guide</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="card-title">Reporting & Transparency</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Open data portals, transparency reporting, and public-facing dashboards.</p>
+                        <ul class="feature-list">
+                            <li>Budget transparency</li>
+                            <li>Salary disclosure</li>
+                            <li>Contract publication</li>
+                            <li>Real-time data access</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/products/transparency/" class="btn btn-primary">View Compliance Guide</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="feature-icon">🏗️</div>
+                        <h3 class="card-title">Community Development</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Permitting, licensing, and inspection management for regulatory compliance.</p>
+                        <ul class="feature-list">
+                            <li>Building permit tracking</li>
+                            <li>License management</li>
+                            <li>Inspection scheduling</li>
+                            <li>Code enforcement</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/products/community-development/" class="btn btn-primary">View Compliance Guide</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="feature-icon">🔧</div>
+                        <h3 class="card-title">Asset Management</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Infrastructure and asset lifecycle management with GASB 34 compliance.</p>
+                        <ul class="feature-list">
+                            <li>Asset lifecycle reporting</li>
+                            <li>Capitalization thresholds</li>
+                            <li>GASB 34 compliance</li>
+                            <li>Maintenance standards</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/products/asset-management/" class="btn btn-primary">View Compliance Guide</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Resources Section -->
+    <section class="section content-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Compliance Resources</span>
+                <h2>Checklists, Templates & Guides</h2>
             </div>
             
             <div class="features-grid">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h3><?php _e( 'Operate Efficiently', 'og-compliance-center' ); ?></h3>
-                        <p><?php _e( 'Get more done for your community and department.', 'og-compliance-center' ); ?></p>
+                        <div class="feature-icon" style="margin: 0 auto;">📝</div>
+                        <h3>Compliance Checklists</h3>
+                        <p>Annual budget compliance, procurement documentation, and audit readiness checklists.</p>
+                        <a href="/checklists/" class="btn btn-outline">Download Checklists</a>
                     </div>
                 </div>
                 
                 <div class="card text-center">
                     <div class="card-body">
-                        <h3><?php _e( 'Adapt To Change', 'og-compliance-center' ); ?></h3>
-                        <p><?php _e( 'Evolve and innovate to meet the changing needs of your constituents.', 'og-compliance-center' ); ?></p>
+                        <div class="feature-icon" style="margin: 0 auto;">📰</div>
+                        <h3>Regulatory Updates</h3>
+                        <p>Stay informed about new statutes, threshold changes, and filing requirements.</p>
+                        <a href="/updates/" class="btn btn-outline">View Updates</a>
                     </div>
                 </div>
                 
                 <div class="card text-center">
                     <div class="card-body">
-                        <h3><?php _e( 'Strengthen Public Trust', 'og-compliance-center' ); ?></h3>
-                        <p><?php _e( 'Build confidence for the good of our communities, country, and society.', 'og-compliance-center' ); ?></p>
+                        <div class="feature-icon" style="margin: 0 auto;">📚</div>
+                        <h3>Deep-Dive Analysis</h3>
+                        <p>Long-form articles on GASB standards, transparency mandates, and compliance trends.</p>
+                        <a href="/insights/" class="btn btn-outline">Read Insights</a>
                     </div>
                 </div>
             </div>
@@ -156,12 +299,13 @@ get_header();
     <!-- CTA Section -->
     <section class="section" style="background: var(--og-primary-light);">
         <div class="container text-center">
-            <h2><?php _e( 'Start Your Journey to High-Performance Government', 'og-compliance-center' ); ?></h2>
+            <h2>Need Help Navigating Compliance Requirements?</h2>
             <p class="lead mb-4">
-                <?php _e( 'Discover how OpenGov can transform your organization.', 'og-compliance-center' ); ?>
+                Our team of government finance experts can help you understand your state's specific requirements 
+                and how OpenGov solutions ensure compliance.
             </p>
-            <a href="#demo" class="btn btn-primary btn-lg">
-                <?php _e( 'Request a Demo', 'og-compliance-center' ); ?>
+            <a href="#contact" class="btn btn-primary btn-lg">
+                Contact an Expert
             </a>
         </div>
     </section>

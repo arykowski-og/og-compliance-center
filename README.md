@@ -1,6 +1,50 @@
-# OpenGov Compliance Center WordPress Theme
+# OpenGov Compliance Center
 
+Your complete guide to local government compliance across all 50 states. Navigate regulatory requirements, understand product capabilities, and operate with confidence.
+
+## 🚀 Quick Start (Sandbox - Port 3000)
+
+### Running in Sandbox/Local Development
+
+```bash
+npm run dev
+```
+
+This starts a static file server on **port 3000** (sandbox proxy compatible):
+- Serves `index.html` automatically
+- No build step required
+- Works with sandbox proxy URLs
+- Hot reload on file changes
+
+### Alternative Commands
+
+```bash
+npm start       # Same as npm run dev
+npm run preview # Same as npm run dev
+```
+
+## 📦 What's Included
+
+### ✅ Standalone HTML Version (Works Now - Port 3000)
+Perfect for immediate viewing in this sandbox:
+- `index.html` - Complete homepage with inline CSS/JS
+- `page-states.html` - All 50 states directory with search and filters
+- `test-map.html` - Interactive US map demo
+- `products-financial.html` - Financial management compliance guide
+- `article-gasb96.html` - Sample GASB 96 deep-dive article
+- **Ready to view at:** `http://localhost:3000`
+- Fully functional without WordPress (smooth scroll, hover effects, animations)
+
+### ✅ WordPress Theme Files (For Production Deployment)
 A modern, professional WordPress theme inspired by [OpenGov.com](https://opengov.com/), designed for government compliance and public service platforms.
+
+**WordPress templates include:**
+- `page-states.php` - States directory with interactive US map
+- `page-state-california.php` - California compliance guide
+- `page-state-texas.php` - Texas compliance guide
+- All standard WordPress theme files (header, footer, functions, etc.)
+
+**📖 Deployment Guide:** See [`docs/WORDPRESS_DEPLOYMENT.md`](docs/WORDPRESS_DEPLOYMENT.md) for complete WordPress installation instructions.
 
 ## Features
 
@@ -40,10 +84,24 @@ A modern, professional WordPress theme inspired by [OpenGov.com](https://opengov
 
 ## Installation
 
-1. Download the theme files
-2. Upload to `/wp-content/themes/og-compliance-center/`
+### HTML Version (Immediate Use)
+The HTML files work right now - just open them in a browser or run:
+```bash
+npm run dev
+# Visit http://localhost:3000
+```
+
+### WordPress Version (Production Deployment)
+See the complete guide: **[`docs/WORDPRESS_DEPLOYMENT.md`](docs/WORDPRESS_DEPLOYMENT.md)**
+
+Quick version:
+1. Install WordPress on your hosting
+2. Upload theme to `/wp-content/themes/og-compliance-center/`
 3. Activate the theme in WordPress admin
-4. Configure through Appearance → Customize
+4. Create pages and assign templates
+5. Configure through Appearance → Customize
+
+**Note:** WordPress requires PHP and MySQL - it cannot run in this Node.js sandbox.
 
 ## Theme Structure
 
