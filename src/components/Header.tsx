@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function Header() {
   return (
@@ -8,7 +9,15 @@ export function Header() {
       <div className="container">
         <nav className="nav-container">
           <Link href="/" className="logo">
-            <span className="logo-text">OpenGov</span>
+            <div className="logo-image-wrapper">
+              <Image 
+                src="/OpenGov-Logo-RGB-Color.svg" 
+                alt="OpenGov"
+                width={120}
+                height={23}
+                priority
+              />
+            </div>
             <span className="logo-subtitle">Compliance Center</span>
           </Link>
           
@@ -52,12 +61,18 @@ export function Header() {
           display: flex;
           flex-direction: column;
           text-decoration: none;
+          gap: 0.25rem;
         }
         
-        .logo-text {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--og-primary);
+        .logo-image-wrapper {
+          width: 120px;
+          height: 23px;
+        }
+        
+        .logo-image-wrapper img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
         }
         
         .logo-subtitle {
@@ -65,6 +80,7 @@ export function Header() {
           color: var(--og-gray-700);
           text-transform: uppercase;
           letter-spacing: 0.1em;
+          margin-left: 2px;
         }
         
         .nav-menu {
