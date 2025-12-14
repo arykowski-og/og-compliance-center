@@ -1,5 +1,7 @@
 import { getPayload } from 'payload'
 import config from '../payload.config'
+import fs from 'fs'
+import path from 'path'
 
 const US_STATES = [
   { name: 'Alabama', abbreviation: 'AL' },
@@ -53,6 +55,64 @@ const US_STATES = [
   { name: 'Wisconsin', abbreviation: 'WI' },
   { name: 'Wyoming', abbreviation: 'WY' },
 ]
+
+const CATEGORY_MAP: Record<string, string> = {
+  'Financial Mgmt': 'regulatory',
+  'Financial Management': 'regulatory',
+  'HR': 'regulatory',
+  'Procurement': 'regulatory',
+  'Revenue': 'regulatory',
+}
+
+function createArticleSlug(stateName: string, featureName: string): string {
+  const cleanState = stateName.toLowerCase().replace(/\s+/g, '-')
+  const cleanFeature = featureName
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+  return `${cleanState}-${cleanFeature}`
+}
+
+function generatePlainLanguageSummary(record: any, stateName: string): string {
+  const feature = record.featureName
+  const level = record.complianceLevel
+  
+  if (feature.includes('Single Audit')) {
+    return `Single Audit is a federal requirement for local governments in ${stateName} that spend more than $750,000 in federal grants per year. This audit ensures your organization is using federal funds correctly and following all compliance rules. You'll need to track federal spending carefully and have an independent auditor review your spending annually.`
+  }
+  
+  if (feature.includes('GASB 54')) {
+    return `GASB 54 requires local governments in ${stateName} to classify fund balances in their financial reports. This standard helps make your financial statements clearer by showing which funds are available to spend and which have restrictions. Your finance team needs to categorize fund balances as nonspendable, restricted, committed, assigned, or unassigned.`
+  }
+  
+  if (feature.includes('Encumbrance')) {
+    return `Encumbrance accounting helps ${stateName} local governments track purchase orders and commitments before money is actually spent. This gives you better budget control by reserving funds when you commit to a purchase, not just when you pay the bill. It's ${ level === 'required' ? 'required' : 'recommended'} for maintaining accurate budget tracking.`
+  }
+  
+  if (feature.includes('Grant Management')) {
+    return `Grant management systems help ${stateName} local governments track federal, state, and foundation grants from application through closeout. You need to monitor grant budgets, track spending by grant program, and ensure compliance with each grantor's requirements. Proper grant management prevents audit findings and potential repayment of grant funds.`
+  }
+  
+  if (feature.includes('Property Tax')) {
+    return `Property tax ${feature.includes('Assessment') ? 'assessment' : 'billing and collection'} is ${level === 'required' ? 'required' : 'recommended'} for local governments in ${stateName}. This involves ${feature.includes('Assessment') ? 'maintaining property records, calculating assessed values, and integrating with CAMA systems' : 'generating tax bills, processing payments, and managing delinquencies'}. Proper systems ensure accurate revenue collection and compliance with state laws.`
+  }
+  
+  return `This ${level} compliance requirement for ${stateName} local governments relates to ${feature}. Proper implementation ensures your organization meets state and federal standards while maintaining accurate records and reporting.`
+}
+
+function generateKeyRequirements(record: any): string[] {
+  if (record.requirements && record.requirements.length > 0) {
+    return record.requirements.slice(0, 8)
+  }
+  
+  return [
+    'Maintain accurate and timely records',
+    'Comply with applicable state and federal regulations',
+    'Submit required reports to oversight agencies',
+    'Implement appropriate internal controls',
+  ]
+}
 
 async function seed() {
   const payload = await getPayload({ config })

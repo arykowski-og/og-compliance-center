@@ -20,53 +20,67 @@
   },
   "agent": {
     "api-designer": {
+      "disable": true,
       "maxSteps": 10
     },
     "backend-developer": {
+      "disable": true,
       "maxSteps": 10
     },
     "business-analyst": {
-      "disable": false,
+      "disable": true,
       "maxSteps": 15
     },
     "competitive-analyst": {
+      "disable": true,
       "maxSteps": 20
     },
     "content-marketer": {
+      "disable": true,
       "maxSteps": 8
     },
     "context-manager": {
+      "disable": true,
       "maxSteps": 20
     },
     "customer-success-manager": {
+      "disable": true,
       "maxSteps": 20
     },
     "fullstack-developer": {
+      "disable": true,
       "maxSteps": 10
     },
     "legal-advisor": {
+      "disable": true,
       "maxSteps": 15
     },
     "market-researcher": {
+      "disable": true,
       "maxSteps": 20
     },
     "product-manager": {
-      "disable": false,
+      "disable": true,
       "maxSteps": 20
     },
     "project-manager": {
+      "disable": true,
       "maxSteps": 10
     },
     "qa-expert": {
+      "disable": true,
       "maxSteps": 10
     },
     "sales-engineer": {
+      "disable": true,
       "maxSteps": 20
     },
     "scrum-master": {
+      "disable": true,
       "maxSteps": 10
     },
     "search-specialist": {
+      "disable": true,
       "maxSteps": 20
     },
     "seamstress": {
@@ -74,9 +88,11 @@
       "maxSteps": 8
     },
     "technical-writer": {
+      "disable": true,
       "maxSteps": 15
     },
     "trend-analyst": {
+      "disable": true,
       "maxSteps": 20
     },
     "ui-designer": {
@@ -84,9 +100,11 @@
       "maxSteps": 8
     },
     "ux-researcher": {
+      "disable": true,
       "maxSteps": 15
     },
     "wordpress-master": {
+      "disable": true,
       "maxSteps": 8
     },
     "build": {
