@@ -4,158 +4,46 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useMemo } from 'react'
 
-// Sample articles data - Phase 1 Priority States (CA, TX, CO)
+// Complete articles data - All 11 Features for Phase 1 States (CA, TX, CO)
 const SAMPLE_ARTICLES = [
-  {
-    id: 1,
-    title: 'California: Single Audit Support (A-133/Uniform Guidance)',
-    state: 'California',
-    stateSlug: 'california',
-    category: 'Financial Management',
-    excerpt: 'Single Audit is a federal requirement for local governments in California that spend more than $750,000 in federal grants per year. This audit ensures your organization is using federal funds correctly and following all compliance rules.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 2,
-    title: 'California: General Ledger with Fund Accounting (GASB 54)',
-    state: 'California',
-    stateSlug: 'california',
-    category: 'Financial Management',
-    excerpt: 'GASB 54 requires local governments in California to classify fund balances in their financial reports. This standard helps make your financial statements clearer by showing which funds are available to spend and which have restrictions.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 3,
-    title: 'California: Grant Management (Federal, State, Foundation)',
-    state: 'California',
-    stateSlug: 'california',
-    category: 'Financial Management',
-    excerpt: 'Grant management systems help California local governments track federal, state, and foundation grants from application through closeout. You need to monitor grant budgets, track spending by grant program, and ensure compliance with each grantor\'s requirements.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Guide'
-  },
-  {
-    id: 4,
-    title: 'California: Property Tax Assessment (CAMA Integration)',
-    state: 'California',
-    stateSlug: 'california',
-    category: 'Revenue & Taxation',
-    excerpt: 'Property tax assessment is required for local governments in California. This involves maintaining property records, calculating assessed values, and integrating with CAMA systems. Proper systems ensure accurate revenue collection and compliance with state laws.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 5,
-    title: 'California: Utility Billing (Water, Sewer, Electric, Gas, Trash)',
-    state: 'California',
-    stateSlug: 'california',
-    category: 'Revenue & Taxation',
-    excerpt: 'Utility billing systems help California local governments manage water, sewer, electric, gas, and trash services. You need to read meters, calculate bills, process payments, and manage delinquent accounts.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Guide'
-  },
-  {
-    id: 6,
-    title: 'Texas: Single Audit Support (A-133/Uniform Guidance)',
-    state: 'Texas',
-    stateSlug: 'texas',
-    category: 'Financial Management',
-    excerpt: 'Single Audit is a federal requirement for local governments in Texas that spend more than $750,000 in federal grants per year. This audit ensures your organization is using federal funds correctly and following all compliance rules.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 7,
-    title: 'Texas: General Ledger with Fund Accounting (GASB 54)',
-    state: 'Texas',
-    stateSlug: 'texas',
-    category: 'Financial Management',
-    excerpt: 'GASB 54 requires local governments in Texas to classify fund balances in their financial reports. Your finance team needs to categorize fund balances as nonspendable, restricted, committed, assigned, or unassigned.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 8,
-    title: 'Texas: Encumbrance Accounting',
-    state: 'Texas',
-    stateSlug: 'texas',
-    category: 'Financial Management',
-    excerpt: 'Encumbrance accounting helps Texas local governments track purchase orders and commitments before money is actually spent. This gives you better budget control by reserving funds when you commit to a purchase, not just when you pay the bill.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 9,
-    title: 'Texas: Property Tax Billing & Collection',
-    state: 'Texas',
-    stateSlug: 'texas',
-    category: 'Revenue & Taxation',
-    excerpt: 'Property tax billing and collection is required for local governments in Texas. This involves generating tax bills, processing payments, and managing delinquencies. Proper systems ensure accurate revenue collection and compliance with state laws.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 10,
-    title: 'Texas: Payroll Processing (Full-Service)',
-    state: 'Texas',
-    stateSlug: 'texas',
-    category: 'HR & Employment',
-    excerpt: 'Payroll processing for Texas local governments must comply with state and federal requirements for calculating wages, withholding taxes, and reporting employment information. Your payroll system needs to handle multiple pay rates, deductions, benefits, and reporting to state agencies.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Guide'
-  },
-  {
-    id: 11,
-    title: 'Colorado: Single Audit Support (A-133/Uniform Guidance)',
-    state: 'Colorado',
-    stateSlug: 'colorado',
-    category: 'Financial Management',
-    excerpt: 'Single Audit is a federal requirement for local governments in Colorado that spend more than $750,000 in federal grants per year. You\'ll need to track federal spending carefully and have an independent auditor review your spending annually.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 12,
-    title: 'Colorado: General Ledger with Fund Accounting (GASB 54)',
-    state: 'Colorado',
-    stateSlug: 'colorado',
-    category: 'Financial Management',
-    excerpt: 'GASB 54 requires local governments in Colorado to classify fund balances in their financial reports. This standard helps make your financial statements clearer by showing which funds are available to spend and which have restrictions.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 13,
-    title: 'Colorado: Encumbrance Accounting',
-    state: 'Colorado',
-    stateSlug: 'colorado',
-    category: 'Financial Management',
-    excerpt: 'Encumbrance accounting helps Colorado local governments track purchase orders and commitments before money is actually spent. It\'s required for maintaining accurate budget tracking and gives you better budget control.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Regulation'
-  },
-  {
-    id: 14,
-    title: 'Colorado: Grant Management (Federal, State, Foundation)',
-    state: 'Colorado',
-    stateSlug: 'colorado',
-    category: 'Financial Management',
-    excerpt: 'Grant management systems help Colorado local governments track federal, state, and foundation grants from application through closeout. Proper grant management prevents audit findings and potential repayment of grant funds.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Guide'
-  },
-  {
-    id: 15,
-    title: 'Colorado: eProcurement Portal (Supplier Self-Service)',
-    state: 'Colorado',
-    stateSlug: 'colorado',
-    category: 'Procurement & Purchasing',
-    excerpt: 'This required compliance requirement for Colorado local governments relates to eProcurement Portal (Supplier Self-Service). Proper implementation ensures your organization meets state and federal standards while maintaining accurate records and reporting.',
-    lastUpdated: '2025-12-14',
-    contentType: 'Guide'
-  }
+  // CALIFORNIA - All 11 Features
+  { id: 1, title: 'California: Single Audit Support (A-133/Uniform Guidance)', state: 'California', stateSlug: 'california', category: 'Financial Management', excerpt: 'Single Audit is a federal requirement for local governments in California that spend more than $750,000 in federal grants per year.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 2, title: 'California: General Ledger with Fund Accounting (GASB 54)', state: 'California', stateSlug: 'california', category: 'Financial Management', excerpt: 'GASB 54 requires local governments to classify fund balances as nonspendable, restricted, committed, assigned, or unassigned.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 3, title: 'California: Encumbrance Accounting', state: 'California', stateSlug: 'california', category: 'Financial Management', excerpt: 'Track purchase orders and commitments before money is spent for better budget control.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 4, title: 'California: Grant Management (Federal, State, Foundation)', state: 'California', stateSlug: 'california', category: 'Financial Management', excerpt: 'Manage federal, state, and foundation grants from application through closeout with proper compliance tracking.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 5, title: 'California: Property Tax Assessment (CAMA Integration)', state: 'California', stateSlug: 'california', category: 'Revenue & Taxation', excerpt: 'Maintain property records, calculate assessed values, and integrate with CAMA systems for accurate tax assessment.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 6, title: 'California: Property Tax Billing & Collection', state: 'California', stateSlug: 'california', category: 'Revenue & Taxation', excerpt: 'Generate tax bills, process payments, and manage delinquencies for property tax revenue.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 7, title: 'California: Payroll Processing (Full-Service)', state: 'California', stateSlug: 'california', category: 'HR & Employment', excerpt: 'Process payroll with proper wage calculations, tax withholdings, and state reporting requirements.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 8, title: 'California: Time & Attendance (Clock In/Out)', state: 'California', stateSlug: 'california', category: 'HR & Employment', excerpt: 'Track employee time and attendance for accurate payroll and labor law compliance.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 9, title: 'California: Leave Management (PTO, Sick, FMLA)', state: 'California', stateSlug: 'california', category: 'HR & Employment', excerpt: 'Manage employee leave including PTO, sick time, and FMLA in compliance with California labor laws.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 10, title: 'California: Utility Billing (Water, Sewer, Electric, Gas, Trash)', state: 'California', stateSlug: 'california', category: 'Revenue & Taxation', excerpt: 'Manage utility services billing including meter reading, bill calculation, and payment processing.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 11, title: 'California: eProcurement Portal (Supplier Self-Service)', state: 'California', stateSlug: 'california', category: 'Procurement & Purchasing', excerpt: 'Enable suppliers to manage their information and interact with your procurement process electronically.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  
+  // TEXAS - All 11 Features
+  { id: 12, title: 'Texas: Single Audit Support (A-133/Uniform Guidance)', state: 'Texas', stateSlug: 'texas', category: 'Financial Management', excerpt: 'Federal Single Audit requirement for Texas governments expending $750,000+ in federal awards annually.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 13, title: 'Texas: General Ledger with Fund Accounting (GASB 54)', state: 'Texas', stateSlug: 'texas', category: 'Financial Management', excerpt: 'Classify fund balances per GASB 54 requirements with proper financial reporting to the state.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 14, title: 'Texas: Encumbrance Accounting', state: 'Texas', stateSlug: 'texas', category: 'Financial Management', excerpt: 'Required by Texas statute - track purchase commitments before expenditure for budget compliance.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 15, title: 'Texas: Grant Management (Federal, State, Foundation)', state: 'Texas', stateSlug: 'texas', category: 'Financial Management', excerpt: 'Track and manage grants with proper compliance monitoring and reporting to grantors.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 16, title: 'Texas: Property Tax Assessment (CAMA Integration)', state: 'Texas', stateSlug: 'texas', category: 'Revenue & Taxation', excerpt: 'Property appraisal and assessment with CAMA integration per Texas Property Tax Code requirements.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 17, title: 'Texas: Property Tax Billing & Collection', state: 'Texas', stateSlug: 'texas', category: 'Revenue & Taxation', excerpt: 'Truth in Taxation requirements with proper billing, collection, and delinquency management.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 18, title: 'Texas: Payroll Processing (Full-Service)', state: 'Texas', stateSlug: 'texas', category: 'HR & Employment', excerpt: 'Payroll processing compliant with Texas Workforce Commission and IRS requirements.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 19, title: 'Texas: Time & Attendance (Clock In/Out)', state: 'Texas', stateSlug: 'texas', category: 'HR & Employment', excerpt: 'Employee time tracking for accurate payroll and compliance with state labor regulations.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 20, title: 'Texas: Leave Management (PTO, Sick, FMLA)', state: 'Texas', stateSlug: 'texas', category: 'HR & Employment', excerpt: 'Comprehensive leave tracking including vacation, sick time, and federal FMLA requirements.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 21, title: 'Texas: Utility Billing (Water, Sewer, Electric, Gas, Trash)', state: 'Texas', stateSlug: 'texas', category: 'Revenue & Taxation', excerpt: 'Municipal utility billing with meter management, rate calculations, and collections.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 22, title: 'Texas: eProcurement Portal (Supplier Self-Service)', state: 'Texas', stateSlug: 'texas', category: 'Procurement & Purchasing', excerpt: 'Electronic procurement portal for vendor registration, bidding, and contract management.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  
+  // COLORADO - All 11 Features
+  { id: 23, title: 'Colorado: Single Audit Support (A-133/Uniform Guidance)', state: 'Colorado', stateSlug: 'colorado', category: 'Financial Management', excerpt: 'Single Audit compliance for Colorado governments receiving $750,000+ in federal funding.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 24, title: 'Colorado: General Ledger with Fund Accounting (GASB 54)', state: 'Colorado', stateSlug: 'colorado', category: 'Financial Management', excerpt: 'Fund accounting with GASB 54 classifications for transparent financial reporting.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 25, title: 'Colorado: Encumbrance Accounting', state: 'Colorado', stateSlug: 'colorado', category: 'Financial Management', excerpt: 'Required encumbrance tracking for Colorado budget appropriation compliance.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 26, title: 'Colorado: Grant Management (Federal, State, Foundation)', state: 'Colorado', stateSlug: 'colorado', category: 'Financial Management', excerpt: 'Grant lifecycle management from application through closeout with audit trail.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 27, title: 'Colorado: Property Tax Assessment (CAMA Integration)', state: 'Colorado', stateSlug: 'colorado', category: 'Revenue & Taxation', excerpt: 'Property valuation and assessment with CAMA system integration per Colorado statutes.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 28, title: 'Colorado: Property Tax Billing & Collection', state: 'Colorado', stateSlug: 'colorado', category: 'Revenue & Taxation', excerpt: 'Property tax billing with TABOR compliance and proper revenue collection procedures.', lastUpdated: '2025-12-14', contentType: 'Regulation' },
+  { id: 29, title: 'Colorado: Payroll Processing (Full-Service)', state: 'Colorado', stateSlug: 'colorado', category: 'HR & Employment', excerpt: 'Full-service payroll with Colorado Department of Labor compliance.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 30, title: 'Colorado: Time & Attendance (Clock In/Out)', state: 'Colorado', stateSlug: 'colorado', category: 'HR & Employment', excerpt: 'Time tracking system for accurate payroll and labor cost allocation.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 31, title: 'Colorado: Leave Management (PTO, Sick, FMLA)', state: 'Colorado', stateSlug: 'colorado', category: 'HR & Employment', excerpt: 'Leave accrual and tracking including Colorado Healthy Families Act compliance.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 32, title: 'Colorado: Utility Billing (Water, Sewer, Electric, Gas, Trash)', state: 'Colorado', stateSlug: 'colorado', category: 'Revenue & Taxation', excerpt: 'Utility customer management and billing for water, wastewater, and solid waste services.', lastUpdated: '2025-12-14', contentType: 'Guide' },
+  { id: 33, title: 'Colorado: eProcurement Portal (Supplier Self-Service)', state: 'Colorado', stateSlug: 'colorado', category: 'Procurement & Purchasing', excerpt: 'Online procurement platform with vendor portal and competitive bidding functionality.', lastUpdated: '2025-12-14', contentType: 'Guide' }
 ]
 
 const ALL_STATES = [
