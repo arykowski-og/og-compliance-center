@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Icon } from '@/components/Icon'
 import { useState } from 'react'
 
@@ -161,7 +162,10 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
                   <div className="reference-label">Recent Update</div>
                   <div className="reference-link">
                     <Link href="#" className="update-link">
-                      ⭐ Tax Calculations
+                      <span className="update-icon">
+                        <Image src="/icons/star.svg" alt="" width={14} height={14} />
+                      </span>
+                      Tax Calculations
                     </Link>
                     <span className="update-time">2 weeks ago</span>
                   </div>
@@ -170,7 +174,10 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
                 <div className="reference-item">
                   <div className="reference-link">
                     <Link href="#" className="update-link">
-                      ⭐ Open Meetings
+                      <span className="update-icon">
+                        <Image src="/icons/star.svg" alt="" width={14} height={14} />
+                      </span>
+                      Open Meetings
                     </Link>
                     <span className="update-time">3 weeks ago</span>
                   </div>
@@ -267,13 +274,7 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
 
       <style jsx>{`
         .state-profile-page {
-          width: 100%;
-        }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 var(--spacing-md);
+          background: var(--og-white);
         }
 
         .breadcrumb-section {
@@ -307,20 +308,16 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
         }
 
         .state-hero {
-          background: linear-gradient(135deg, var(--og-primary-light) 0%, var(--og-white) 100%);
-          padding: var(--spacing-2xl) 0;
-        }
-
-        .state-hero .container {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+          background: linear-gradient(135deg, var(--og-primary-dark) 0%, var(--og-primary) 100%);
+          padding: var(--spacing-3xl) 0;
+          color: var(--og-white);
         }
 
         .hero-content-wrapper {
           display: flex;
           align-items: center;
-          gap: var(--spacing-lg);
+          gap: var(--spacing-xl);
+          margin-bottom: var(--spacing-xl);
         }
 
         .state-icon-wrapper {
@@ -328,16 +325,17 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
         }
 
         .state-icon {
-          width: 80px;
-          height: 80px;
-          background: var(--og-primary);
-          color: var(--og-white);
+          width: 100px;
+          height: 100px;
+          background: rgba(255, 255, 255, 0.2);
+          border: 3px solid var(--og-white);
           border-radius: var(--radius-lg);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2rem;
+          font-size: 2.5rem;
           font-weight: 700;
+          color: var(--og-white);
         }
 
         .hero-text {
@@ -345,68 +343,16 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
         }
 
         .state-title {
-          font-size: 2.5rem;
-          margin: 0 0 var(--spacing-xs) 0;
-          color: var(--og-dark);
-        }
-
-        .state-subtitle {
-          font-size: 1.125rem;
-          color: var(--og-gray-700);
-          margin: 0;
-        }
-
-        .btn {
-          padding: var(--spacing-md) var(--spacing-xl);
-          border-radius: var(--radius-md);
-          font-weight: 600;
-          font-size: 1rem;
-          transition: all var(--transition-fast);
-          border: none;
-          cursor: pointer;
-          text-decoration: none;
-          display: inline-block;
-        }
-
-        .btn-primary {
-          background: var(--og-primary);
+          font-size: 3rem;
+          margin-bottom: var(--spacing-sm);
           color: var(--og-white);
         }
 
-        .btn-primary:hover {
-          background: var(--og-primary-dark);
-        }
-
-        .btn-outline {
-          background: transparent;
-          border: 2px solid var(--og-primary);
-          color: var(--og-primary);
-        }
-
-        .btn-outline:hover {
-          background: var(--og-primary-light);
-        }
-
-        .btn-sm {
-          padding: 0.625rem 1rem;
-          font-size: 0.875rem;
-        }
-
-        .btn-block {
-          width: 100%;
-          text-align: center;
-        }
-
-        .btn-text {
-          background: none;
-          border: none;
-          color: var(--og-primary);
-          padding: var(--spacing-sm) 0;
-          font-weight: 600;
-        }
-
-        .btn-text:hover {
-          text-decoration: underline;
+        .state-subtitle {
+          font-size: 1.25rem;
+          opacity: 0.95;
+          color: var(--og-white);
+          font-weight: 300;
         }
 
         .main-content-section {
@@ -415,13 +361,13 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
 
         .content-grid {
           display: grid;
-          grid-template-columns: 280px 1fr;
+          grid-template-columns: 300px 1fr;
           gap: var(--spacing-2xl);
         }
 
         .sidebar {
           position: sticky;
-          top: var(--spacing-lg);
+          top: calc(90px + var(--spacing-md));
           height: fit-content;
         }
 
@@ -437,6 +383,7 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
           margin-bottom: var(--spacing-lg);
           padding-bottom: var(--spacing-md);
           border-bottom: 2px solid var(--og-gray-300);
+          color: var(--og-dark);
         }
 
         .reference-item {
@@ -445,48 +392,43 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
           border-bottom: 1px solid var(--og-gray-300);
         }
 
-        .reference-item:last-of-type {
+        .reference-item:last-child {
+          margin-bottom: 0;
+          padding-bottom: 0;
           border-bottom: none;
         }
 
         .reference-label {
           font-size: 0.75rem;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
           color: var(--og-gray-500);
-          margin-bottom: var(--spacing-xs);
           font-weight: 600;
+          margin-bottom: 0.25rem;
         }
 
         .reference-value {
           font-size: 1rem;
-          font-weight: 700;
+          font-weight: 600;
           color: var(--og-dark);
           margin-bottom: 0.25rem;
         }
 
         .reference-note {
           font-size: 0.875rem;
-          color: var(--og-gray-700);
-          line-height: 1.4;
+          color: var(--og-gray-600);
         }
 
         .reference-date {
-          font-size: 0.875rem;
-          color: var(--og-dark);
-          font-weight: 600;
-          margin: 0.25rem 0;
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: var(--og-primary);
+          margin-bottom: 0.25rem;
         }
 
         .reference-countdown {
-          font-size: 0.75rem;
+          font-size: 0.875rem;
           color: var(--og-accent);
-          font-weight: 700;
-          background: var(--og-primary-light);
-          padding: 0.25rem 0.5rem;
-          border-radius: var(--radius-sm);
-          display: inline-block;
-          margin-top: 0.25rem;
+          font-weight: 600;
         }
 
         .reference-link {
@@ -499,11 +441,18 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
           color: var(--og-primary);
           text-decoration: none;
           font-weight: 600;
-          font-size: 0.875rem;
+          display: flex;
+          align-items: center;
+          gap: 0.375rem;
         }
 
         .update-link:hover {
           text-decoration: underline;
+        }
+
+        .update-icon {
+          display: flex;
+          align-items: center;
         }
 
         .update-time {
@@ -516,29 +465,31 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
           flex-direction: column;
           gap: var(--spacing-sm);
           margin-top: var(--spacing-lg);
-          padding-top: var(--spacing-lg);
-          border-top: 2px solid var(--og-gray-300);
+        }
+
+        .main-content {
+          min-width: 0;
         }
 
         .section-header-main {
-          margin-bottom: var(--spacing-xl);
+          margin-bottom: var(--spacing-2xl);
         }
 
         .section-header-main h2 {
-          font-size: 2rem;
-          margin-bottom: var(--spacing-xs);
+          font-size: 2.5rem;
+          margin-bottom: var(--spacing-md);
+          color: var(--og-dark);
         }
 
         .section-header-main p {
-          color: var(--og-gray-700);
-          font-size: 1rem;
+          font-size: 1.125rem;
+          color: var(--og-gray-600);
         }
 
         .topics-list {
           display: flex;
           flex-direction: column;
-          gap: var(--spacing-md);
-          margin-bottom: var(--spacing-2xl);
+          gap: var(--spacing-lg);
         }
 
         .topic-category-card {
@@ -546,7 +497,7 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
           border: 2px solid var(--og-gray-300);
           border-radius: var(--radius-lg);
           overflow: hidden;
-          transition: all var(--transition-base);
+          transition: all var(--transition-fast);
         }
 
         .topic-category-card:hover {
@@ -562,19 +513,14 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: var(--spacing-lg);
+          padding: var(--spacing-xl);
           cursor: pointer;
-          transition: background-color var(--transition-fast);
-        }
-
-        .category-header:hover {
-          background: var(--og-gray-100);
         }
 
         .category-header-left {
           display: flex;
           align-items: center;
-          gap: var(--spacing-md);
+          gap: var(--spacing-lg);
           flex: 1;
         }
 
@@ -587,8 +533,8 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
         }
 
         .category-name {
-          font-size: 1.25rem;
-          margin: 0 0 var(--spacing-xs) 0;
+          font-size: 1.5rem;
+          margin-bottom: var(--spacing-sm);
           color: var(--og-dark);
         }
 
@@ -597,7 +543,7 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
           align-items: center;
           gap: var(--spacing-sm);
           font-size: 0.875rem;
-          color: var(--og-gray-700);
+          color: var(--og-gray-600);
         }
 
         .article-count {
@@ -605,21 +551,22 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
         }
 
         .meta-sep {
+          color: var(--og-gray-400);
+        }
+
+        .last-updated {
           color: var(--og-gray-500);
         }
 
         .expand-button {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          border: 2px solid var(--og-primary);
-          background: var(--og-white);
+          width: 40px;
+          height: 40px;
+          background: var(--og-primary-light);
           color: var(--og-primary);
+          border: none;
+          border-radius: 50%;
           font-size: 1.5rem;
-          font-weight: 300;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          font-weight: 600;
           cursor: pointer;
           transition: all var(--transition-fast);
           flex-shrink: 0;
@@ -631,22 +578,22 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
         }
 
         .category-content {
-          padding: 0 var(--spacing-lg) var(--spacing-lg);
-          border-top: 1px solid var(--og-gray-300);
+          padding: 0 var(--spacing-xl) var(--spacing-xl);
         }
 
         .topics-sublist {
           display: flex;
           flex-direction: column;
           gap: var(--spacing-sm);
-          padding: var(--spacing-lg) 0;
+          margin-bottom: var(--spacing-lg);
         }
 
         .topic-link {
           display: flex;
           align-items: center;
           gap: var(--spacing-sm);
-          padding: var(--spacing-sm) var(--spacing-md);
+          padding: var(--spacing-md);
+          background: var(--og-gray-100);
           border-radius: var(--radius-md);
           text-decoration: none;
           color: var(--og-dark);
@@ -659,18 +606,19 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
         }
 
         .topic-bullet {
-          color: var(--og-primary);
           font-size: 1.25rem;
-          font-weight: bold;
+          font-weight: 700;
+          color: var(--og-primary);
         }
 
         .topic-text {
           flex: 1;
+          font-weight: 600;
         }
 
         .category-actions {
-          padding-top: var(--spacing-md);
-          border-top: 1px solid var(--og-gray-300);
+          display: flex;
+          justify-content: flex-end;
         }
 
         .additional-info {
@@ -679,18 +627,22 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
 
         .info-card {
           background: var(--og-primary-light);
-          border: 2px solid var(--og-primary);
+          border-left: 4px solid var(--og-primary);
+          padding: var(--spacing-2xl);
           border-radius: var(--radius-lg);
-          padding: var(--spacing-xl);
           text-align: center;
         }
 
         .info-card h3 {
+          font-size: 1.75rem;
           margin-bottom: var(--spacing-md);
+          color: var(--og-dark);
         }
 
         .info-card p {
-          margin-bottom: var(--spacing-lg);
+          font-size: 1.125rem;
+          line-height: 1.7;
+          margin-bottom: var(--spacing-xl);
           color: var(--og-gray-700);
         }
 
@@ -701,15 +653,14 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
 
           .sidebar {
             position: static;
-            order: 2;
-          }
-
-          .main-content {
-            order: 1;
           }
         }
 
         @media (max-width: 768px) {
+          .container {
+            padding: 0 1rem;
+          }
+
           .state-hero .container {
             flex-direction: column;
             gap: var(--spacing-lg);
@@ -722,15 +673,92 @@ export default function StateProfileClient({ stateName, stateAbbr, slug }: State
           }
 
           .state-title {
-            font-size: 2rem;
+            font-size: 1.75rem;
+          }
+
+          .state-subtitle {
+            font-size: 1rem;
+          }
+
+          .btn {
+            width: 100%;
+            white-space: normal;
+            text-align: center;
           }
 
           .category-header {
-            padding: var(--spacing-md);
+            padding: var(--spacing-sm);
+          }
+
+          .category-header-left {
+            gap: var(--spacing-sm);
+            min-width: 0;
+            flex: 1;
+          }
+
+          .category-icon {
+            flex-shrink: 0;
+            width: 32px;
+          }
+
+          .category-info {
+            min-width: 0;
+            flex: 1;
           }
 
           .category-name {
-            font-size: 1.125rem;
+            font-size: 1rem;
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+          }
+
+          .category-meta {
+            flex-wrap: wrap;
+            gap: 0.25rem var(--spacing-sm);
+            font-size: 0.8125rem;
+          }
+
+          .expand-button {
+            width: 32px;
+            height: 32px;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+          }
+
+          .sidebar-card {
+            padding: var(--spacing-md);
+          }
+
+          .reference-value,
+          .reference-note,
+          .reference-date {
+            font-size: 0.875rem;
+            word-wrap: break-word;
+          }
+
+          .update-link {
+            font-size: 0.8125rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .category-name {
+            font-size: 0.9375rem;
+          }
+
+          .category-meta {
+            font-size: 0.75rem;
+          }
+
+          .state-title {
+            font-size: 1.5rem;
+          }
+
+          .article-count,
+          .last-updated {
+            white-space: nowrap;
           }
         }
       `}</style>
